@@ -1,0 +1,12 @@
+!!! 5
+%html{:lang => 'en'}
+	%head
+		%meta{:charset => 'utf-8'}
+		%title= 'clarkdave.net | ' + @item[:title]
+		%link{:rel => 'stylesheet', :type => 'text/css', :href => '/style.css'}
+	%body
+		%section{:id => 'page', :class => 'container'}
+			%header
+				%h1 clarkdave.net
+				= render 'nav', :menu => (@item[:menu] or 'default')
+			= yield

@@ -1,6 +1,23 @@
 include Nanoc3::Helpers::Blogging
 include Nanoc3::Helpers::Tagging
 include Nanoc3::Helpers::Rendering
+include Nanoc3::Helpers::LinkTo
+
+module NavHelper
+
+	def nav_link(name, path, current)
+		if (current == 'default' and name == 'blog') or (current == name) then
+
+			clazz = " class='active'" 
+		else
+			clazz = ''
+		end
+
+		"<a#{clazz} href='#{path}'>#{name}</a>"
+	end
+end
+
+include NavHelper
 
 module PostHelper
 

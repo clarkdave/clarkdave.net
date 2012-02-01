@@ -1,0 +1,14 @@
+--- 
+title: Blog
+---
+%section{:id => 'content', :class => 'blog'}
+	- sorted_articles.each do |item|
+		.blog-entry
+			%aside
+				.date
+					.month= get_post_month(item)
+					.day= get_post_day(item)
+			%article
+				%h3= link_to item[:title], item.path
+				= find_and_preserve do
+					= get_post_start(item)

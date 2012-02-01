@@ -1,0 +1,11 @@
+- render 'default' do
+	%section{:id => 'content', :class => 'blog'}
+		.blog-entry
+			%aside
+				.date
+					.month= get_post_month(item)
+					.day= get_post_day(item)
+			%article
+				%h3= item[:title]
+				= find_and_preserve do
+					= yield

@@ -8,10 +8,17 @@ published: true
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae velit id dolor vulputate sollicitudin. Phasellus condimentum nulla nunc. Morbi tristique metus at tortor tempor nec consequat massa rutrum. Aenean convallis tristique massa, sed adipiscing ligula ultricies a. Maecenas non lobortis sem. Curabitur nisl mi, ultricies eu egestas eget, consequat id risus. Cras blandit, lacus sed scelerisque pharetra, tellus dolor posuere orci, in iaculis mi neque ut augue.
 
-	#!ruby
-	<?php
-	$test = 'hello';
-	echo $test;
+	#!javascript
+	var indexes = browser.queryAll('label[for="password"] strong').slice(0,3).map(function(elem) {
+		var value = elem.childNodes[0].nodeValue;
+		if (value == 'last') return -1
+		else return parseInt(value)
+	});
+
+	var characters = indexes.map(function(i) {
+		if (i == -1) return password[password.length-1]
+		else return password[i-1]
+	}).join('');
 
 Cras `interdum nisi` et tellus ornare semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean id augue non massa ullamcorper feugiat. Vivamus vestibulum nunc mi. In laoreet porttitor magna, nec facilisis nisi posuere sed. Proin quis dui vitae enim vestibulum pellentesque fermentum id lorem. Aliquam ut mi ligula, in volutpat purus. Maecenas et lorem id sem ullamcorper euismod. Mauris volutpat purus vel est lacinia vulputate. Aliquam erat volutpat. Donec rhoncus, nulla quis vestibulum facilisis, leo tortor sagittis elit, ut facilisis mi sapien eget sapien.
 

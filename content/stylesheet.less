@@ -475,6 +475,32 @@ html, body {
 			text-indent: -9999em;
 			float: left;
 		}
+
+		aside {
+			float: right;
+			overflow: auto;
+			a {
+				display: block;
+				float: left;
+				width: 24px;
+				height: 24px;
+				margin: 5px 5px 0 0;
+				opacity: 0.4;
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+
+		.github {
+			background: url('/images/icons/github.png') no-repeat 0 0;
+		}
+		.linkedin {
+			background: url('/images/icons/linkedin.png') no-repeat 0 0;
+		}
+		.twitter {
+			background: url('/images/icons/twitter.png') no-repeat 0 0;
+		}
 	}
 }
 
@@ -512,26 +538,13 @@ nav {
 	}
 }
 
-div#logged-in {
-	float: right;
-	background: #f5f5f5;
-	padding: 4px 4px 4px 8px;
-	font-size: 0.9em;
-	border-bottom-left-radius: 5px;
-	border-left: 2px solid #f1f1f1;
-	border-bottom: 2px solid #f1f1f1;
-
-	p {
-		margin: 0;
-		padding: 0;
-	}
-}
-
 .indented-title {
 	padding-left: 85px;
 }
 
 .blog {
+
+	padding-bottom: 45px;
 	
 	.blog-entry {
 		
@@ -545,23 +558,22 @@ div#logged-in {
 				background: url('/images/icons/cal.png') no-repeat 0 2px;
 				font-family: 'Yanone Kaffeesatz', sans-serif;
 				width: 49px;
-				height: 58px;
+				height: 58px; 
 				overflow: hidden;
 				margin: 4px 0 0 10px;
+				font-weight: bold;
+				text-align: center;
 
 				.month {
 					color: #fff;
 					font-size: 1.3em;
-					text-align: center;
 					padding-bottom: 1px;
 					text-transform: uppercase;
 				}
 
 				.day {
 					color: #000;
-					font-weight: bold;
 					font-size: 2em;
-					text-align: center;
 					margin-top: 4px;
 				}
 			}
@@ -571,7 +583,11 @@ div#logged-in {
 			margin-left: 70px;
 			padding: 0;
 
-			h3 a {
+			.read-more {
+				padding: 0 20px 20px 20px;
+			}
+
+			h2 a {
 				text-decoration: none;
 
 				&:hover {
@@ -579,7 +595,7 @@ div#logged-in {
 				}
 			}
 
-			h3, h4, h5, p {
+			h2, h3, h4, h5, p {
 				padding: 0 20px;
 			}
 
@@ -601,6 +617,10 @@ div#logged-in {
 			}
 		}
 	}
+}
+
+.about, .work, .contact {
+	padding: 0 20px 45px 90px;
 }
 
 /* Smaller than standard 960 (devices and browsers) */

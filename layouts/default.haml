@@ -9,4 +9,8 @@
 			%header
 				%h1 clarkdave.net
 				= render 'nav', :menu => (@item[:menu] or 'default')
+				%aside
+					%a{:class => 'github', :href => 'https://github.com/clarkdave', :title => 'me on GitHub'}
+					%a{:class => 'linkedin', :href => 'http://uk.linkedin.com/in/clarkdavedotnet', :title => 'me on LinkedIn'}
+					%a{:class => 'twitter', :href => 'https://twitter.com/clarkdave', :title => 'me on Twitter'}
 			= yield

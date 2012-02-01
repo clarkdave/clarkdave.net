@@ -6,7 +6,7 @@ text_extensions: [ 'css', 'erb', 'haml', 'htm', 'html', 'js', 'less', 'markdown'
 # The path to the directory where all generated files will be written to. This
 # can be an absolute path starting with a slash, but it can also be path
 # relative to the site directory.
-output_dir: output
+output_dir: /srv/http
 
 # A list of index filenames, i.e. names of files that will be served by a web
 # server when a directory is requested. Usually, index files are named
@@ -55,5 +55,5 @@ watcher:
   files_to_watch: [ 'config.yaml', 'Rules' ]
 
   # When to send notifications (using Growl or notify-send).
-  notify_on_compilation_success: true
+  notify_on_compilation_success: false
   notify_on_compilation_failure: true

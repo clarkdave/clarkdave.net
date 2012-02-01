@@ -6,6 +6,6 @@
 					.month= get_post_month(item)
 					.day= get_post_day(item)
 			%article
-				%h3= item[:title]
+				%h2= item[:title]
 				= find_and_preserve do
 					= yield

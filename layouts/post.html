@@ -1,0 +1,16 @@
+<% render 'default' do %>
+	<section id='content' class='blog'>
+		<div class='blog-entry'>
+			<aside>
+				<div class='date'>
+					<div class='month'><%= get_post_month(item) %></div>
+					<div class='day'><%= get_post_day(item) %></div> 
+				</div>
+			</aside>
+			<article>
+				<h3><%= item[:title] %></h3>
+				<%= yield %>
+			</article>
+		</div>
+	</section>
+<% end %>

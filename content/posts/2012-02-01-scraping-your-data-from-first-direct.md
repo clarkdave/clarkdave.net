@@ -153,7 +153,7 @@ The finished script, from beginning to end, is:
 	browser.visit('https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances', function() {
 		
 		browser
-			.fill('userid', 'clarkd4ve')
+			.fill('userid', '<userid>')
 			.pressButton('proceed', function() {
 				
 				var indexes = browser.queryAll('label[for="password"] strong').slice(0,3).map(function(elem) {

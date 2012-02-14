@@ -17,25 +17,7 @@ Before we start, just a disclaimer: there's nothing suspicious going on here. We
 
 As far as I can tell, accessing your online bank using a headless web browser does not fall foul of the First Direct terms and conditions. That said, it would probably seem suspicious if you started checking your balance every minute of every day, so if you do this, keep your usage sensible!
 
-The FD online banking landing page is here: `http://www2.firstdirect.com/1/2/pib-service`, but following a bit of redirection we end up here: `https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances`
-
-	curl -i https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances
-
-	HTTP/1.1 302 Found
-	Date: Mon, 30 Jan 2012 16:50:02 GMT
-	Server: IBM_HTTP_Server
-	Set-Cookie: HSBC_COOKIEMI=73dcbd70-4b62-11e1-b19b-000408000305;Expires=Sat, 28-Jan-2017 16:50:02 GMT;Path=/
-	Expires: Thu, 01 Dec 1994 16:00:00 GMT
-	Set-Cookie: CAMToken=;Path=/1; Secure
-	Cache-Control: no-cache="set-cookie,set-cookie2"
-	Location: https://www1.firstdirect.com/1/2/!ut/p/kcxml/04_Sj9SPykssy0xPLMnMz0vM0Y_QjzKLN4o3DPIASYGYxqb6kWbxpvFm3lAhg3hHhEiQfkFuaES5o6IiAKPzDoc!;jsessionid=000040JKyMIFLwcBaoxlv4UsveW:11humjtau
-	Content-Length: 0
-	S: hbfd-syim309
-	Content-Type: text/html; charset=UTF-8
-	Content-Language: en
-	Set-Cookie: fdiba=107027372.20736.0000; path=/
-
-This appears to be where the session is actually bootstrapped, as the redirect has a jsessionid in the path, so let's start scripting from here.
+The FD online banking landing page is here: `http://www2.firstdirect.com/1/2/pib-service`, but following a bit of redirection we end up here: `https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances`. This appears to be where the session is actually bootstrapped, as the redirect has a jsessionid in the path, so let's start scripting from here.
 
 ### Scraping the site with Zombie
 
@@ -47,7 +29,7 @@ Let’s plug that url into a NodeJS script using Zombie:
 	browser.runScripts = false;
 
 	browser.visit('https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances', function() {
-		browser.dump();
+	  browser.dump();
 	});
 
 This works - the (fairly horrific) use of Javascript on the main page seems too much for Zombie/JSDOM to cope with, so I had to turn off the running of scripts to get it to parse the DOM. Fortunately, despite the initial reliance on JS for redirects, this page actually functions without it just fine.
@@ -65,13 +47,12 @@ With runScripts turned off, Zombie is happy to parse the page which means we can
 
 	#!javascript
 	browser.visit('https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances', function() {
-		browser
-			.fill('userid', '<username>')
-			.pressButton('proceed', function() {
-				
-				browser.dump();
-				console.log( browser.html() );
-			});
+	  browser
+	    .fill('userid', '<username>')
+	    .pressButton('proceed', function() {
+	      browser.dump();
+	      console.log( browser.html() );
+	    });
 	});
 
 Substituting `<username>` for your FD username, this should POST the form successfully and return the next form, which asks for a few characters from your password along with the answer to your security question.
@@ -86,10 +67,12 @@ Zombie again managed to parse the HTML of this page fine, so we can use it to fi
 Of course, the three characters it wants will vary between requests, but we can figure them out fairly easily:
 
 	#!javascript
-	var characters = browser.queryAll('label[for="password"] strong').slice(0,3).map(function(elem) {
-		var value = elem.childNodes[0].nodeValue;
-		if (value == 'last') return -1
-		else return parseInt(value)
+	var characters = browser.queryAll('label[for="password"] strong')
+	    .slice(0,3).map(function(elem) {
+
+	  var value = elem.childNodes[0].nodeValue;
+	  if (value == 'last') return -1
+	  else return parseInt(value)
 	});
 
 This is tied very closely to the markup, so if they do change it this could break fairly easily. That said, banks tend not to make front-end changes too often, so I'm not too concerned.
@@ -101,29 +84,28 @@ I'm not too comfortable with this setup. I used to bank with Barclays, who basic
 It's pretty simple from this point: without Javascript, the form on this page has two input fields: one of the requested password characters and another for the entire security answer. Once you've got your password into the script, you can do something like this to make the string the server's expecting:
 
 	#!javascript
-	var indexes = browser.queryAll('label[for="password"] strong').slice(0,3).map(function(elem) {
-		var value = elem.childNodes[0].nodeValue;
-		if (value == 'last') return -1
-		else return parseInt(value)
+	var indexes = browser.queryAll('label[for="password"] strong')
+	    .slice(0,3).map(function(elem) {
+	  var value = elem.childNodes[0].nodeValue;
+	  if (value == 'last') return -1
+	  else return parseInt(value)
 	});
 
 	var characters = indexes.map(function(i) {
-		if (i == -1) return password[password.length-1]
-		else return password[i-1]
+	  if (i == -1) return password[password.length-1]
+	  else return password[i-1]
 	}).join('');
 
 And now you can use Zombie to send them off:
 
 	#!javascript
 	browser
-		.fill('password', characters)
-		.fill('memorableAnswer', memorable_answer)
-		.pressButton('proceed', function() {
-			
-			browser.dump();
-			console.log(browser.html());
-
-		});
+	  .fill('password', characters)
+	  .fill('memorableAnswer', memorable_answer)
+	  .pressButton('proceed', function() {
+	    browser.dump();
+	    console.log(browser.html());
+	  });
 
 That last `browser.html()` output should be your main account page. For some reason, the First Direct developers chose this point to reinstigate that Javascript requirement! Every single link on the page actually calls a function which sets `window.location` to change the page. This is probably to avoid people opening pages in tabs or something.
 
@@ -135,36 +117,38 @@ The finished script, from beginning to end, is:
 	var browser = new Browser();
 	browser.runScripts = false;
 
-	browser.visit('https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances', function() {
-		
-		browser
-			.fill('userid', '<userid>')
-			.pressButton('proceed', function() {
-				
-				var indexes = browser.queryAll('label[for="password"] strong').slice(0,3).map(function(elem) {
-					var value = elem.childNodes[0].nodeValue;
-					if (value == 'last') return -1
-					else return parseInt(value)
-				});
+	browser.visit('https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances',
+	  function() {
+	  
+	  browser
+	    .fill('userid', '<userid>')
+	    .pressButton('proceed', function() {
+	      
+	      var indexes = browser.queryAll('label[for="password"] strong')
+	          .slice(0,3).map(function(elem) {
+	        var value = elem.childNodes[0].nodeValue;
+	        if (value == 'last') return -1
+	        else return parseInt(value)
+	      });
 
-				// you'll need 'password' and 'memorable_answer' variables
-				// available to your code by this point
+	      // you'll need 'password' and 'memorable_answer' variables
+	      // available to your code by this point
 
-				var characters = indexes.map(function(i) {
-					if (i == -1) return password[password.length-1]
-					else return password[i-1]
-				}).join('');
+	      var characters = indexes.map(function(i) {
+	        if (i == -1) return password[password.length-1]
+	        else return password[i-1]
+	      }).join('');
 
-				browser
-					.fill('password', characters)
-					.fill('memorableAnswer', memorable_answer)
-					.pressButton('proceed', function() {
-						
-						browser.dump();
-						console.log(browser.html());
+	      browser
+	        .fill('password', characters)
+	        .fill('memorableAnswer', memorable_answer)
+	        .pressButton('proceed', function() {
+	          
+	          browser.dump();
+	          console.log(browser.html());
 
-					});
-			});
+	        });
+	    });
 	});
 
 

@@ -2,26 +2,26 @@
 title: "Building a static blog with nanoc"
 created_at: 2012-02-14 11:14:04 +0000
 kind: article
-published: false
+published: true
 ---
 
 Having a static site may feel a bit like a throwback, but the benefits are well noted and there are various frameworks around to turn your text and templates into HTML. For my site, I opted for [nanoc](http://nanoc.stoneship.org/), which is Ruby based and extremely flexible.
 
 nanoc is simple to set up and use, but because it's so generic it doesn't (by default) do the things you might expect from a blog, like tags, archives, timestamps and the like. For something a bit more 'out the box', I'd suggest looking at [Jekyll](http://jekyllrb.com/), or [Octopress](http://octopress.org/) (which is even more feature-packed).
 
-I wanted to use nanoc as with it doesn't restrict your choice of template/rendering engine, and because it's so lightweight it stays out of the way and makes it easy to hammer into shape. In this post I'll explain how to bend nanoc into a simple blogging platform.
+I wanted to use nanoc as with it doesn't restrict your choice of template/rendering engine, and because it's so lightweight it stays out of the way and makes it easy to hammer into shape. In this post I'll explain how to flex nanoc into a simple blogging platform.
 
 <!-- more -->
 
 ### Getting started
 
-You'll need Ruby, Rubygems and nanoc. [The nanoc website](http://nanoc.stoneship.org/docs/2-installation/) explains how to get these but if you're already set up with Ruby/Rubygems, you can just do a `gem install nanoc` to grab the latest version. This post is written with nanoc *3.2.4* so there may be minor differences if you're using a newer zversion.
+You'll need Ruby, Rubygems and nanoc. [The nanoc website](http://nanoc.stoneship.org/docs/2-installation/) explains how to get these but if you're already set up with Ruby/Rubygems, you can just do a `gem install nanoc` to grab the latest version. This post is written with nanoc *3.2.4* so there may be minor differences if you're using a newer version.
 
 Once you've got nanoc installed, fire up a terminal and type
 
 	nanoc create_site myblog
 
-If all went well, you should now have a blank nanoc site in the `myblog` folder. Now we can begin!
+If all went well, you should now have a blank nanoc site in the `myblog` folder.
 
 ### A nanoc primer
 
@@ -82,7 +82,6 @@ Now open up the file `content/stylesheet.css`, throw away what's there and put t
 	  margin: 0 auto;
 	  padding: 60px 20px 0 60px;
 	}
-
 	.post aside {
 	  color: #888;
 	  padding-bottom: 8px;
@@ -135,6 +134,7 @@ Helpers are little plugins that extend nanoc. There are a few provided by defaul
 
 Create a new directory, `content/posts` and in it create a new file called `2012-02-10-my-first-post.md`. Paste the following into this file:
 
+	#!yaml
 	---
 	title: "My first post"
 	created_at: 2012-02-10 09:00:00 +0000
@@ -167,7 +167,7 @@ Once we've got these, we're returning a string built with the values. This will 
 
 Recompile and you should find a new file has been created: `/output/2012/02/my-first-post/index.html`. nanoc has placed the post we just created in a different location, per our new routing rule.
 
-### Formatting the blog post with Markdown
+### Formatting blog posts with Markdown
 
 [Markdown](http://daringfireball.net/projects/markdown/basics) is a great formatter for writing blog posts. It'll automatically create paragraphs and has a simple (but exhaustive) syntax for doing all sorts of things like headers and lists. nanoc makes it easy to run our posts through a Markdown parser.
 
@@ -267,6 +267,7 @@ A common blog trope, we're now going to update our blog's index page to display 
 
 To see this in action, go ahead and add another post: `content/posts/2012-02-12-help-have-you-seen-my-cats.md`
 
+	#!yaml
 	---
 	title: "Help! Have you seen my cats?"
 	created_at: 2012-02-12 09:00:00 +0000
@@ -276,3 +277,110 @@ To see this in action, go ahead and add another post: `content/posts/2012-02-12-
 	My cats appear to have taken leave of me. Have you seen them?
 
 Now recompile, run `nanoc view` and view your site at [http://localhost:3000](http://localhost:3000). You should see a list with your two posts and, when you click a title, you should be taken to the individual post page.
+
+### Further refinements
+
+You should now have a basic but robust blogging framework set up, but there are a few more things we can do to improve it.
+
+#### Put a human readable date on blog posts
+
+We're just showing the default created_at timestamp at the moment, which isn't too nice to look at. We can improve this by writing a nanoc *helper*. Open up the file `lib/default.rb` and add this at the bottom:
+
+	#!ruby
+	module PostHelper
+	  def get_pretty_date(post)
+	    attribute_to_time(post[:created_at]).strftime('%B %-d, %Y')
+	  end
+	end
+
+	include PostHelper
+
+This helper will now be available to our layouts. It has a single method which gets the *created_at* attribute from the post's metadata and then outputs a formatted date string. Now open up the `layouts/post.html` and update the date output so it looks like this:
+
+	#!rhtml
+	<aside>Posted at: <%= get_pretty_date(item) %></aside>
+
+You may also want to make the same change to your `content/index.html` file for consistency.
+
+#### Display only the first part of a post on the index page (a 'fold')
+
+This is easily done with another helper method. Decide on a 'break delimiter' - something you can place in your post's content to indicate where you'd like the split to occur. In these examples we'll use `<!-- more -->`. This choice (a HTML comment) is convenient as the Markdown processor will ignore it and won't attempt to turn it into a paragraph.
+
+Start by updating the content in one of your existing posts. Stick in some filler text like this:
+
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a pharetra justo. 
+	Ut lacinia, nulla vitae auctor consectetur, urna ipsum euismod mauris.
+
+	<!-- more -->
+
+	Aliquam vehicula, odio tempus dapibus hendrerit, magna lorem vestibulum felis. 
+	Donec neque nulla, imperdiet ut bibendum vitae, rutrum vitae urna. 
+	Phasellus libero felis, facilisis eget sagittis at, scelerisque vel turpis.
+
+The idea is that only text above the `<!-- more -->` will show up on the index page. Everything else will only be visible on the post's own page. Open up `lib/default.rb` and add a new method to the `PostHelper` we created earlier:
+
+	#!ruby
+	def get_post_start(post)
+	  content = post.compiled_content
+	  if content =~ /\s<!-- more -->\s/
+	    content = content.partition('<!-- more -->').first +
+	    "<div class='read-more'><a href='#{post.path}'>Continue reading &rsaquo;</a></div>"
+	  end
+	  return content
+	end
+
+This method examines the compiled content for a given post and checks if it contains `<!-- more -->`. If it does, it partitions the content into two parts (above and below the fold), and throws the below part away. It then adds an extra 'Continue reading' link at the end of the content which links to the location of the post.
+
+One last thing we need to do is update `content/index.html` to use this new helper:
+
+	#!rhtml
+	<article>
+	  <%= get_post_start(post) %>
+	</article>
+
+Now if you compile and view your blog's index page, you should see only the content above the `<!-- more -->` comment, and there should be a link to continue reading.
+
+#### Write a Rake task to assist in creating new blog posts
+
+As we have it now, it's a bit of a pain to create a new blog post. You need to manually create the file, ensure the date is correct, and then enter the meta data by hand. I use a simple Rake task to automate this process.
+
+Open up `Rakefile` in your blog's root, and paste the following task at the bottom:
+
+	#!ruby
+	require 'stringex'
+	desc "Create a new post"
+	task :new_post, :title do |t, args|
+	  mkdir_p './content/posts'
+	  args.with_defaults(:title => 'New Post')
+	  title = args.title
+	  filename = "./content/posts/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.md"
+
+	  if File.exist?(filename)
+	    abort('rake aborted!') if ask("#{filename} already exists. Want to overwrite?", ['y','n']) == 'n'
+	  end
+
+	  puts "Creating new post: #{filename}"
+	  open(filename, 'w') do |post|
+	    post.puts '---'
+	    post.puts "title: \"#{title}\""
+	    post.puts "created_at: #{Time.now}"
+	    post.puts 'kind: article'
+	    post.puts 'published: false'
+	    post.puts "---\n\n"
+	  end
+	end
+
+This uses the stringex gem to do the conversion of title to slug, so you'll need to do a `gem install stringex` before using this task. After you've saved the file, you can create new posts like this:
+
+	#!sh
+	rake new_post["It's OK everyone! I found my cats"]
+
+This will create the file `content/posts/2012-02-14-its-ok-everyone-i-found-my-cats.md` and pre-populate the meta data with a title and a date.
+
+### Where to go from here?
+
+This is, hopefully, enough to get you started. The finished sample blog from this guide is [available on GitHub](#), and you can also check out the [clarkdave.net source](#) for further reference.
+
+I do plan on writing a sequel to this guide, which will cover a few more advanced topics such as setting up tagging, archive pages, syntax highlighting and deployment options.
+
+Thanks for reading!

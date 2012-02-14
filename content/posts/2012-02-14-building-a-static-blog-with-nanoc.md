@@ -379,7 +379,7 @@ This will create the file `content/posts/2012-02-14-its-ok-everyone-i-found-my-c
 
 ### Where to go from here?
 
-This is, hopefully, enough to get you started. The finished sample blog from this guide is [available on GitHub](#), and you can also check out the [clarkdave.net source](#) for further reference.
+This is, hopefully, enough to get you started. The finished sample blog from this guide is [available on GitHub](https://github.com/clarkdave/nanoc-blog-example), and you can also check out the [clarkdave.net source](https://github.com/clarkdave/clarkdave.net) for further reference.
 
 I do plan on writing a sequel to this guide, which will cover a few more advanced topics such as setting up tagging, archive pages, syntax highlighting and deployment options.
 

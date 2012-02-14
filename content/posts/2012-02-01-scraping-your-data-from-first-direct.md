@@ -17,22 +17,7 @@ Before we start, just a disclaimer: there's nothing suspicious going on here. We
 
 As far as I can tell, accessing your online bank using a headless web browser does not fall foul of the First Direct terms and conditions. That said, it would probably seem suspicious if you started checking your balance every minute of every day, so if you do this, keep your usage sensible!
 
-The FD online banking landing page is here: `http://www2.firstdirect.com/1/2/pib-service`
-
-Begins with a handful of redirects: if you don’t have JS, you’ll get a blank page here. If we start up Chrome, switch to the Network tab and turn on recording, we can watch all the activity as we get bounced around. Also be sure to turn off the cache to make things clearer (Settings > Disable cache)
-
-The redirect chain appears to go:
-
-* http://www1.firstdirect.com/1/2/pib-service
-* http://www3.firstdirect.com/trends/intbanking_refer.html
-* https://www1.firstdirect.com/1/2/!ut/p/kcxml/04_Sj9SPykssy0xPLMnMz0vM0Y_QjzKLN4o3DPIASYGYxqb6kWbxpvFm3lAhg3hHhEiQfkFuaES5o6IiAKPzDoc!;jsessionid=0000dv-szGpW4n40Ihx8z_yAReZ:11humjtau
-
-
-It seems that going straight to http://www3.firstdirect.com/trends/intbanking_refer.html will work too, so let’s start from there.
-
-This page issues a Javascript redirect, sending us to `https://www.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances`, which is a 301 redirect to `https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances`, which is a 302 redirect to our first actual page, which is number 3 in the list above. Have to love those redirects!
-
-We should be able to skip most of this by going straight to `https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances`, like so:
+The FD online banking landing page is here: `http://www2.firstdirect.com/1/2/pib-service`, but following a bit of redirection we end up here: `https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances`
 
 	curl -i https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances
 

@@ -9,7 +9,7 @@ Having a static site may feel a bit like a throwback, but the benefits are well 
 
 nanoc is simple to set up and use, but because it's so generic it doesn't (by default) do the things you might expect from a blog, like tags, archives, timestamps and the like. For something a bit more 'out the box', I'd suggest looking at [Jekyll](http://jekyllrb.com/), or [Octopress](http://octopress.org/) (which is even more feature-packed).
 
-I wanted to use nanoc as with it doesn't restrict your choice of template/rendering engine, and because it's so lightweight it stays out of the way and makes it easy to hammer into shape. In this post I'll explain how to flex nanoc into a simple blogging platform.
+I wanted to use nanoc as it doesn't restrict your choice of template/rendering engine, and because it's lightweight and gets out of the way, making it easy to hammer into shape. In this post I'll explain how to flex nanoc into a simple blogging platform.
 
 <!-- more -->
 
@@ -29,7 +29,7 @@ Once you're inside the `myblog` directory, you can type
 
 	nanoc compile
 
-This will create a new directory called `output` and drop an index.html and style.css file inside it. This is your finished site - what you'll stick on your web server and serve up.
+This will create a new directory called `output` and drop an index.html and style.css file inside it. This is your compiled site - what you'll stick on your web server and serve up.
 
 When nanoc compiles your site, it looks in your `content` directory for files and processes them based on rules you provide. The rules we care about for now are:
 

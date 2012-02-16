@@ -3,6 +3,10 @@ title: Work
 menu: work
 ---
 %section{:id => 'content', :class => 'work'}
-	%h2 My work
-	%p
-		%code todo: this page
+  %h2 My work
+  - sorted_portfolios.each do |item|
+    .work-item
+      %a{:href => item.path}
+        .picture-placeholder
+      %h4= link_to item[:title], item.path
+      %p= item[:snippet]

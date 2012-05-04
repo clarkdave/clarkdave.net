@@ -13,7 +13,7 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
-compile '/stylesheet/' do
+compile '/stylesheet/*' do
   filter :less
   filter :rainpress
 end
@@ -25,7 +25,7 @@ end
 
 compile '/posts/*' do
   filter :kramdown 
-  filter :colorize_syntax, :default_colorizer => :pygmentize
+  #filter :colorize_syntax, :default_colorizer => :pygmentize
   layout 'post'
   #filter :pretty_print
 end
@@ -39,8 +39,11 @@ compile '*' do
   end
 end
 
-route '/stylesheet/' do
+route '/stylesheet/main' do
   '/style.css'
+end
+
+route '/stylesheet/*' do
 end
 
 # route posts to /year/month/slug/index.html

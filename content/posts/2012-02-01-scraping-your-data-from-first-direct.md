@@ -7,7 +7,7 @@ published: true
 
 Like most people, I'm a routine user of internet banking. Although my bank, First Direct, do have an banking web application, I want to get at my financial data on my own terms so I can use it for more interesting projects. Since First Direct don't offer any sort of API I decided to use NodeJS and <a href='http://zombie.labnotes.org/'>Zombie</a> (a headless web browser) to do the job instead.
 
-So, if you're a First Direct customer and a programmer, and want to get your data out too, follow along! If you're a member of a different bank, you might still find this helpful as the advice should be fairly generic (although, if your banking website is very Javascript-heavy, it'll be harder).
+So, if you're a First Direct customer and a programmer, and want to get your data out too, this might help. If you're a member of a different bank, you might still find this helpful as the advice should be fairly generic (although, if your banking website is very Javascript-heavy, it'll be harder).
 
 <!-- more -->
 

@@ -6,8 +6,13 @@ include Nanoc3::Helpers::LinkTo
 module NavHelper
 
 	def nav_link(name, path, current)
-		if (current == 'default' and name == 'blog') or (current == name) then
+		ident = item.identifier
 
+		# nav rules
+		if (path == '/' and (ident.start_with? '/posts' or ident == '/')) or
+				(path == '/work' and (ident.start_with? '/portfolio' or ident.start_with? '/work')) or
+				(path == '/about' and ident.start_with? '/about') or
+				(path == '/contact' and ident.start_with? '/contact')
 			clazz = " class='active'" 
 		else
 			clazz = ''
@@ -16,7 +21,6 @@ module NavHelper
 		"<a#{clazz} href='#{path}'>#{name}</a>"
 	end
 end
-
 include NavHelper
 
 module PostHelper
@@ -37,7 +41,5 @@ module PostHelper
 		end
 		return content
 	end
-
 end
-
 include PostHelper

@@ -9,8 +9,6 @@ module PortfolioHelper
     portfolios.sort_by { |p| attribute_to_time(p[:created_at]) }.reverse
   end
 
-
-
 end
 
 include PortfolioHelper

@@ -1,7 +1,7 @@
 ---
 title: Chronozone
 snippet: Bespoke time management tool
-url: 'http://kent.ac.uk'
+url: http://kent.ac.uk
 created_at: 2011-06-01
 kind: portfolio
 technologies: ['java', 'play framework', 'mysql', 'jquery']

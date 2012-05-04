@@ -78,7 +78,7 @@ And finally, a chunk of boilerplate to configure rpclib, tell it to use the serv
 
 From here you should be able to run `python app.py` and then you can hit http://localhost:5000/?wsdl to view your glorious WSDL.
 
-### Deplying to Heroku
+### Deploying to Heroku
 
 It's easy to get this on Heroku. Do a `pip freeze` to get the requirements.txt:
 
@@ -88,4 +88,6 @@ And then create the file `Procfile` and stick this inside:
 
     web: python app.py
 
-From here, it's as straightforward as any other Heroku Cedar deployment. Stick it in a git repository and then push it up to Heroku. Enjoy!
+From here, it's as straightforward as any other Heroku Cedar deployment. Stick it in a git repository and then push it up to Heroku, as described [in the Heroku docs](https://devcenter.heroku.com/articles/python). Enjoy!
+
+You can find the source for this example [over on Github](https://github.com/clarkdave/clarkdave.net/tree/master/content-support/python-soap-server).

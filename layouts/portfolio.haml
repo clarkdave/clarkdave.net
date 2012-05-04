@@ -1,0 +1,15 @@
+- render 'default' do
+  %section{:id => 'content', :class => 'work'}
+    .work-detail
+      %h2= item[:title]
+      .detail-box
+        .picture
+        .status
+          .date
+            %strong Completed: 
+            June 2011
+          .url
+            %strong URL: 
+            = item[:url]
+        .description
+          = yield

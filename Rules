@@ -29,6 +29,11 @@ compile '/posts/*' do
   layout 'post'
   #filter :pretty_print
 end
+
+compile '/portfolio/*' do
+  filter :kramdown 
+  layout 'portfolio'
+end
  
 compile '*' do
   if item.binary?

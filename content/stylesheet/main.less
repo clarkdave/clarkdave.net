@@ -50,19 +50,62 @@ h1, h2, h3, h4, h5, h6 {
 
   header {
 
-    overflow: auto;
+    position: relative;
+    height: 70px;
 
     h1 {
       width: 70px;
       height: 70px;
       background: url('/images/layout/cd.png') no-repeat;
       text-indent: -9999em;
-      float: left;
+      //float: left;
       margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    nav {
+      //float: left;
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      font-size: 1.7em;
+      position: absolute;
+      top: 0;
+      left: 100px;
+
+      ul {
+        padding: 10px 0 10px 0;
+      }
+
+      li {
+        display: inline;
+        float: left;
+
+        a {
+          margin: 0;
+          padding: 18px 17px 8px 17px;
+          text-decoration: none;
+          -moz-transition-property: background, color;
+          -moz-transition-duration: 0.15s;
+
+          &.active, &.active:hover {
+            background: #424242;
+            color: #fff;
+          }
+
+          &:hover {
+            background: #555555;
+            color: #fff;
+          }
+        }
+      }
     }
 
     aside {
-      float: right;
+      //float: right;
+      position: absolute;
+      top: 0;
+      right: 0;
       overflow: auto;
       a {
         display: block;
@@ -89,39 +132,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-nav {
-  
-  float: left;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 1.7em;
 
-  ul {
-    padding: 10px 0 10px 50px;
-  }
-
-  li {
-    display: inline;
-    float: left;
-
-    a {
-      margin: 0;
-      padding: 18px 17px 8px 17px;
-      text-decoration: none;
-      -moz-transition-property: background, color;
-      -moz-transition-duration: 0.15s;
-
-      &.active, &.active:hover {
-        background: #424242;
-        color: #fff;
-      }
-
-      &:hover {
-        background: #555555;
-        color: #fff;
-      }
-    }
-  }
-}
 
 .indented-title {
   padding-left: 85px;
@@ -196,6 +207,7 @@ nav {
         padding: 10px 20px;
         border-top: 3px dashed #dadada;
         border-bottom: 3px dashed #dadada;
+        overflow-x: auto;
       }
 
       code {
@@ -286,31 +298,37 @@ nav {
 
   .work-item, .detail-box {
     width: 100%;
-    background-color: #f5f5f5;
+    //background-color: #f5f5f5;
     margin: 0 20px 20px 0;
-    padding: 10px;
 
     -webkit-box-shadow: 0px 0px 3px 2px rgba(95, 95, 95, 0.2);
     box-shadow: 0px 0px 3px 2px rgba(95, 95, 95, 0.2);
-    border-radius: 2px;
+    //border-radius: 2px;
 
     .picture, .picture-placeholder {
       //margin: 10px;
       background-color: #333;
       height: 200px;
-      -webkit-box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.2);
-      box-shadow: inset 0px 0px 3px 2px rgba(0, 0, 0, 0.2);
-      border-radius: 2px;
+      //-webkit-box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.2);
+      //box-shadow: inset 0px 0px 3px 2px rgba(0, 0, 0, 0.2);
+      //border-radius: 2px;
     }
 
     .picture-placeholder {
       background: #333;
     }
 
+    .work-aux {
+      background: #f5f5f5;
+      padding: 10px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
     h4 {
       font-family: 'Yanone Kaffeesatz', sans-serif;
       font-size: 2em;
-      margin: 10px 0 8px 0;
+      margin: 0 0 8px 0;
 
       a {
         text-decoration: none;
@@ -474,42 +492,61 @@ nav {
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px) {
   
+  h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}
+  h2 { font-size: 27px; line-height: 34px; margin-bottom: 10px; }
+  h3 { font-size: 25px; line-height: 34px; margin-bottom: 8px; }
+  h4 { font-size: 21px; line-height: 30px; margin-bottom: 4px; }
+  h5 { font-size: 17px; line-height: 24px; }
+  h6 { font-size: 14px; line-height: 21px; }
+
+  #page {
+
+    background: #fff;
+
+    header {
+      background-color: #f5f1e7;
+      height: 42px;
+
+      h1 {
+        height: 42px;
+        width: 42px;
+        background-image: url('/images/layout/cd_small.png');
+      }
+
+      nav {
+        left: auto;
+        right: 0;
+      }
+      nav ul a {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      aside {
+        display: none;
+      }
+    }
+  }
+  
+  .about, .contact {
+    padding-left: 20px;
+  }
+
+  .blog {
+    .blog-entry {
+      aside {
+        float: right;
+      }
+      article {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-  nav {
-    height: 42px;
-  }
-  nav ul {
-    padding-left: 34px;
-    a {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-  }
-  #page header {
-    background-color: #f5f1e7;
-    height: 42px;
-  }
-  #page header h1 {
-    height: 42px;
-    width: 42px;
-    background-image: url('/images/layout/cd_small.png');
-  }
-  #page header aside {
-    display: none;
-    width: 60px;
-    a {
-      float: right;
-    }
-  }
-  #page {
-    background: #fff;
-  }
-  .about, .contact {
-    padding-left: 20px;
-  }
+  
+
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */

@@ -1,5 +1,6 @@
 --- 
 title: Work
+description: Portfolio of web-based technology work by Dave Clark
 menu: work
 ---
 %section{:id => 'content', :class => 'work'}
@@ -12,5 +13,6 @@ menu: work
           .work-item
             %a{:href => item.path}
               .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}
-            %h4= link_to item[:title], item.path
-            %p= item[:snippet]
+            .work-aux
+              %h4= link_to item[:title], item.path
+              %p= item[:snippet]

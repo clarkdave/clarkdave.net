@@ -1,5 +1,6 @@
 ---
 title: "Scraping your data from First Direct"
+description: Using Node.js and Zombie to scrape data from your bank
 created_at: 2012-02-01 21:06:01 +0000
 kind: article
 published: true

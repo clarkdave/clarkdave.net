@@ -1,5 +1,6 @@
 ---
 title: "Setting up a SOAP server with minimum fuss"
+description: A short guide to setting up a basic SOAP server using Python and rpclib
 created_at: 2012-05-04 19:00:08 +0100
 kind: article
 published: false

@@ -1,5 +1,6 @@
 ---
 title: "Building a static blog with nanoc"
+description: A comprehensive guide to building a static blog using nanoc and Ruby
 created_at: 2012-02-14 11:14:04 +0000
 kind: article
 published: true

@@ -3,10 +3,14 @@ title: Work
 menu: work
 ---
 %section{:id => 'content', :class => 'work'}
-  %h2 My work
-  - sorted_portfolios.each do |item|
-    .work-item
-      %a{:href => item.path}
-        .picture-placeholder
-      %h4= link_to item[:title], item.path
-      %p= item[:snippet]
+  - sorted_portfolios.group_by{|i| i[:created_at].year }.each do |year, group|
+    .work-listing.clearfix
+      .year-box
+        %aside= year
+      .work-group
+        - group.each do |item|
+          .work-item
+            %a{:href => item.path}
+              .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}
+            %h4= link_to item[:title], item.path
+            %p= item[:snippet]

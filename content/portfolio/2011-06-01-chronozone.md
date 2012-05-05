@@ -8,4 +8,4 @@ technologies: ['java', 'play framework', 'mysql', 'jquery']
 image_id: chronozone
 ---
 
-Some kind of time management system built for the University of Kent.
+I led a team of three in the development of a custom time management tool for the University of Kent, using the Java-based Play MVC Framework combined with a strong test-driven development ethic.

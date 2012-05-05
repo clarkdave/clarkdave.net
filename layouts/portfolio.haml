@@ -3,7 +3,7 @@
     .work-detail
       %h2= item[:title]
       .detail-box
-        .picture
+        .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}
         .status
           .date
             %strong Completed: 

@@ -9,6 +9,10 @@ module PortfolioHelper
     portfolios.sort_by { |p| attribute_to_time(p[:created_at]) }.reverse
   end
 
+  def portfolio_image_url(item, type)
+    '/images/portfolio/' + item[:image_id] + '_' + type + '.jpg'
+  end
+
 end
 
 include PortfolioHelper

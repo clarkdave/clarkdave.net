@@ -3,7 +3,7 @@ title: "Setting up a SOAP server with minimum fuss"
 description: A short guide to setting up a basic SOAP server using Python and rpclib
 created_at: 2012-05-04 19:00:08 +0100
 kind: article
-published: false
+published: true
 ---
 
 I recently had the unfortunate task of setting up a basic SOAP server for the purposes of some cross-University communication. Java tends to be very good at this (or as good as you can be, dealing with SOAP) but it's still quite long-winded and, to save time, I also wanted something I could easily deploy to Heroku.

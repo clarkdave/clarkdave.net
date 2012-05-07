@@ -25,6 +25,10 @@ include NavHelper
 
 module PostHelper
 
+	def blog_articles
+		sorted_articles.select{|a| a[:published] }
+	end
+
 	def get_post_day(post)
 		attribute_to_time(post[:created_at]).strftime('%e')
 	end

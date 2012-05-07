@@ -3,13 +3,15 @@
     .work-detail
       .work-aux
         %h2= item[:title]
-        .completed= '<strong>Completed:</strong> ' + item[:created_at].strftime('%B %Y')
-        - if item[:url]
-          .url= '<strong>URL:</strong> ' + item[:url]
+        .stats.clearfix
+          .completed= '<strong>Completed:</strong> ' + item[:created_at].strftime('%B %Y')
+          - if item[:url]
+            .url= '<strong>URL:</strong> ' + item[:url]
         %ul.techs
           - item[:technologies].each do |tech|
             %li= tech
       .picture-frame
-        .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}
+        %a{:href => portfolio_image_url(item, 'full'), :rel => 'lightbox'}
+          .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}
     .work-description
       = yield

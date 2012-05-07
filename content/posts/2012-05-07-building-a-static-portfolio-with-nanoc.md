@@ -6,9 +6,9 @@ kind: article
 published: true
 ---
 
-A few months I blogged about [building a static blog using nanoc](/2012/02/building-a-static-blog-with-nanoc/) and as I recently finished off my little site with a portfolio section, I figured I'd throw up a guide on how to do that (it's really easy!)
+A few months ago I blogged about [building a static blog using nanoc](/2012/02/building-a-static-blog-with-nanoc/) and as I recently finished off my little site with a portfolio section, I figured I'd throw up a guide on how to do that (it's really easy!)
 
-The principle is almost identical to how blog posts work in nanoc: each portfolio entry is its own file, which some kind of identifier for the nanoc parser to pick up. This is combined with a custom helper to pull out these entries and from there they can be displayed in whatever way makes sense.
+The concept is almost identical to how blog posts work in nanoc: each portfolio entry is its own file, with some kind of identifier for the nanoc parser to pick up. This is combined with a custom helper to pull out these entries and from there they can be displayed in whatever way makes sense.
 
 I won't be as hands-on with this guide as I was with [the previous](/2012/02/building-a-static-blog-with-nanoc/), so if you feel lost give that one a read first.
 

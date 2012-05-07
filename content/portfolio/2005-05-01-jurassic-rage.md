@@ -1,11 +1,11 @@
 ---
-title: Hawks Tag
+title: Jurassic Rage
 snippet: Web and CMS development
-url: http://www.hawkstag.com
-created_at: 2006-11-01
+url: 
+created_at: 2005-05-01
 kind: portfolio
 technologies: ['php', 'mysql', 'jquery']
-image_id: hawkstag
+image_id: jurassicrage
 ---
 
-While
+TODO

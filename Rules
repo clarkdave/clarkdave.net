@@ -18,6 +18,8 @@ compile '/stylesheet/*' do
   filter :rainpress
 end
 
+compile '/scripts/*' do; end
+
 compile '/' do
   filter :haml
   layout 'default'
@@ -25,7 +27,7 @@ end
 
 compile '/posts/*' do
   filter :kramdown 
-  filter :colorize_syntax, :default_colorizer => :pygmentize
+  #filter :colorize_syntax, :default_colorizer => :pygmentize
   layout 'post'
   #filter :pretty_print
 end
@@ -48,7 +50,10 @@ route '/stylesheet/main' do
   '/style.css'
 end
 
-route '/stylesheet/*' do
+route '/stylesheet/*' do; end
+
+route '/scripts/*' do
+  item.identifier.chop + '.' + item[:extension]
 end
 
 # route posts to /year/month/slug/index.html

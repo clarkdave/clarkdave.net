@@ -4,6 +4,10 @@ description: Portfolio of web-based technology work by Dave Clark
 menu: work
 ---
 %section{:id => 'content', :class => 'work'}
+  .indent
+    %h2 Work portfolio
+    %p
+      Since 2005 I have worked on a variety of projects for both fun and business using plenty of languages and platforms. Some of these projects are documented below.
   - sorted_portfolios.group_by{|i| i[:created_at].year }.each do |year, group|
     .work-listing.clearfix
       .year-box
@@ -11,8 +15,9 @@ menu: work
       .work-group
         - group.each do |item|
           .work-item
-            %a{:href => item.path}
-              .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}
             .work-aux
               %h4= link_to item[:title], item.path
               %p= item[:snippet]
+            .picture-frame
+              %a{:href => item.path}
+                .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}

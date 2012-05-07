@@ -4,7 +4,7 @@ snippet: Web design and development
 url: http://www.hepgrove.co.uk
 created_at: 2008-07-01
 kind: portfolio
-technologies: ['java', 'play framework', 'mysql', 'jquery']
+technologies: ['photoshop', 'html', 'css', 'jquery']
 image_id: hepgrove
 ---
 

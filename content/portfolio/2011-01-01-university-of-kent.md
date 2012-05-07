@@ -4,7 +4,7 @@ snippet: Content management engine development
 url: http://kent.ac.uk
 created_at: 2011-01-01
 kind: portfolio
-technologies: ['java', 'play framework', 'mysql', 'jquery']
+technologies: ['php', 'mysql', 'jquery', 'node.js', 'python']
 image_id: ukc
 ---
 

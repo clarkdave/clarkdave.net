@@ -4,7 +4,7 @@ snippet: Lots of XSLT, Java and shell scripting
 url: http://www.oracle.com/technetwork/
 created_at: 2010-01-01
 kind: portfolio
-technologies: ['java', 'play framework', 'mysql', 'jquery']
+technologies: ['java', 'perl', 'sh', 'xslt']
 image_id: dsc
 ---
 

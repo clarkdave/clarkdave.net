@@ -1,15 +1,15 @@
 - render 'default' do
   %section{:id => 'content', :class => 'work'}
     .work-detail
-      %h2= item[:title]
-      .detail-box
+      .work-aux
+        %h2= item[:title]
+        .completed= '<strong>Completed:</strong> ' + item[:created_at].strftime('%B %Y')
+        - if item[:url]
+          .url= '<strong>URL:</strong> ' + item[:url]
+        %ul.techs
+          - item[:technologies].each do |tech|
+            %li= tech
+      .picture-frame
         .picture{:style => 'background-image:url(' + portfolio_image_url(item, 'large') + ')'}
-        .status
-          .date
-            %strong Completed: 
-            June 2011
-          .url
-            %strong URL: 
-            = item[:url]
-        .description
-          = yield
+    .work-description
+      = yield

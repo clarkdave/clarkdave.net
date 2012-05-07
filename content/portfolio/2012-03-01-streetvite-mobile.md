@@ -4,7 +4,7 @@ snippet: Mobile development with Backbone.js &amp; Rails
 url: http://m.streetvite.com
 created_at: 2012-03-01
 kind: portfolio
-technologies: ['ruby', 'rails', 'javascript', 'backbone.js', 'postgresql', 'mongodb']
+technologies: [ruby, rails, javascript, backbone.js, postgresql, mongodb]
 image_id: streetvite_mobile
 ---
 

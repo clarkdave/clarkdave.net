@@ -385,3 +385,7 @@ This is, hopefully, enough to get you started. The finished sample blog from thi
 I do plan on writing a sequel to this guide, which will cover a few more advanced topics such as setting up tagging, archive pages, syntax highlighting and deployment options.
 
 Thanks for reading!
+
+#### Related posts
+
+* [Building a static portfolio with nanoc](/2012/05/building-a-static-portfolio-with-nanoc/)

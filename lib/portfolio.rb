@@ -12,7 +12,6 @@ module PortfolioHelper
   def portfolio_image_url(item, type)
     '/images/portfolio/' + item[:image_id] + '_' + type + '.jpg'
   end
-
 end
 
 include PortfolioHelper

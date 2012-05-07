@@ -25,8 +25,13 @@ include NavHelper
 
 module PostHelper
 
+	# if compiling in production mode, only show published articles
 	def blog_articles
-		sorted_articles.select{|a| a[:published] }
+		if ENV['NANOC_ENV'] == 'production'
+			sorted_articles.select{|a| a[:published] }
+		else
+			sorted_articles
+		end
 	end
 
 	def get_post_day(post)

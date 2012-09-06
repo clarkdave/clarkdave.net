@@ -13,4 +13,8 @@ Rather than manually install hstore in the application databases, you can instal
 
     psql template1 -c 'create extension hstore;'
 
-When you drop and recreate your application databases, hstore will be installed by default. If you can't drop them (say you're running in production, and have just decided to use hstore) you can still install hstore by hand, but you'll need to be a superuser to do it.
+When any of your application databases are created, hstore will now be installed by default. To install it in your existing databases, use psql as a superuser:
+
+    psql application_db -c 'create extension hstore;'
+
+These methods avoid giving your application user `superuser` permissions, which would be required if you wanted to install hstore as part of your migrations.

@@ -1,5 +1,6 @@
 ---
 title: "PostgreSQL quick start for people who know MySQL"
+description: A quick start guide for PostgreSQL, especially if you're used to MySQL
 created_at: 2012-08-26 11:41:58 +0200
 kind: article
 published: true

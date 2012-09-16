@@ -2,7 +2,7 @@
 title: "easyXDM, CoffeeScript & async RPCs"
 created_at: 2012-09-17 01:18:40 +0200
 kind: article
-published: false
+published: true
 ---
 
 While using this bundle of techs I hit a curious problem. I had a RPC declaration on my producer which looked something like this:

@@ -114,7 +114,7 @@ That should get us a working Redmine installation. Test it with this:
 
     $ rails s -e production
 
-This will spin up the built-in WEBRick server, which is very slow and not how you'll want to run Redmine (though you could). Once it has spun up, hit the following URL and you should be greeted with the Redmine landing page. You can log in with *admin/admin*, which is the default account.
+This will spin up the built-in WEBrick server, which is very slow and not how you'll want to run Redmine (though you could). Once it has spun up, hit the following URL and you should be greeted with the Redmine landing page. You can log in with *admin/admin*, which is the default account.
 
     http://localhost:3000
 

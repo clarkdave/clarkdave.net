@@ -1,8 +1,9 @@
 ---
 title: "Twitter OAuth authorisation in a popup"
+description: How to perform Twitter OAuth authorisation in a pop, using Rails and OmniAuth
 created_at: 2012-10-30 07:59:48 +0100
 kind: article
-published: false
+published: true
 ---
 
 It's pretty common these days to let your users either sign up with or connect to Twitter from within your application. The typical way to do this is to redirect the user to Twitter, have them authorise and then bring them back.

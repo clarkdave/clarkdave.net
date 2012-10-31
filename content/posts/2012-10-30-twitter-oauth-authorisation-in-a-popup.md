@@ -112,7 +112,7 @@ This is an important situation to handle -- if the user clicks Cancel they'll be
 
 A good way to solve this is to use that cookie we set earlier (the 'twitter_oauth_popup' one). In your controller - the one rendering the original page where users see the 'Connect with Twitter' button - check for the existence of this cookie and if you find it, render your `window.close()` view instead. For example:
 
-    !#ruby
+    #!ruby
     class SessionsController < ApplicationController
       def new
         if cookies[:twitter_oauth_popup]
@@ -165,6 +165,7 @@ If you intend on having the user enter a name or username, it might be helpful t
 
 Now you need to show your user the form and listen for when it's submitted. When the users submits, you'll want to send a request to your server to create a new user. If you're using [Backbone.js](http://backbonejs.org) this could be as simple as:
 
+    #!javascript
     var user = new User({ email: $('#user_email') });
     user.save({}, {
       success: function(model, response) {

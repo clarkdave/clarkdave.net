@@ -28,7 +28,7 @@ end
 compile '/posts/*' do
   filter :kramdown 
   if ENV['NANOC_ENV'] == 'production'
-    filter :colorize_syntax, :default_colorizer => :pygmentize
+    filter :colorize_syntax, :default_colorizer => :pygmentsrb
   end
   layout 'post'
   #filter :pretty_print

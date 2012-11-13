@@ -3,24 +3,31 @@ GEM
   specs:
     asdf (0.5.0)
       rack (~> 1.2.1)
+    colored (1.2)
     commonjs (0.2.6)
-    cri (2.2.1)
-    fssm (0.2.8.1)
-    haml (3.1.4)
-    kramdown (0.13.5)
-    less (2.2.1)
+    cri (2.3.0)
+      colored (>= 1.2)
+    fssm (0.2.9)
+    haml (3.1.7)
+    kramdown (0.14.0)
+    less (2.2.2)
       commonjs (~> 0.2.6)
     libv8 (3.3.10.4)
-    mime-types (1.17.2)
-    nanoc (3.3.6)
+    mime-types (1.19)
+    nanoc (3.4.2)
       cri (~> 2.2)
-    nokogiri (1.5.0)
+    nokogiri (1.5.5)
+    posix-spawn (0.3.6)
+    pygments.rb (0.3.2)
+      posix-spawn (~> 0.3.6)
+      yajl-ruby (~> 1.1.0)
     rack (1.2.5)
     rainpress (1.0)
     stringex (1.4.0)
-    systemu (2.5.0)
-    therubyracer (0.10.1)
+    systemu (2.5.2)
+    therubyracer (0.10.2)
       libv8 (~> 3.3.10)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -34,6 +41,7 @@ DEPENDENCIES
   mime-types
   nanoc
   nokogiri
+  pygments.rb
   rainpress
   stringex
   systemu

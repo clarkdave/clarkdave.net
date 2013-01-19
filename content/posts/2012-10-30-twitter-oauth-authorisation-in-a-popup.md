@@ -70,7 +70,9 @@ We'll create a TwitterConnect class to keep all this tidy:
           }
         });
       };
-    });
+
+      return TwitterConnect;
+    })();
 
 #### What's that cookie for?
 

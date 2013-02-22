@@ -5,7 +5,7 @@ kind: article
 published: true
 ---
 
-A common thing to do using Chef and app server configuration is to create a 'deploy' user. This user will be involved with the deployment of code and often needs read-only access to the source repository. In my case, this was Bitbucket, but this procedure should copy across with a few tweaks for GitHub or most other providers too.
+A common thing to do with Chef and app server configuration is to create a 'deploy' user. This user will be involved with the deployment of code and often needs read-only access to the source repository. In my case, this was Bitbucket, but this procedure should copy across with a few tweaks for GitHub or most other providers too.
 
 In the case of Bitbucket (and GitHub) a deploy user is given read-only access to a repository through their ssh key. Because we're creating our deploy user through Chef anyway, along with their ssh key, it makes a lot of sense to send this off to Bitbucket and that's what this little recipe does:
 
@@ -32,7 +32,7 @@ In the case of Bitbucket (and GitHub) a deploy user is given read-only access to
       action :nothing # only run when ssh key is created
       block do
         require 'httparty'
-        url = "https://api.bitbucket.org/1.0/repositories/#{bitbucket_user}/repo-name/deploy-keys"
+        url = "https://api.bitbucket.org/1.0/repositories/#{node['bitbucket_user']}/repo-name/deploy-keys"
         response = HTTParty.post(url, {
           :basic_auth => {
             :username => node['bitbucket_user'],

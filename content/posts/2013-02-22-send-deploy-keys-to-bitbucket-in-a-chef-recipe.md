@@ -2,7 +2,7 @@
 title: "Send deploy keys to Bitbucket in a Chef recipe"
 created_at: 2013-02-22 23:36:54 +0100
 kind: article
-published: false
+published: true
 ---
 
 A common thing to do using Chef and app server configuration is to create a 'deploy' user. This user will be involved with the deployment of code and often needs read-only access to the source repository. In my case, this was Bitbucket, but this procedure should copy across with a few tweaks for GitHub or most other providers too.

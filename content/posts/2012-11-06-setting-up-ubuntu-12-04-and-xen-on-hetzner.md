@@ -136,6 +136,11 @@ Make sure the directory you used for `dir` exists and create it if not:
 
     mkdir /home/xen
 
+Finally, we need to copy the debian Xen recipe for Ubuntu Precise (thanks to Linus Gasser for pointing this out):
+
+    cd /usr/lib/xen-tools
+    ln -s debian.d precise.d
+
 And now reboot once more and then it's time to create a guest.
 
 ### Create a guest

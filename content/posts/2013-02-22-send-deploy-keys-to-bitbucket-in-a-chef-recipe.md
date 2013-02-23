@@ -44,7 +44,7 @@ In the case of Bitbucket (and GitHub) a deploy user is given read-only access to
           }
         })
 
-        unless response.code == 400 or response.code == 201
+        unless response.code == 200 or response.code == 201
           Chef::Log.warn("Could not add deploy key to Bitbucket, response: #{response.body}")
           Chef::Log.warn("Add the key manually:")
           Chef::Log.info(File.read('/home/deploy/.ssh/id_rsa.pub'))

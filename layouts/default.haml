@@ -20,7 +20,8 @@
 	%body
 		%section{:id => 'page', :class => 'container'}
 			%header
-				%h1 clarkdave.net
+				%a{:href => '/', :title => 'clarkdave.net'}
+					%h1 clarkdave.net
 				= render 'nav', :menu => (@item[:menu] or 'default')
 				%aside
 					%a{:class => 'github', :href => 'https://github.com/clarkdave', :title => 'me on GitHub'}

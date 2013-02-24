@@ -2,7 +2,7 @@
 title: "Vagrant, Chef and the sudo cookbook"
 created_at: 2013-02-24 07:48:27 +0100
 kind: article
-published: false
+published: true
 ---
 
 Vagrant is great. Chef is great. Let's say you're using Vagrant to test a Chef config for a server. Maybe you want to add the [Opscode sudo cookbook](http://community.opscode.com/cookbooks/sudo) to manage your sudo package and sudoers? Well, beware!

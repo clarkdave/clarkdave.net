@@ -1,6 +1,6 @@
 ---
 title: "Twitter OAuth authorisation in a popup"
-description: How to perform Twitter OAuth authorisation in a pop, using Rails and OmniAuth
+description: How to perform Twitter OAuth authorisation in a popup window, with examples for Rails and OmniAuth
 created_at: 2012-10-30 07:59:48 +0100
 kind: article
 published: true

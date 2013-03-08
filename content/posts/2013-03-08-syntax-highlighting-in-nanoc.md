@@ -8,16 +8,20 @@ published: true
 
 Syntax highlighting is easy in nanoc using the (built-in) `colorize_syntax` filter and [Pygments](http://pygments.org/). Pygments is an extremely robust Python library with support for many languages. You wouldn't ordinarily want to call out to a Python application from your Ruby app, but as your nanoc site is compiled this method works great.
 
-I'll show you how to get set up with Pygments and configure syntax highlighting for Markdown files, so you can have content like this:
+I'll show you how to get set up with Pygments and configure syntax highlighting, so you can have content like this:
 
-    Look at this awesome piece of code I wrote:
+<pre>
+  <code>Look at my awesome code:
 
-    #!ruby
-    def meow
-      puts 'Meow... meow!'
-    end
+ #!ruby
+ def meow
+   puts 'Meow... meow!'
+ end</code>
+</pre>
 
 turned into this:
+
+    Look at my awesome code:
 
     #!ruby
     def meow
@@ -58,9 +62,19 @@ For example, with this blog, I run the colourize filter against all my posts, so
       layout 'post'
     end
 
+#### What if I don't use Markdown?
+
+That's OK. The `colourize_filter` operates on anything within `<code>` tags. So if you're writing your content with plain HTML, stick your code examples within `<code>` tags for the filter to work:
+
+    #!html
+    <pre><code>#!ruby
+    def meow
+      puts 'Miauuu'
+    end</code></pre>
+
 ### Styling the output
 
-When Pygments is run on a code block, it'll spit out a `<code>` tag and tokenize everything into `<span>` tags with classes. To actually get the colour highlight to work, you'll need some CSS. I actually couldn't find a nice collection of CSS for Pygments, but they are out there, and can be found [with some searching](https://www.google.com/search?q=pygments+css).
+When Pygments is run on a code block, it'll tokenize everything into `<span>` tags with classes. To actually get the colour highlighting to work, you'll need some CSS. I actually couldn't find a nice collection of CSS for Pygments, but they are out there, and can be found [with some searching](https://www.google.com/search?q=pygments+css).
 
 The styles I use for the syntax highlighting on this blog are in [this gist](https://gist.github.com/clarkdave/5117910).
 

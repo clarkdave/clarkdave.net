@@ -1,13 +1,13 @@
 --- 
 title: Work
-description: Portfolio of web-based technology work by Dave Clark
+description: Portfolio of technology work by Dave Clark
 menu: work
 ---
 %section{:id => 'content', :class => 'work'}
   .indent
     %h2 Work portfolio
     %p
-      Since the early 2000s I have worked on a variety of projects for both fun and business using plenty of languages and platforms. Some of these projects are documented below, others are scattered around my GitHub and some are just lost in time.
+      Over the last 10 years I have worked on a variety of projects for both fun and business using plenty of languages and platforms. Some of these projects are documented below while others are scattered around <a href='https://github.com/clarkdave'>my GitHub</a>.
   - sorted_portfolios.group_by{|i| i[:created_at].year }.each do |year, group|
     .work-listing.clearfix
       .year-box

@@ -13,6 +13,8 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
+haml_opts = { :ugly => false, :remove_whitespace => false }
+
 compile '/stylesheet/*' do
   filter :less
   filter :rainpress
@@ -21,7 +23,7 @@ end
 compile '/scripts/*' do; end
 
 compile '/' do
-  filter :haml
+  filter :haml, haml_opts
   layout 'default'
 end
 
@@ -43,7 +45,7 @@ compile '*' do
   if item.binary?
     # don’t filter binary items
   else
-    filter :haml
+    filter :haml, haml_opts
     layout 'default'
   end
 end
@@ -79,4 +81,4 @@ route '*' do
   end
 end
 
-layout '*', :haml
+layout '*', :haml, haml_opts

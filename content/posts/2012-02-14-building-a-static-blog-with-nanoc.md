@@ -156,8 +156,7 @@ Go ahead and add a new *route* rule, but place it above the `route '*' do ...` l
 
 	#!ruby
 	route '/posts/*' do
-	  y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/
-	    .match(item.identifier).captures
+	  y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/.match(item.identifier).captures
 
 	  "/#{y}/#{m}/#{slug}/index.html"
 	end
@@ -389,3 +388,4 @@ Thanks for reading!
 #### Related posts
 
 * [Building a static portfolio with nanoc](/2012/05/building-a-static-portfolio-with-nanoc/)
+* [Syntax highlighting in nanoc](/2013/03/syntax-highlighting-in-nanoc/)

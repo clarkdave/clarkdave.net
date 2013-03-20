@@ -23,7 +23,7 @@ In the case of Bitbucket (and GitHub) a deploy user is given read-only access to
     execute 'generate ssh key for deploy' do
       user 'deploy'
       creates '/home/deploy/.ssh/id_rsa'
-      command 'ssh-keygen -t rsa -q -f /home/deploy/.ssh/id_rsa.pub -P ""'
+      command 'ssh-keygen -t rsa -q -f /home/deploy/.ssh/id_rsa -P ""'
       notifies :create, "ruby_block[add_ssh_key_to_bitbucket]"
       notifies :run, "execute[add_bitbucket_to_known_hosts]"
     end

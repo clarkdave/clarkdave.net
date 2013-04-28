@@ -52,3 +52,23 @@ module PostHelper
 	end
 end
 include PostHelper
+
+module AssetHelper
+
+	require 'digest/md5'
+
+	def digest_for(item)
+		d = Digest::MD5.new
+		d << item.raw_content
+		d.hexdigest
+	end
+
+	def image_path(img)
+		digest = digest_for(img)
+		p img
+		img
+		# "/images/"
+	end
+
+end
+include AssetHelper

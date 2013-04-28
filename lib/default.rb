@@ -12,3 +12,12 @@ class PrettyPrint < Nanoc3::Filter
 		doc.to_xhtml
 	end
 end
+
+class Asset < Nanoc3::Filter
+  identifier :asset
+  type :text
+
+  def run(content, params = {})
+    
+  end
+end

@@ -132,8 +132,7 @@ Now let's fill in the `## TODO` section and create single EBS volumes. The provi
       end
     end
 
-    # create a filesystem, but only when the device is ok. Because attaching can sometimes take
-    # a while, we wait here until the block device actually exists:
+    # create a filesystem
     execute 'mkfs' do
       command "mkfs -t ext4 #{device_id}"
     end
@@ -146,7 +145,7 @@ Now let's fill in the `## TODO` section and create single EBS volumes. The provi
       action [:enable, :mount]
     end
 
-And that's pretty much it. The `ebs` providers will save attributes on the node (in `[:aws][:ebs_volume]` and `[:aws][:raid]`) so they remember which volumes are associated with it. This means that if the volumes are attached, the next `chef-client` run should reattach them correctly. It is also possible, using the same providers, to attach existing volumes instead of creating them on demand.
+And that's pretty much it. The `ebs` providers will save attributes on the node (in `[:aws][:ebs_volume]` and `[:aws][:raid]`) so they remember which volumes are associated with it. This means that if the volumes are detached, the next `chef-client` run should reattach them correctly. It is also possible, using the same providers, to attach existing volumes instead of creating them on demand.
 
 All you need to do now is adjust your database server configurations to use the `/data` directory, and configure your roles and environments with suitable EBS settings.
 

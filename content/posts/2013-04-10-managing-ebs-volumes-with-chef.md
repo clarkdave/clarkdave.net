@@ -1,5 +1,6 @@
 ---
 title: "Managing EBS volumes with Chef"
+description: How to use the opscode-aws cookbook to manage EBS volumes on Chef nodes, with configurable attributes for different roles and environments
 created_at: 2013-04-10 14:25:15 +0100
 kind: article
 published: true

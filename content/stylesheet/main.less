@@ -99,7 +99,10 @@ h1, h2, h3, h4, h5, h6 {
         width: 24px;
         height: 24px;
         margin: 5px 5px 0 0;
-        opacity: 0.4;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        opacity: 0.5;
         &:hover {
           opacity: 1;
         }
@@ -107,13 +110,19 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .github {
-      background: url('/images/icons/github.png') no-repeat 0 0;
+      // background: url('/images/icons/github.png') no-repeat 0 0;
+      background: #333 url('/images/icons/github_octocat_14px.png') no-repeat 50% 100%;
+      background-size: 14px;
     }
     .linkedin {
-      background: url('/images/icons/linkedin.png') no-repeat 0 0;
+      // background: url('/images/icons/linkedin.png') no-repeat 0 0;
+      background: #006699 url('/images/icons/linkedin_white_14px.png') no-repeat 50% 50%;
+      background-size: 14px;
     }
     .twitter {
-      background: url('/images/icons/twitter.png') no-repeat 0 0;
+      // background: url('/images/icons/twitter.png') no-repeat 0 0;
+      background: #00aced url('/images/icons/twitter_bird_14px.png') no-repeat 50% 50%;
+      background-size: 14px;
     }
   }
 }
@@ -263,9 +272,66 @@ h1, h2, h3, h4, h5, h6 {
   background: #fcfcfc;
 }
 
-.about, .contact {
+.contact {
   margin-top: 10px;
   padding: 0 20px 45px 90px;
+}
+
+.about {
+  
+  margin-top: 10px;
+  // padding: 0 20px 45px 90px;
+
+  h2 {
+    margin-left: 90px;
+  }
+
+  .bio {
+    padding: 0 20px 45px 0;
+    margin-left: 90px;
+  }
+
+  .sidebar {
+    width: 40px;
+    // height: 300px;
+    float: left;
+    // margin-left: 20px;
+    margin-left: 15px;
+
+    a {
+      display: block;
+      width: 40px;
+      height: 40px;
+      text-decoration: none;
+      text-align: center;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    .cv {
+      background-color: #424242;
+      color: #fff;
+      // padding: 10px 0;
+      font-size: 20px;
+      padding-top: 9px;
+      // font-family: 'Yanone Kaffeesatz', sans-serif;
+      font-family: 'Brawler', sans-serif;
+    }
+
+    .twitter {
+      background: #00aced url('/images/icons/twitter_bird.png') no-repeat 50% 50%;
+    }
+
+    .github {
+      background: #333 url('/images/icons/github_octocat.png') no-repeat 50% 100%;
+    }
+
+    .linkedin {
+      background: #006699 url('/images/icons/linkedin_white.png') no-repeat 50% 50%;
+    }
+  }
 }
 
 // work
@@ -516,14 +582,6 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     padding-top: 7px;
 
-    .edit {
-      display: block;
-      width: 32px;
-      height: 32px;
-      background: asset-url('icons/edit.png', image) no-repeat 0 0;
-      margin: 0 0 12px 18px;
-    }
-
     .dim {
       height: 500px;
       opacity: 0.5;
@@ -673,6 +731,52 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 20px;
   }
 
+  .about {
+    position: relative;
+
+    h2 {
+      // padding-left: 20px;
+      margin-left: 0;
+    }
+
+    .sidebar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 160px;
+      margin-left: 0;
+
+      a {
+        float: left;
+        margin-bottom: 0;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .cv {
+        font-size: 18px;
+        padding-top: 5px;
+      }
+      .twitter {
+        background-size: 20px;
+      }
+      .linkedin {
+        background-size: 20px;
+      }
+      .github {
+        background-size: 20px;
+      }
+    }
+
+    .bio {
+      margin-left: 0;
+    }
+  }
+
   .blog {
     .blog-entry {
       aside {
@@ -762,6 +866,33 @@ h1, h2, h3, h4, h5, h6 {
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
   
+  .about {
+    .sidebar {
+      width: 136px;
+      top: 5px;
+      a {
+        width: 24px;
+        height: 24px;
+      }
+      .cv {
+        font-size: 15px;
+        padding-top: 2px;
+      }
+      .twitter, .linkedin, .github {
+        background-size: 14px;
+      }
+      .twitter {
+        background-image: url('/images/icons/twitter_bird_14px.png');
+      }
+      .linkedin {
+        background-image: url('/images/icons/linkedin_white_14px.png');
+      }
+      .github {
+        background-image: url('/images/icons/github_octocat_14px.png');
+      }
+    }
+  }
+
   .work {
     
     .year-box {

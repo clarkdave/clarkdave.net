@@ -224,6 +224,16 @@ h1, h2, h3, h4, h5, h6 {
         margin: 4px 0 2px 44px;
       }
 
+      ul li ul {
+        margin-left: 0;
+        font-size: 100%;
+        color: #555;
+        li {
+          margin: 4px 0 2px 30px;
+        }
+      }
+
+
       ol li {
         margin: 4px 0 2px 44px;
       }
@@ -258,6 +268,29 @@ h1, h2, h3, h4, h5, h6 {
 
       code {
         font-family: Monaco, ProFont, "Bitstream Vera Sans Mono", "American Typewriter", "Andale Mono", monospace;
+      }
+
+      .info-bubble {
+        background-color: #fbfbfb;
+        // padding: 0 20px;
+        margin: 0 20px 20px 20px;
+        border: 2px dashed #eaeaea;
+        // border-top: 2px solid #eaeaea;
+        color: #333;
+        
+        .heading {
+          font-family: 'Brawler', serif;
+          color: #111;
+          padding: 16px 0 16px 15px;
+          margin-bottom: 15px;
+          background-color: #f7f7f7;
+          font-size: 18px;
+          border-bottom: 1px solid #eaeaea;
+        }
+
+        p {
+          padding: 0 15px;
+        }
       }
     }
   }

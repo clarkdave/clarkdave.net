@@ -1,9 +1,8 @@
-title: "Setting up fluentd and kibana using Chef"
+---
+title: "Setting up fluentd and Kibana using Chef"
 created_at: 2013-05-01 19:25:00 +0000
 kind: article
 published: false
 ---
 
-# How does it work?
-
-Enter Text in Markdown format.
+[fluentd](http://fluentd.org/) is a great log collector,

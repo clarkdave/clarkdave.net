@@ -2,7 +2,7 @@
 title: "Creating and bootstrapping EC2 instances in a VPC using Chef & Knife"
 created_at: 2013-05-09 09:02:41 +0100
 kind: article
-published: false
+published: true
 ---
 
 Instances in an Amazon VPC are a little tricker than usual to create using the `knife ec2 server create` command, because they are, of course, private. However, if you have an SSH gateway you can use that to create and bootstrap them.

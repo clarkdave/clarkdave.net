@@ -1,5 +1,5 @@
 ---
-title: "Creating and bootstrapping EC2 instances in a VPC using Chef & Knife"
+title: "Creating and bootstrapping EC2 instances in an Amazon VPC using Chef & Knife"
 created_at: 2013-05-09 09:02:41 +0100
 kind: article
 published: true

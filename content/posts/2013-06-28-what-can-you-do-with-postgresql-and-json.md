@@ -192,3 +192,5 @@ You've probably got the idea, so I'll leave it here.
 ### Is this better than MongoDB?
 
 Haha, just kidding. I'm not going to answer that!
+
+There's a whole lot of other JSON operators and functions I didn't cover here, for example to work with JSON arrays too. I recommend you check out the [official documentation](http://www.postgresql.org/docs/9.3/static/functions-json.html) to see what other cool stuff is possible.

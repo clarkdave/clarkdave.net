@@ -47,8 +47,8 @@ You can use the JSON operators to pull values out of JSON columns:
      id |      name
     ----+-----------------
       1 | Book the First
-      1 | Book the Second
-      1 | Book the Third
+      2 | Book the Second
+      3 | Book the Third
 
 The `->` operator returns the original JSON type (which might be an object), whereas `->>` returns text. You can use the `->` to return a nested object and thus chain the operators:
 
@@ -58,8 +58,8 @@ The `->` operator returns the original JSON type (which might be an object), whe
      id | author_first_name
     ----+-------------------
       1 | Bob
-      1 | Charles
-      1 | Jim
+      2 | Charles
+      3 | Jim
 
 How cool is that?
 
@@ -81,7 +81,7 @@ You can also find rows based on the value of a nested JSON object:
 
      id |                                            data
     ----+---------------------------------------------------------------------------------------------
-      1 | '{ "name": "Book the Second", "author": { "first_name": "Charles", "last_name": "Xavier" } }'
+      2 | '{ "name": "Book the Second", "author": { "first_name": "Charles", "last_name": "Xavier" } }'
 
 #### Indexing
 
@@ -176,7 +176,7 @@ Using the JSON operators, combined with traditional PostgreSQL [aggregate functi
      5          |    10
      15         |   700
 
-**Average screen resolution?!**
+**Average screen resolution?**
 
     #!sql
     SELECT AVG(CAST(browser->'resolution'->>'x' AS integer)) AS width,

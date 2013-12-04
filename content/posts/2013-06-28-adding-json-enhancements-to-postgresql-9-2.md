@@ -26,7 +26,7 @@ First up, make sure you have all the tools you need to compile (`make` and frien
 
 Now clone the `json_enhancements` git repo and build it:
 
-    $ git clone https://bitbucket.org/qooleot/json_enhancements
+    $ git clone https://bitbucket.org/IVC-Inc/json_enhancements
     $ cd json_enhancements
     $ make
 
@@ -41,7 +41,9 @@ Before you run make again, remove the built files, to avoid any weirdness:
     $ rm json_enhancements.control json_enhancements.so sql/json_enhancements.sql
     $ make
 
-If there are no errors, follow it up with `make install`.
+If there are no errors, follow it up with:
+
+    $ make install
 
 *Note: you may need to run `sudo make install`, depending on how you installed Postgres.*
 

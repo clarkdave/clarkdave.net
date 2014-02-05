@@ -21,7 +21,7 @@ Note: Logstash does have a generic HTTP output, but because the Sentry HTTP endp
 
 ### The Sentry plugin
 
-Start by creating a new plugin in your Logstash plugins directly, like below. I don't know why the plugins directly also needs to have a `logstash` folder, but it does.
+Start by creating a new plugin in your Logstash plugins directly, like below. I don't know why the plugins directory also needs to have a `logstash` folder, but it does.
 
     /opt/logstash/server/plugins/logstash/outputs/sentry.rb
 
@@ -63,9 +63,9 @@ The values are:
 
     https://{key}:{secret}@app.getsentry.com/{project_id}
 
-You might already be thinking "but Raven clients should use a DSN, not be hardcoded to use Sentry's domain" and you'd be right. It would be fairly trivial to change this plugin to act as a more generic Raven client. When I had more time I'd like to do just that, and submit to Logstash as a bundled output. This would then work not just for Sentry's hosted service but your own Sentry installations (Sentry is open-source too!)
+You might already be thinking "but Raven clients should use a DSN, not be hardcoded to use Sentry's domain" and you'd be right. It would be fairly trivial to change this plugin to act as a more generic Raven client. When I have more time I'd like to do just that, and submit to Logstash as a bundled output; this would then work not just for Sentry's hosted service but also your own Sentry installations (Sentry is open-source!)
 
-Anyway, now let's implement `recieve` method which will actually send the message to Sentry:
+Anyway, now let's implement `receive` method which will actually send the message to Sentry:
 
     #!ruby
     public

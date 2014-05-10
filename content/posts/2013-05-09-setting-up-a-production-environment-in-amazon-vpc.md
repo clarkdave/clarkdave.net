@@ -74,7 +74,8 @@ Create a new security group called *NATSG*, and place it in the VPC. Now configu
     22 (SSH)                192.168.0.0/16
     80 (HTTP)               192.168.0.0/16
     443 (HTTPS)             192.168.0.0/16
-    11371                   192.168.0.0/16
+    11371 [TCP]             192.168.0.0/16
+    123 [UDP]               192.168.0.0/16
 
 And these outbound rules:
 
@@ -82,9 +83,10 @@ And these outbound rules:
     22 (SSH)                0.0.0.0/0
     80 (HTTP)               0.0.0.0/0
     443 (HTTPS)             0.0.0.0/0
-    11371                   0.0.0.0/0
+    11371 [TCP]             0.0.0.0/0
+    123 [UDP]               0.0.0.0/0
 
-This will let servers in private subnets make outbound connections on these ports. The port `11371` is required if you'll be importing any keys from keyservers (e.g. using `gpg`, when adding custom PPAs in Ubuntu). If your private servers will need to connect on other other ports, make sure to specify them here.
+This will let servers in private subnets make outbound connections on these ports. The TCP port `11371` is required if you'll be importing any keys from keyservers (e.g. using `gpg`, when adding custom PPAs in Ubuntu). If your private servers will need to connect on other other ports, make sure to specify them here. The UDP port `123` is used by NTP.
 
 Now you'll want to apply the NATSG group to your NAT instance. Head over to the EC2 Console, find your NAT instance, and attach the NATSG group to it (and remove the `default` group).
 
@@ -99,6 +101,8 @@ IMAGE_HERE
 When it comes to choosing a security group, select the NATSG group you created earlier. Everything else can be left as default.
 
 While the new instance is booting, terminate the original NAT instance. Once it has been terminated, go to the *Elastic IPs* page. You should still have an IP here, left from the original NAT instance (if not, simply create a new one). Right click on this IP and associate it with your new NAT instance.
+
+Disable Source/Destination check for the new NAT instance. Right click on the new NAT instance and click `Change Source/Dest. Check` and then click `Disable`.
 
 The last thing we need to do is adjust our route table. Go back to the VPC Console, and click *Route Tables* in the menu. Select the *Main* route table (it should say it's associated with 0 Subnets) and remove the route to the old NAT instance (it should have a *blackhole* status). Now add a new route:
 

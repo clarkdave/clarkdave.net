@@ -25,7 +25,7 @@ Start by creating a new plugin in your Logstash plugins directly, like below. I 
 
     /opt/logstash/server/plugins/logstash/outputs/sentry.rb
 
-Now add this code to start the plugin - we'll implement the `receive` method in a moment.
+Now add this code to start the plugin - we'll implement the `receive` method in a moment. Or if you'd prefer, just grab the completed file [from GitHub](https://gist.github.com/clarkdave/edaab9be9eaa9bf1ee5f) and go from there.
 
     #!ruby
     require 'logstash/outputs/base'
@@ -68,45 +68,50 @@ You might already be thinking "but Raven clients should use a DSN, not be hardco
 Anyway, now let's implement `receive` method which will actually send the message to Sentry:
 
     #!ruby
-    public
-    def receive(event)
-      return unless output?(event)
+    class LogStash::Outputs::Sentry < LogStash::Outputs::Base
 
-      require 'securerandom'
+      # ...
 
-      packet = {
-        :event_id => SecureRandom.uuid.gsub('-', ''),
-        :timestamp => event['@timestamp'],
-        :message => event['message']
-      }
+      public
+      def receive(event)
+        return unless output?(event)
 
-      packet[:level] = event['[fields][level]']
+        require 'securerandom'
 
-      packet[:platform] = 'logstash'
-      packet[:server_name] = event['host']
-      packet[:extra] = event['fields'].to_hash
+        packet = {
+          :event_id => SecureRandom.uuid.gsub('-', ''),
+          :timestamp => event['@timestamp'],
+          :message => event['message']
+        }
 
-      @logger.debug("Sentry packet", :sentry_packet => packet)
+        packet[:level] = event['[fields][level]']
 
-      auth_header = "Sentry sentry_version=5," +
-        "sentry_client=raven_logstash/1.0," +
-        "sentry_timestamp=#{event['@timestamp'].to_i}," +
-        "sentry_key=#{@key}," +
-        "sentry_secret=#{@secret}"
+        packet[:platform] = 'logstash'
+        packet[:server_name] = event['host']
+        packet[:extra] = event['fields'].to_hash
 
-      request = Net::HTTP::Post.new(@uri.path)
+        @logger.debug("Sentry packet", :sentry_packet => packet)
 
-      begin
-        request.body = packet.to_json
-        request.add_field('X-Sentry-Auth', auth_header)
+        auth_header = "Sentry sentry_version=5," +
+          "sentry_client=raven_logstash/1.0," +
+          "sentry_timestamp=#{event['@timestamp'].to_i}," +
+          "sentry_key=#{@key}," +
+          "sentry_secret=#{@secret}"
 
-        response = @client.request(request)
+        request = Net::HTTP::Post.new(@uri.path)
 
-        @logger.info("Sentry response", :request => request.inspect, :response => response.inspect)
+        begin
+          request.body = packet.to_json
+          request.add_field('X-Sentry-Auth', auth_header)
 
-        raise unless response.code == '200'
-      rescue Exception => e
-        @logger.warn("Unhandled exception", :request => request.inspect, :response => response.inspect, :exception => e.inspect)
+          response = @client.request(request)
+
+          @logger.info("Sentry response", :request => request.inspect, :response => response.inspect)
+
+          raise unless response.code == '200'
+        rescue Exception => e
+          @logger.warn("Unhandled exception", :request => request.inspect, :response => response.inspect, :exception => e.inspect)
+        end
       end
     end
 

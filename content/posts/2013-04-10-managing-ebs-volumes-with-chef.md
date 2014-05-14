@@ -122,11 +122,11 @@ Now let's fill in the `## TODO` section and create single EBS volumes. The provi
 
     # wait for the drive to attach, before making a filesystem
     ruby_block "sleeping_data_volume" do
-      loop do
-        if File.blockdev?(device_id)
-          break
-        else
-          Chef::Log.info("device #{device_id} not ready - sleeping 10s")
+      block do
+        timeout = 0
+        until File.blockdev?(device_id) || timeout == 1000
+          Chef::Log.debug("device #{device_id} not ready - sleeping 10s")
+          timeout += 10
           sleep 10
         end
       end
@@ -154,3 +154,5 @@ And that's pretty much it. The `ebs` providers will save attributes on the node 
 All you need to do now is adjust your database server configurations to use the `/data` directory, and configure your roles and environments with suitable EBS settings.
 
 You can see the entire `app::database` recipe [on GitHub](https://gist.github.com/clarkdave/5477434).
+
+**Updated 2014-05-14:** added `sleeping_data_volume` improvements by Joshua Timberman

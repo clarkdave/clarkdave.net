@@ -88,6 +88,14 @@ And these outbound rules:
 
 This will let servers in private subnets make outbound connections on these ports. The TCP port `11371` is required if you'll be importing any keys from keyservers (e.g. using `gpg`, when adding custom PPAs in Ubuntu). If your private servers will need to connect on other other ports, make sure to specify them here. The UDP port `123` is used by NTP.
 
+If you ever use the git protocol (e.g. `git ls-remote git://github.com/yourcompany/yourapp.git master`), you'll need to add this port to the NATSG group too. If you only ever use Git over HTTP or SSH then this isn't necessary, but it's worth remembering because, if you use Chef/Puppet, some community cookbooks might use the Git protocol and you'll find them mysteriously failing because of this port :)
+
+    Inbound:
+    9418 [TCP]              192.168.0.0/16
+
+    Outbound:
+    9414 [TCP]              0.0.0.0/0
+
 Now you'll want to apply the NATSG group to your NAT instance. Head over to the EC2 Console, find your NAT instance, and attach the NATSG group to it (and remove the `default` group).
 
 #### (Optional) Create a new NAT instance as a t1.micro

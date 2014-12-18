@@ -2,7 +2,7 @@
 
 * {
   -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box; 
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -192,9 +192,22 @@ h1, h2, h3, h4, h5, h6 {
         padding: 0 20px;
       }
 
+      p {
+        font-size: 110%;
+
+        code {
+          margin: 0 3px;
+          padding: 2px 5px;
+          font-family: monospace;
+          font-size: 13px;
+          border: 1px solid #D4D5D7;
+          border-radius: 3px;
+          color: #268BD2;
+        }
+      }
+
       h3 {
         padding: 12px 20px 0 20px;
-        margin-top: 20px;
         //border-bottom: 1px solid #eee;
         background-color: #fff;
         //border-top-left-radius: 30px;
@@ -203,7 +216,7 @@ h1, h2, h3, h4, h5, h6 {
         //height: 60px;
         font-size: 30px;
         border-bottom: 1px solid #e5e5e5;
-        margin: 18px 20px 15px 20px;
+        margin: 50px 20px 15px 20px;
         padding: 0 0 10px 0;
       }
 
@@ -222,6 +235,7 @@ h1, h2, h3, h4, h5, h6 {
       ul li {
         list-style-type: disc;
         margin: 4px 0 2px 44px;
+        font-size: 110%;
       }
 
       ul li ul {
@@ -236,6 +250,7 @@ h1, h2, h3, h4, h5, h6 {
 
       ol li {
         margin: 4px 0 2px 44px;
+        font-size: 110%;
       }
 
       ol ul {
@@ -264,10 +279,11 @@ h1, h2, h3, h4, h5, h6 {
         // border-top: 2px dashed #eaeaea;
         // border-bottom: 2px dashed #eaeaea;
         // overflow-x: auto;
+        font-family: 'Monaco', courier, monospace;
       }
 
       code {
-        font-family: Monaco, ProFont, "Bitstream Vera Sans Mono", "American Typewriter", "Andale Mono", monospace;
+        // font-family: monospace;
       }
 
       .info-bubble {

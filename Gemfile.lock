@@ -3,46 +3,74 @@ GEM
   specs:
     asdf (0.5.0)
       rack (~> 1.2.1)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
+    coderay (1.1.0)
     colored (1.2)
-    commonjs (0.2.6)
-    cri (2.3.0)
-      colored (>= 1.2)
-    fssm (0.2.9)
+    cri (2.6.1)
+      colored (~> 1.2)
+    ffi (1.9.6)
+    formatador (0.2.5)
+    guard (2.10.4)
+      formatador (>= 0.2.4)
+      listen (~> 2.7)
+      lumberjack (~> 1.0)
+      nenv (~> 0.1)
+      pry (>= 0.9.12)
+      thor (>= 0.18.1)
+    guard-nanoc (1.0.3)
+      guard (~> 2.8)
+      nanoc (~> 3.6)
     haml (3.1.7)
+    hitimes (1.2.2)
     kramdown (0.14.0)
-    less (2.2.2)
-      commonjs (~> 0.2.6)
-    libv8 (3.3.10.4)
+    listen (2.8.4)
+      celluloid (>= 0.15.2)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+    lumberjack (1.0.9)
+    method_source (0.8.2)
     mime-types (1.19)
-    nanoc (3.4.2)
-      cri (~> 2.2)
+    nanoc (3.7.4)
+      cri (~> 2.3)
+    nenv (0.1.1)
     nokogiri (1.5.5)
-    posix-spawn (0.3.6)
-    pygments.rb (0.3.2)
-      posix-spawn (~> 0.3.6)
-      yajl-ruby (~> 1.1.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.2.5)
     rainpress (1.0)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.5)
+      ffi (>= 0.5.0)
+    redcarpet (3.2.2)
+    rouge (1.7.4)
+    sass (3.4.9)
+    sass-css-importer (1.0.0.beta.0)
+      sass (>= 3.1)
+    slop (3.6.0)
     stringex (1.4.0)
     systemu (2.5.2)
-    therubyracer (0.10.2)
-      libv8 (~> 3.3.10)
-    yajl-ruby (1.1.0)
+    thor (0.19.1)
+    timers (4.0.1)
+      hitimes
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   asdf
-  fssm
+  guard-nanoc (~> 1.0.3)
   haml
   kramdown
-  less
   mime-types
-  nanoc
+  nanoc (~> 3.7.4)
   nokogiri
-  pygments.rb
   rainpress
+  redcarpet (~> 3.2.2)
+  rouge (~> 1.7.4)
+  sass (~> 3.4.9)
+  sass-css-importer (~> 1.0.0.beta.0)
   stringex
   systemu
-  therubyracer

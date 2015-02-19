@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'rake', '~> 10.4.2'
 gem 'nanoc', '~> 3.7.4'
 gem 'guard-nanoc', '~> 1.0.3'
 

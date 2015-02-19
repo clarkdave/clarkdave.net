@@ -19,10 +19,9 @@ haml_opts = {
 }
 
 compile '/stylesheet/*' do
-  filter :sass, {
+  filter :sass,
     :syntax => :scss,
     :cache_location => './tmp/.sass-cache'
-  }
   filter :rainpress
 end
 
@@ -54,7 +53,7 @@ compile '*' do
 end
 
 route '/stylesheet/main' do
-  '/style.css'
+  '/style-v2.css'
 end
 
 route '/stylesheet/*' do; end

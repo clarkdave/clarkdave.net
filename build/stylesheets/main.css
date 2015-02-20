@@ -1,0 +1,2117 @@
+/* line 1, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* line 8, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* line 10, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+body {
+  line-height: 1; }
+
+/* line 12, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 14, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+blockquote, q {
+  quotes: none; }
+
+/* line 16, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* line 20, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 24, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h1, h2, h3, h4, h5, h6 {
+  color: #181818;
+  font-family: "Georgia", "Times New Roman", Helvetica, Arial, sans-serif;
+  font-weight: normal; }
+
+/* line 28, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  font-weight: inherit; }
+
+/* line 29, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h1 {
+  font-size: 46px;
+  line-height: 50px;
+  margin-bottom: 14px; }
+
+/* line 30, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h2 {
+  font-size: 35px;
+  line-height: 40px;
+  margin-bottom: 10px; }
+
+/* line 31, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h3 {
+  font-size: 28px;
+  line-height: 34px;
+  margin-bottom: 8px; }
+
+/* line 32, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h4 {
+  font-size: 21px;
+  line-height: 30px;
+  margin-bottom: 4px; }
+
+/* line 33, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h5 {
+  font-size: 17px;
+  line-height: 24px; }
+
+/* line 34, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+h6 {
+  font-size: 14px;
+  line-height: 21px; }
+
+/* line 35, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.subheader {
+  color: #777; }
+
+/* line 37, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+p {
+  margin: 0 0 15px 0; }
+
+/* line 38, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+p img {
+  margin: 0; }
+
+/* line 39, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+p.lead {
+  font-size: 21px;
+  line-height: 27px;
+  color: #777; }
+
+/* line 41, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+em {
+  font-style: italic; }
+
+/* line 42, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+strong {
+  font-weight: bold;
+  color: #333; }
+
+/* line 43, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+small {
+  font-size: 80%; }
+
+/*  Blockquotes  */
+/* line 46, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+blockquote, blockquote p {
+  font-size: 17px;
+  line-height: 24px;
+  color: #777;
+  font-style: italic; }
+
+/* line 47, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+blockquote {
+  margin: 0 0 20px;
+  padding: 9px 20px 0 19px;
+  border-left: 1px solid #ddd; }
+
+/* line 48, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+blockquote cite {
+  display: block;
+  font-size: 12px;
+  color: #555; }
+
+/* line 49, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+blockquote cite:before {
+  content: "\2014 \0020"; }
+
+/* line 50, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+blockquote cite a, blockquote cite a:visited, blockquote cite a:visited {
+  color: #555; }
+
+/* line 52, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+hr {
+  border: solid #ddd;
+  border-width: 1px 0 0;
+  clear: both;
+  margin: 10px 0 30px;
+  height: 0; }
+
+/* #Links
+================================================== */
+/* line 57, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+a, a:visited {
+  color: #333;
+  text-decoration: underline;
+  outline: 0; }
+
+/* line 58, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+a:hover, a:focus {
+  color: #000; }
+
+/* line 59, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+p a, p a:visited {
+  line-height: inherit; }
+
+/* #Lists
+================================================== */
+/* line 64, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul, ol {
+  margin-bottom: 20px; }
+
+/* line 65, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul {
+  list-style: none outside; }
+
+/* line 66, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ol {
+  list-style: decimal; }
+
+/* line 67, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ol, ul.square, ul.circle, ul.disc {
+  margin-left: 30px; }
+
+/* line 68, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul.square {
+  list-style: square outside; }
+
+/* line 69, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul.circle {
+  list-style: circle outside; }
+
+/* line 70, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul.disc {
+  list-style: disc outside; }
+
+/* line 71, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul ul, ul ol,
+ol ol, ol ul {
+  margin: 4px 0 5px 30px;
+  font-size: 90%; }
+
+/* line 73, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul ul li, ul ol li,
+ol ol li, ol ul li {
+  margin-bottom: 6px; }
+
+/* line 75, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+li {
+  line-height: 18px;
+  margin-bottom: 12px; }
+
+/* line 76, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+ul.large li {
+  line-height: 21px; }
+
+/* line 77, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+li p {
+  line-height: 21px; }
+
+/* #Images
+================================================== */
+/* line 82, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+img.scale-with-grid {
+  max-width: 100%;
+  height: auto; }
+
+/* #Buttons
+================================================== */
+/* line 90, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+a.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  background: #eee;
+  /* Old browsers */
+  background: #eee -moz-linear-gradient(top, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+  /* FF3.6+ */
+  background: #eee -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.2)), color-stop(100%, rgba(0, 0, 0, 0.2)));
+  /* Chrome,Safari4+ */
+  background: #eee -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: #eee -o-linear-gradient(top, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+  /* Opera11.10+ */
+  background: #eee -ms-linear-gradient(top, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+  /* IE10+ */
+  background: #eee linear-gradient(top, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+  /* W3C */
+  border: 1px solid #aaa;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  padding: 4px 12px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #444;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  margin-bottom: 20px;
+  line-height: 21px;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+/* line 120, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+a.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+  color: #222;
+  background: #ddd;
+  /* Old browsers */
+  background: #ddd -moz-linear-gradient(top, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+  /* FF3.6+ */
+  background: #ddd -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(0, 0, 0, 0.3)));
+  /* Chrome,Safari4+ */
+  background: #ddd -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: #ddd -o-linear-gradient(top, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+  /* Opera11.10+ */
+  background: #ddd -ms-linear-gradient(top, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+  /* IE10+ */
+  background: #ddd linear-gradient(top, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+  /* W3C */
+  border: 1px solid #888;
+  border-top: 1px solid #aaa;
+  border-left: 1px solid #aaa; }
+
+/* line 137, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+a.button:active,
+button:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active {
+  border: 1px solid #666;
+  background: #ccc;
+  /* Old browsers */
+  background: #ccc -moz-linear-gradient(top, rgba(255, 255, 255, 0.35) 0%, rgba(10, 10, 10, 0.4) 100%);
+  /* FF3.6+ */
+  background: #ccc -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.35)), color-stop(100%, rgba(10, 10, 10, 0.4)));
+  /* Chrome,Safari4+ */
+  background: #ccc -webkit-linear-gradient(top, rgba(255, 255, 255, 0.35) 0%, rgba(10, 10, 10, 0.4) 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: #ccc -o-linear-gradient(top, rgba(255, 255, 255, 0.35) 0%, rgba(10, 10, 10, 0.4) 100%);
+  /* Opera11.10+ */
+  background: #ccc -ms-linear-gradient(top, rgba(255, 255, 255, 0.35) 0%, rgba(10, 10, 10, 0.4) 100%);
+  /* IE10+ */
+  background: #ccc linear-gradient(top, rgba(255, 255, 255, 0.35) 0%, rgba(10, 10, 10, 0.4) 100%);
+  /* W3C */ }
+
+/* line 151, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.button.full-width,
+button.full-width,
+input[type="submit"].full-width,
+input[type="reset"].full-width,
+input[type="button"].full-width {
+  width: 100%;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  text-align: center; }
+
+/* #Forms
+================================================== */
+/* line 164, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+form {
+  margin-bottom: 20px; }
+
+/* line 166, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+fieldset {
+  margin-bottom: 20px; }
+
+/* line 168, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+  border: 1px solid #ccc;
+  padding: 6px 4px;
+  outline: none;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #777;
+  margin: 0;
+  width: 210px;
+  max-width: 100%;
+  display: block;
+  margin-bottom: 20px;
+  background: #fff; }
+
+/* line 187, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+select {
+  padding: 0; }
+
+/* line 189, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border: 1px solid #aaa;
+  color: #444;
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); }
+
+/* line 198, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+textarea {
+  min-height: 60px; }
+
+/* line 200, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+label,
+legend {
+  display: block;
+  font-weight: bold;
+  font-size: 13px; }
+
+/* line 205, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+select {
+  width: 220px; }
+
+/* line 207, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+input[type="checkbox"] {
+  display: inline; }
+
+/* line 209, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+label span,
+legend span {
+  font-weight: normal;
+  font-size: 13px;
+  color: #444; }
+
+/* #Misc
+================================================== */
+/* line 217, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.remove-bottom {
+  margin-bottom: 0 !important; }
+
+/* line 218, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.half-bottom {
+  margin-bottom: 10px !important; }
+
+/* line 219, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.add-bottom {
+  margin-bottom: 20px !important; }
+
+/* line 221, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container {
+  position: relative;
+  width: 960px;
+  margin: 0 auto;
+  padding: 0; }
+
+/* line 222, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.column, .columns {
+  float: left;
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px; }
+
+/* line 223, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.row {
+  margin-bottom: 20px; }
+
+/* Nested Column Classes */
+/* line 226, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.column.alpha, .columns.alpha {
+  margin-left: 0; }
+
+/* line 227, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.column.omega, .columns.omega {
+  margin-right: 0; }
+
+/* Base Grid */
+/* line 230, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .one.column {
+  width: 40px; }
+
+/* line 231, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .two.columns {
+  width: 100px; }
+
+/* line 232, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .three.columns {
+  width: 160px; }
+
+/* line 233, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .four.columns {
+  width: 220px; }
+
+/* line 234, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .five.columns {
+  width: 280px; }
+
+/* line 235, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .six.columns {
+  width: 340px; }
+
+/* line 236, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .seven.columns {
+  width: 400px; }
+
+/* line 237, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .eight.columns {
+  width: 460px; }
+
+/* line 238, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .nine.columns {
+  width: 520px; }
+
+/* line 239, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .ten.columns {
+  width: 580px; }
+
+/* line 240, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .eleven.columns {
+  width: 640px; }
+
+/* line 241, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .twelve.columns {
+  width: 700px; }
+
+/* line 242, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .thirteen.columns {
+  width: 760px; }
+
+/* line 243, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .fourteen.columns {
+  width: 820px; }
+
+/* line 244, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .fifteen.columns {
+  width: 880px; }
+
+/* line 245, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .sixteen.columns {
+  width: 940px; }
+
+/* line 247, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .one-third.column {
+  width: 300px; }
+
+/* line 248, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .two-thirds.column {
+  width: 620px; }
+
+/* Offsets */
+/* line 251, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-one {
+  padding-left: 60px; }
+
+/* line 252, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-two {
+  padding-left: 120px; }
+
+/* line 253, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-three {
+  padding-left: 180px; }
+
+/* line 254, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-four {
+  padding-left: 240px; }
+
+/* line 255, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-five {
+  padding-left: 300px; }
+
+/* line 256, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-six {
+  padding-left: 360px; }
+
+/* line 257, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-seven {
+  padding-left: 420px; }
+
+/* line 258, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-eight {
+  padding-left: 480px; }
+
+/* line 259, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-nine {
+  padding-left: 540px; }
+
+/* line 260, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-ten {
+  padding-left: 600px; }
+
+/* line 261, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-eleven {
+  padding-left: 660px; }
+
+/* line 262, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-twelve {
+  padding-left: 720px; }
+
+/* line 263, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-thirteen {
+  padding-left: 780px; }
+
+/* line 264, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-fourteen {
+  padding-left: 840px; }
+
+/* line 265, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container .offset-by-fifteen {
+  padding-left: 900px; }
+
+/* #Tablet (Portrait)
+================================================== */
+/* Note: Design for a width of 768px */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  /* line 275, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container {
+    width: 768px; }
+
+  /* line 276, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .column,
+  .container .columns {
+    margin-left: 10px;
+    margin-right: 10px; }
+
+  /* line 278, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .column.alpha, .columns.alpha {
+    margin-left: 0;
+    margin-right: 10px; }
+
+  /* line 279, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .column.omega, .columns.omega {
+    margin-right: 0;
+    margin-left: 10px; }
+
+  /* line 281, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .one.column {
+    width: 28px; }
+
+  /* line 282, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .two.columns {
+    width: 76px; }
+
+  /* line 283, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .three.columns {
+    width: 124px; }
+
+  /* line 284, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .four.columns {
+    width: 172px; }
+
+  /* line 285, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .five.columns {
+    width: 220px; }
+
+  /* line 286, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .six.columns {
+    width: 268px; }
+
+  /* line 287, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .seven.columns {
+    width: 316px; }
+
+  /* line 288, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .eight.columns {
+    width: 364px; }
+
+  /* line 289, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .nine.columns {
+    width: 412px; }
+
+  /* line 290, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .ten.columns {
+    width: 460px; }
+
+  /* line 291, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .eleven.columns {
+    width: 508px; }
+
+  /* line 292, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .twelve.columns {
+    width: 556px; }
+
+  /* line 293, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .thirteen.columns {
+    width: 604px; }
+
+  /* line 294, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .fourteen.columns {
+    width: 652px; }
+
+  /* line 295, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .fifteen.columns {
+    width: 700px; }
+
+  /* line 296, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .sixteen.columns {
+    width: 748px; }
+
+  /* line 298, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .one-third.column {
+    width: 236px; }
+
+  /* line 299, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .two-thirds.column {
+    width: 492px; }
+
+  /* Offsets */
+  /* line 302, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-one {
+    padding-left: 48px; }
+
+  /* line 303, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-two {
+    padding-left: 96px; }
+
+  /* line 304, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-three {
+    padding-left: 144px; }
+
+  /* line 305, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-four {
+    padding-left: 192px; }
+
+  /* line 306, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-five {
+    padding-left: 240px; }
+
+  /* line 307, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-six {
+    padding-left: 288px; }
+
+  /* line 308, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-seven {
+    padding-left: 336px; }
+
+  /* line 309, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-eight {
+    padding-left: 348px; }
+
+  /* line 310, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-nine {
+    padding-left: 432px; }
+
+  /* line 311, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-ten {
+    padding-left: 480px; }
+
+  /* line 312, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-eleven {
+    padding-left: 528px; }
+
+  /* line 313, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-twelve {
+    padding-left: 576px; }
+
+  /* line 314, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-thirteen {
+    padding-left: 624px; }
+
+  /* line 315, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-fourteen {
+    padding-left: 672px; }
+
+  /* line 316, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-fifteen {
+    padding-left: 720px; } }
+/*  #Mobile (Portrait)
+================================================== */
+/* Note: Design for a width of 320px */
+@media only screen and (max-width: 767px) {
+  /* line 326, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container {
+    width: 300px; }
+
+  /* line 327, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .columns, .column {
+    margin: 0; }
+
+  /* line 329, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .one.column,
+  .container .two.columns,
+  .container .three.columns,
+  .container .four.columns,
+  .container .five.columns,
+  .container .six.columns,
+  .container .seven.columns,
+  .container .eight.columns,
+  .container .nine.columns,
+  .container .ten.columns,
+  .container .eleven.columns,
+  .container .twelve.columns,
+  .container .thirteen.columns,
+  .container .fourteen.columns,
+  .container .fifteen.columns,
+  .container .sixteen.columns,
+  .container .one-third.column,
+  .container .two-thirds.column {
+    width: 300px; }
+
+  /* Offsets */
+  /* line 349, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .offset-by-one,
+  .container .offset-by-two,
+  .container .offset-by-three,
+  .container .offset-by-four,
+  .container .offset-by-five,
+  .container .offset-by-six,
+  .container .offset-by-seven,
+  .container .offset-by-eight,
+  .container .offset-by-nine,
+  .container .offset-by-ten,
+  .container .offset-by-eleven,
+  .container .offset-by-twelve,
+  .container .offset-by-thirteen,
+  .container .offset-by-fourteen,
+  .container .offset-by-fifteen {
+    padding-left: 0; } }
+/* #Mobile (Landscape)
+================================================== */
+/* Note: Design for a width of 480px */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  /* line 374, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container {
+    width: 420px; }
+
+  /* line 375, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .columns, .column {
+    margin: 0; }
+
+  /* line 377, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+  .container .one.column,
+  .container .two.columns,
+  .container .three.columns,
+  .container .four.columns,
+  .container .five.columns,
+  .container .six.columns,
+  .container .seven.columns,
+  .container .eight.columns,
+  .container .nine.columns,
+  .container .ten.columns,
+  .container .eleven.columns,
+  .container .twelve.columns,
+  .container .thirteen.columns,
+  .container .fourteen.columns,
+  .container .fifteen.columns,
+  .container .sixteen.columns,
+  .container .one-third.column,
+  .container .two-thirds.column {
+    width: 420px; } }
+/* #Clearing
+================================================== */
+/* Self Clearing Goodness */
+/* line 402, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.container:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+/* Use clearfix class on parent to clear nested columns,
+or wrap each row of columns in a <div class="row"> */
+/* line 406, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.clearfix:before,
+.clearfix:after,
+.row:before,
+.row:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0; }
+
+/* line 416, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.row:after,
+.clearfix:after {
+  clear: both; }
+
+/* line 419, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.row,
+.clearfix {
+  zoom: 1; }
+
+/* You can also use a <br class="clear" /> to clear columns */
+/* line 424, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/base.scss */
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0; }
+
+/* line 3, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* line 9, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+body {
+  background: #fff url("/images/layout/background.png") repeat;
+  background-attachment: fixed;
+  font: 16px 'Source Sans Pro', sans-serif;
+  color: #2E2E2E;
+  -webkit-font-smoothing: antialiased;
+  /* Fix for webkit rendering */
+  -webkit-text-size-adjust: 100%; }
+
+/* line 18, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+html, body {
+  height: 100%; }
+
+/* line 22, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Serif Pro', serif; }
+
+/* line 26, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+#page {
+  background: #fff url("/images/layout/left-background.png") repeat-y;
+  height: 100%;
+  height: auto !important;
+  min-height: 100%; }
+  /* line 32, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  #page header {
+    position: relative;
+    height: 70px; }
+    /* line 37, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    #page header h1 {
+      width: 70px;
+      height: 70px;
+      background: url("/images/layout/cd.png") no-repeat;
+      text-indent: -9999em;
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0; }
+    /* line 49, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    #page header nav {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 1.7em;
+      position: absolute;
+      top: 0;
+      left: 100px; }
+      /* line 56, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      #page header nav ul {
+        padding: 0;
+        margin: 0; }
+      /* line 61, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      #page header nav li {
+        display: inline;
+        float: left;
+        margin: 0; }
+        /* line 66, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        #page header nav li a {
+          display: inline-block;
+          margin: 0;
+          padding: 10px 13px 10px 13px;
+          text-decoration: none;
+          font-size: 18px; }
+          /* line 73, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+          #page header nav li a.active, #page header nav li a.active:hover {
+            color: #000;
+            border-bottom: 3px solid #555; }
+          /* line 79, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+          #page header nav li a:hover {
+            border-bottom: 3px solid #ccc; }
+          /* line 85, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+          #page header nav li a:active {
+            color: #555; }
+    /* line 93, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    #page header aside {
+      position: absolute;
+      top: 0;
+      right: 0;
+      overflow: auto; }
+      /* line 99, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      #page header aside a {
+        display: block;
+        float: left;
+        width: 24px;
+        height: 24px;
+        margin: 5px 5px 0 0;
+        opacity: 0.5; }
+        /* line 108, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        #page header aside a:hover {
+          opacity: 1; }
+    /* line 114, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    #page header .github {
+      background: #333 url("/images/icons/github_octocat_14px.png") no-repeat 50% 100%;
+      background-size: 14px; }
+    /* line 119, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    #page header .linkedin {
+      background: #006699 url("/images/icons/linkedin_white_14px.png") no-repeat 50% 50%;
+      background-size: 13px; }
+    /* line 124, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    #page header .twitter {
+      background: #00aced url("/images/icons/twitter_bird_14px.png") no-repeat 50% 50%;
+      background-size: 14px; }
+
+/* line 134, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.indented-title {
+  padding-left: 85px; }
+
+/* line 138, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.blog {
+  margin-top: 10px;
+  padding-bottom: 45px; }
+  /* line 143, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .blog .blog-entry {
+    overflow: auto;
+    margin-bottom: 20px; }
+    /* line 148, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .blog .blog-entry aside {
+      width: 70px;
+      float: left; }
+      /* line 152, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry aside .date {
+        background: url("/images/icons/cal.png") no-repeat 0 2px;
+        width: 49px;
+        height: 58px;
+        overflow: hidden;
+        margin: 4px 0 0 10px;
+        font-weight: bold;
+        text-align: center; }
+        /* line 161, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry aside .date .month {
+          color: #fff;
+          font-size: 14px;
+          padding-top: 1px;
+          text-transform: uppercase; }
+        /* line 168, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry aside .date .day {
+          color: #000;
+          font-size: 27px;
+          margin-top: 0; }
+    /* line 176, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .blog .blog-entry article {
+      margin-left: 70px;
+      padding: 0; }
+      /* line 180, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article .read-more {
+        padding: 0 20px 20px 20px; }
+      /* line 184, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article h2 a {
+        text-decoration: none; }
+        /* line 187, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry article h2 a:hover {
+          text-decoration: underline; }
+      /* line 192, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article h2, .blog .blog-entry article h3, .blog .blog-entry article h4, .blog .blog-entry article h5, .blog .blog-entry article p {
+        padding: 0 20px; }
+      /* line 196, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article p {
+        font-size: 17px;
+        line-height: 28px; }
+        /* line 201, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry article p code {
+          margin: 0 3px;
+          padding: 2px 5px;
+          font-family: 'Source Code Pro', 'Monaco', monospace;
+          font-size: 16px;
+          border-radius: 4px;
+          background-color: #e0f2ff;
+          background-color: #e8f5ff;
+          background-color: #edfaff;
+          color: #268BD2;
+          color: #0882d3;
+          white-space: nowrap; }
+      /* line 217, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article h3 {
+        padding: 12px 20px 0 20px;
+        background-color: #fff;
+        font-size: 30px;
+        border-bottom: 1px solid #e5e5e5;
+        margin: 50px 20px 15px 20px;
+        padding: 0 0 10px 0; }
+      /* line 231, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article h4 {
+        color: #222;
+        font-size: 26px;
+        margin-bottom: 14px;
+        margin-top: 26px; }
+      /* line 238, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article h5 {
+        margin-bottom: 8px;
+        color: #111; }
+      /* line 243, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article ul li {
+        list-style-type: disc;
+        margin: 4px 0 2px 44px;
+        font-size: 110%;
+        line-height: 22px; }
+      /* line 250, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article ul li ul {
+        margin-left: 0;
+        font-size: 100%;
+        color: #555; }
+        /* line 254, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry article ul li ul li {
+          margin: 4px 0 2px 30px; }
+      /* line 260, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article ol li {
+        margin: 4px 0 2px 44px;
+        font-size: 110%; }
+      /* line 265, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article ol ul {
+        margin-left: 0; }
+        /* line 267, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry article ol ul li {
+          margin-left: 17px; }
+      /* line 272, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article pre {
+        background: #272822;
+        color: #f8f8f8;
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #eaeaea;
+        border-right: none;
+        font-size: 14px;
+        line-height: 22px;
+        overflow-x: auto;
+        font-family: 'Source Code Pro', 'Monaco', courier, monospace; }
+      /* line 300, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .blog .blog-entry article .info-bubble {
+        background-color: #fbfbfb;
+        margin: 0 20px 20px 20px;
+        border: 2px dashed #eaeaea;
+        color: #333; }
+        /* line 308, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry article .info-bubble .heading {
+          font-family: 'Brawler', serif;
+          color: #111;
+          padding: 16px 0 16px 15px;
+          margin-bottom: 15px;
+          background-color: #f7f7f7;
+          font-size: 18px;
+          border-bottom: 1px solid #eaeaea; }
+        /* line 318, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .blog .blog-entry article .info-bubble p {
+          padding: 0 15px; }
+
+/* line 326, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.disqus {
+  border-top: 1px solid #eee;
+  padding: 20px 20px 20px 20px;
+  margin-top: 50px;
+  margin-left: 70px;
+  background: #fcfcfc; }
+
+/* line 335, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.contact {
+  margin-top: 10px;
+  padding: 0 20px 45px 90px; }
+
+/* line 340, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.about {
+  margin-top: 10px; }
+  /* line 345, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .about h2 {
+    margin-left: 90px; }
+  /* line 349, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .about .bio {
+    padding: 0 20px 45px 0;
+    margin-left: 90px; }
+  /* line 354, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .about .sidebar {
+    width: 40px;
+    float: left;
+    margin-left: 15px; }
+    /* line 361, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar a {
+      display: block;
+      width: 40px;
+      height: 40px;
+      text-decoration: none;
+      text-align: center;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      margin-bottom: 10px; }
+    /* line 373, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .cv {
+      background-color: #424242;
+      color: #fff;
+      font-size: 20px;
+      padding-top: 9px; }
+    /* line 380, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .twitter {
+      background: #00aced url("/images/icons/twitter_bird.png") no-repeat 50% 50%; }
+    /* line 384, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .github {
+      background: #333 url("/images/icons/github_octocat.png") no-repeat 50% 100%; }
+    /* line 388, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .linkedin {
+      background: #006699 url("/images/icons/linkedin_white.png") no-repeat 50% 50%; }
+
+/* line 397, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.work {
+  padding-top: 10px;
+  overflow: auto; }
+  /* line 403, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .indent {
+    margin-left: 90px; }
+  /* line 407, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-chrono {
+    width: 70px;
+    float: left; }
+    /* line 411, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-chrono .work-box {
+      border: 5px solid #fff;
+      background: #333;
+      height: 44px;
+      width: 44px;
+      -moz-transition-property: opacity;
+      -moz-transition-duration: 0.3s;
+      margin: 0 0 10px 8px;
+      opacity: 0.5;
+      cursor: pointer; }
+      /* line 422, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-chrono .work-box:hover {
+        opacity: 1; }
+  /* line 428, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail {
+    padding-left: 20px;
+    overflow: auto; }
+    /* line 432, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail h3 {
+      margin-bottom: 15px; }
+  /* line 443, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .year-box {
+    float: left;
+    width: 70px; }
+    /* line 447, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .year-box aside {
+      display: block;
+      text-align: center;
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      font-weight: bold;
+      font-size: 1.8em;
+      background: #fff;
+      width: 55px;
+      padding: 2px 0 5px 0;
+      margin: 0 auto;
+      border-radius: 5px; }
+  /* line 461, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-group {
+    margin-left: 90px; }
+  /* line 465, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-item {
+    width: 415px;
+    float: left;
+    margin: 0 20px 20px 0;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 0px 3px 2px rgba(95, 95, 95, 0.1);
+    box-shadow: 0px 0px 3px 2px rgba(95, 95, 95, 0.1); }
+    /* line 473, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item .work-aux {
+      padding: 5px 10px 0 10px;
+      color: #555; }
+    /* line 478, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item h4 {
+      margin: 0; }
+      /* line 483, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-item h4 a {
+        text-decoration: none;
+        color: #333; }
+        /* line 486, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .work .work-item h4 a:hover {
+          text-decoration: underline; }
+    /* line 492, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item p {
+      margin: 0 0 10px 0;
+      border-bottom: 1px solid #ddd; }
+    /* line 497, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item .picture-frame {
+      padding: 0 10px 10px 10px; }
+    /* line 500, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item .picture {
+      height: 170px;
+      border-radius: 8px;
+      -webkit-box-shadow: 0px 0px 3px 2px rgba(120, 120, 120, 0.15);
+      box-shadow: 0px 0px 3px 2px rgba(120, 120, 120, 0.15); }
+  /* line 508, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail {
+    margin: 0 20px 20px 0; }
+    /* line 515, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .work-aux {
+      width: 310px;
+      float: left;
+      border-right: none;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      height: 80px;
+      padding: 10px; }
+    /* line 526, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .picture-frame {
+      margin-left: 310px; }
+    /* line 529, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .picture {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      border: 1px solid #ddd;
+      background-color: #333;
+      height: 80px; }
+    /* line 538, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail h4 {
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      font-size: 2em;
+      margin: 0 0 8px 0; }
+      /* line 543, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-detail h4 a {
+        text-decoration: none; }
+        /* line 545, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .work .work-detail h4 a:hover {
+          text-decoration: underline; }
+    /* line 551, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail p {
+      padding: 0;
+      margin: 0; }
+  /* line 573, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-item .picture-placeholder, .work .detail-box .picture-placeholder {
+    background: #333; }
+  /* line 583, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail {
+    margin-bottom: 0; }
+    /* line 587, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .work-aux {
+      height: 200px;
+      background-color: #fff;
+      border: none;
+      padding: 0;
+      position: relative; }
+    /* line 595, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .completed {
+      margin-bottom: 6px; }
+    /* line 599, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .techs {
+      margin: 10px 0 0 0; }
+      /* line 604, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-detail .techs li {
+        list-style: none;
+        display: block;
+        float: left;
+        background-color: #f8f8f8;
+        padding: 2px 5px;
+        border: 1px solid #f1f1f1;
+        margin: 0 5px 5px 0;
+        font-size: 0.8em; }
+    /* line 617, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .picture-frame {
+      margin-left: 350px;
+      padding-top: 5px; }
+    /* line 622, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail .picture {
+      height: 200px;
+      border-radius: 8px;
+      border: none;
+      -webkit-box-shadow: 0px 0px 3px 2px rgba(95, 95, 95, 0.2);
+      box-shadow: 0px 0px 3px 2px rgba(95, 95, 95, 0.2); }
+  /* line 631, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-description {
+    margin: 0 20px 20px 90px; }
+  /* line 636, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail-techs {
+    width: 70px;
+    float: left;
+    text-align: center;
+    padding-top: 7px; }
+    /* line 642, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail-techs .dim {
+      height: 500px;
+      opacity: 0.5;
+      -moz-transition-property: opacity;
+      -moz-transition-duration: 0.3s; }
+      /* line 648, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-detail-techs .dim:hover {
+        opacity: 1; }
+    /* line 653, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail-techs .tech {
+      margin: 0 0 10px 0; }
+      /* line 657, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-detail-techs .tech span, .work .work-detail-techs .tech abbr {
+        font-family: Monaco, ProFont, "Bitstream Vera Sans Mono", "American Typewriter", "Andale Mono", monospace;
+        font-size: 0.9em;
+        background: #333;
+        color: #fff;
+        padding: 4px 6px;
+        border-radius: 3px;
+        cursor: default;
+        background-image: linear-gradient(bottom, #333333 65%, #1a1a1a 76%);
+        background-image: -o-linear-gradient(bottom, #333333 65%, #1a1a1a 76%);
+        background-image: -moz-linear-gradient(bottom, #333333 65%, #1a1a1a 76%);
+        background-image: -webkit-linear-gradient(bottom, #333333 65%, #1a1a1a 76%);
+        background-image: -ms-linear-gradient(bottom, #333333 65%, #1a1a1a 76%); }
+  /* line 677, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail {
+    padding: 0 20px 20px 20px;
+    margin-left: 70px; }
+  /* line 682, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .detail-box {
+    width: 100%;
+    height: auto; }
+    /* line 686, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .detail-box .status {
+      overflow: auto;
+      padding: 13px 0 3px 0; }
+      /* line 690, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .detail-box .status p {
+        background: #fcfcfc;
+        padding: 3px 8px;
+        font-size: 1.1em;
+        border: 1px solid #ddd;
+        border-radius: 3px; }
+      /* line 699, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .detail-box .status .date {
+        float: left; }
+      /* line 702, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .detail-box .status .url {
+        float: right; }
+    /* line 707, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .detail-box .description {
+      background: #fcfcfc;
+      padding: 10px 8px 0 8px;
+      margin: 8px 0 0 0;
+      font-size: 1.1em;
+      border: 1px solid #ddd;
+      border-radius: 3px; }
+      /* line 715, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .detail-box .description p {
+        margin: 0 6px 10px 6px;
+        padding: 0; }
+
+/* IE stuff */
+/* line 725, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.no-boxshadow .work .work-item {
+  border: 1px solid #ccc; }
+
+/* Smaller than standard 960 (devices and browsers) */
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  /* line 738, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-item {
+    width: 319px; } }
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+  /* line 748, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  h1 {
+    font-size: 46px;
+    line-height: 50px;
+    margin-bottom: 14px; }
+
+  /* line 749, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  h2 {
+    font-size: 27px;
+    line-height: 34px;
+    margin-bottom: 10px; }
+
+  /* line 750, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  h3 {
+    font-size: 25px;
+    line-height: 34px;
+    margin-bottom: 8px; }
+
+  /* line 751, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  h4 {
+    font-size: 21px;
+    line-height: 30px;
+    margin-bottom: 4px; }
+
+  /* line 752, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  h5 {
+    font-size: 17px;
+    line-height: 24px; }
+
+  /* line 753, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  h6 {
+    font-size: 14px;
+    line-height: 21px; }
+
+  /* line 755, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  #page {
+    background: #fff; }
+    /* line 759, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    #page header {
+      background-color: #f5f1e7;
+      height: 42px; }
+      /* line 763, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      #page header h1 {
+        height: 42px;
+        width: 42px;
+        background-image: url("/images/layout/cd_small.png"); }
+      /* line 769, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      #page header nav {
+        left: auto;
+        right: 0; }
+      /* line 773, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      #page header nav ul a {
+        padding-left: 10px;
+        padding-right: 10px; }
+      /* line 777, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      #page header aside {
+        display: none; }
+
+  /* line 783, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .disqus {
+    margin-left: 0; }
+
+  /* line 787, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .about, .contact {
+    padding-left: 20px; }
+
+  /* line 791, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .about {
+    position: relative; }
+    /* line 794, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about h2 {
+      margin-left: 0; }
+    /* line 799, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 160px;
+      margin-left: 0; }
+      /* line 806, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .about .sidebar a {
+        float: left;
+        margin-bottom: 0;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px; }
+        /* line 812, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .about .sidebar a:last-child {
+          margin-right: 0; }
+      /* line 817, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .about .sidebar .cv {
+        font-size: 18px;
+        padding-top: 5px; }
+      /* line 821, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .about .sidebar .twitter {
+        background-size: 20px; }
+      /* line 824, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .about .sidebar .linkedin {
+        background-size: 20px; }
+      /* line 827, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .about .sidebar .github {
+        background-size: 20px; }
+    /* line 832, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .bio {
+      margin-left: 0; }
+
+  /* line 839, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .blog .blog-entry aside {
+    float: right; }
+  /* line 842, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .blog .blog-entry article {
+    margin-left: 0; }
+    /* line 845, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .blog .blog-entry article h3 {
+      margin-top: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+      height: auto; }
+
+  /* line 855, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work {
+    padding-top: 10px; }
+    /* line 858, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .indent {
+      margin-top: 0;
+      margin-left: 20px; }
+    /* line 863, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .year-box {
+      display: none; }
+    /* line 866, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-group {
+      margin-left: 20px;
+      margin-right: 20px; }
+    /* line 870, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item {
+      width: 100%;
+      margin-right: 0; }
+    /* line 874, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item .work-aux {
+      float: none;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 8px; }
+    /* line 879, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-item .picture-frame {
+      margin-left: 0; }
+    /* line 887, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-detail {
+      margin-left: 0;
+      padding-right: 0; }
+      /* line 890, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-detail .work-aux {
+        width: auto;
+        height: auto;
+        float: none; }
+        /* line 896, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .work .work-detail .work-aux .completed {
+          float: left; }
+        /* line 898, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .work .work-detail .work-aux .url {
+          float: right; }
+        /* line 902, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+        .work .work-detail .work-aux .techs {
+          display: none; }
+      /* line 906, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+      .work .work-detail .picture-frame {
+        margin-left: 0; }
+    /* line 911, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .work .work-description {
+      margin-left: 20px; } }
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+  /* line 927, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .about .sidebar {
+    width: 136px;
+    top: 5px; }
+    /* line 930, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar a {
+      width: 24px;
+      height: 24px; }
+    /* line 934, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .cv {
+      font-size: 15px;
+      padding-top: 2px; }
+    /* line 938, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .twitter, .about .sidebar .linkedin, .about .sidebar .github {
+      background-size: 14px; }
+    /* line 941, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .twitter {
+      background-image: url("/images/icons/twitter_bird_14px.png"); }
+    /* line 944, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .linkedin {
+      background-image: url("/images/icons/linkedin_white_14px.png"); }
+    /* line 947, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+    .about .sidebar .github {
+      background-image: url("/images/icons/github_octocat_14px.png"); }
+
+  /* line 961, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-item .work-aux {
+    width: 240px;
+    height: auto; }
+  /* line 971, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail .work-aux .completed, .work .work-detail .work-aux .url {
+    float: none; }
+  /* line 974, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail .work-aux .completed {
+    margin-bottom: 2px; }
+  /* line 976, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+  .work .work-detail .work-aux .url {
+    margin-bottom: 6px; } }
+/* line 1057, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .hll {
+  background-color: #49483e; }
+
+/* line 1058, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .c {
+  color: #75715e; }
+
+/* Comment */
+/* line 1059, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .err {
+  color: #960050;
+  background-color: #1e0010; }
+
+/* Error */
+/* line 1060, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .k {
+  color: #66d9ef; }
+
+/* Keyword */
+/* line 1061, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .l {
+  color: #ae81ff; }
+
+/* Literal */
+/* line 1062, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .n {
+  color: #f8f8f2; }
+
+/* Name */
+/* line 1063, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .o {
+  color: #f92672; }
+
+/* Operator */
+/* line 1064, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .p {
+  color: #f8f8f2; }
+
+/* Punctuation */
+/* line 1065, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .cm {
+  color: #75715e; }
+
+/* Comment.Multiline */
+/* line 1066, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .cp {
+  color: #75715e; }
+
+/* Comment.Preproc */
+/* line 1067, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .c1 {
+  color: #75715e; }
+
+/* Comment.Single */
+/* line 1068, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .cs {
+  color: #75715e; }
+
+/* Comment.Special */
+/* line 1069, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .ge {
+  font-style: italic; }
+
+/* Generic.Emph */
+/* line 1070, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .gs {
+  font-weight: bold; }
+
+/* Generic.Strong */
+/* line 1071, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .kc {
+  color: #66d9ef; }
+
+/* Keyword.Constant */
+/* line 1072, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .kd {
+  color: #66d9ef; }
+
+/* Keyword.Declaration */
+/* line 1073, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .kn {
+  color: #f92672; }
+
+/* Keyword.Namespace */
+/* line 1074, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .kp {
+  color: #66d9ef; }
+
+/* Keyword.Pseudo */
+/* line 1075, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .kr {
+  color: #66d9ef; }
+
+/* Keyword.Reserved */
+/* line 1076, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .kt {
+  color: #66d9ef; }
+
+/* Keyword.Type */
+/* line 1077, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .ld {
+  color: #e6db74; }
+
+/* Literal.Date */
+/* line 1078, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .m {
+  color: #ae81ff; }
+
+/* Literal.Number */
+/* line 1079, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .s {
+  color: #e6db74; }
+
+/* Literal.String */
+/* line 1080, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .na {
+  color: #a6e22e; }
+
+/* Name.Attribute */
+/* line 1081, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nb {
+  color: #f8f8f2; }
+
+/* Name.Builtin */
+/* line 1082, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nc {
+  color: #a6e22e; }
+
+/* Name.Class */
+/* line 1083, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .no {
+  color: #66d9ef; }
+
+/* Name.Constant */
+/* line 1084, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nd {
+  color: #a6e22e; }
+
+/* Name.Decorator */
+/* line 1085, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .ni {
+  color: #f8f8f2; }
+
+/* Name.Entity */
+/* line 1086, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .ne {
+  color: #a6e22e; }
+
+/* Name.Exception */
+/* line 1087, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nf {
+  color: #a6e22e; }
+
+/* Name.Function */
+/* line 1088, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nl {
+  color: #f8f8f2; }
+
+/* Name.Label */
+/* line 1089, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nn {
+  color: #f8f8f2; }
+
+/* Name.Namespace */
+/* line 1090, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nx {
+  color: #a6e22e; }
+
+/* Name.Other */
+/* line 1091, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .py {
+  color: #f8f8f2; }
+
+/* Name.Property */
+/* line 1092, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nt {
+  color: #f92672; }
+
+/* Name.Tag */
+/* line 1093, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .nv {
+  color: #f8f8f2; }
+
+/* Name.Variable */
+/* line 1094, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .ow {
+  color: #f92672; }
+
+/* Operator.Word */
+/* line 1095, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .w {
+  color: #f8f8f2; }
+
+/* Text.Whitespace */
+/* line 1096, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .mf {
+  color: #ae81ff; }
+
+/* Literal.Number.Float */
+/* line 1097, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .mh {
+  color: #ae81ff; }
+
+/* Literal.Number.Hex */
+/* line 1098, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .mi {
+  color: #ae81ff; }
+
+/* Literal.Number.Integer */
+/* line 1099, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .mo {
+  color: #ae81ff; }
+
+/* Literal.Number.Oct */
+/* line 1100, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .sb {
+  color: #e6db74; }
+
+/* Literal.String.Backtick */
+/* line 1101, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .sc {
+  color: #e6db74; }
+
+/* Literal.String.Char */
+/* line 1102, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .sd {
+  color: #e6db74; }
+
+/* Literal.String.Doc */
+/* line 1103, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .s2 {
+  color: #e6db74; }
+
+/* Literal.String.Double */
+/* line 1104, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .se {
+  color: #ae81ff; }
+
+/* Literal.String.Escape */
+/* line 1105, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .sh {
+  color: #e6db74; }
+
+/* Literal.String.Heredoc */
+/* line 1106, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .si {
+  color: #e6db74; }
+
+/* Literal.String.Interpol */
+/* line 1107, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .sx {
+  color: #e6db74; }
+
+/* Literal.String.Other */
+/* line 1108, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .sr {
+  color: #e6db74; }
+
+/* Literal.String.Regex */
+/* line 1109, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .s1 {
+  color: #e6db74; }
+
+/* Literal.String.Single */
+/* line 1110, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .ss {
+  color: #e6db74; }
+
+/* Literal.String.Symbol */
+/* line 1111, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .bp {
+  color: #f8f8f2; }
+
+/* Name.Builtin.Pseudo */
+/* line 1112, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .vc {
+  color: #f8f8f2; }
+
+/* Name.Variable.Class */
+/* line 1113, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .vg {
+  color: #f8f8f2; }
+
+/* Name.Variable.Global */
+/* line 1114, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .vi {
+  color: #f8f8f2; }
+
+/* Name.Variable.Instance */
+/* line 1115, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .il {
+  color: #ae81ff; }
+
+/* Literal.Number.Integer.Long */
+/* Generic Heading & Diff Header */
+/* line 1118, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .gu {
+  color: #75715e; }
+
+/* Generic.Subheading & Diff Unified/Comment? */
+/* line 1119, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .gd {
+  color: #f92672; }
+
+/* Generic.Deleted & Diff Deleted */
+/* line 1120, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+code .gi {
+  color: #a6e22e; }
+
+/* Generic.Inserted & Diff Inserted */
+/* lightbox styles */
+/* line 1124, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+#lightboxOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85);
+  opacity: 0.85;
+  display: none; }
+
+/* line 15, ../sass/lightbox.sass */
+/* line 1136, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+#lightbox {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  text-align: center;
+  line-height: 0;
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+  font-weight: normal; }
+
+/* line 24, ../sass/lightbox.sass */
+/* line 1147, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+#lightbox img {
+  width: auto;
+  height: auto; }
+
+/* line 27, ../sass/lightbox.sass */
+/* line 1152, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+#lightbox a img {
+  border: none; }
+
+/* line 30, ../sass/lightbox.sass */
+/* line 1157, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-outerContainer {
+  position: relative;
+  background-color: white;
+  *zoom: 1;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px; }
+
+/* line 38, ../../../../.rvm/gems/ruby-1.9.2-p290/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 1171, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-outerContainer:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/* line 39, ../sass/lightbox.sass */
+/* line 1178, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-container {
+  padding: 10px; }
+
+/* line 42, ../sass/lightbox.sass */
+/* line 1183, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-loader {
+  position: absolute;
+  top: 40%;
+  left: 0%;
+  height: 25%;
+  width: 100%;
+  text-align: center;
+  line-height: 0; }
+
+/* line 51, ../sass/lightbox.sass */
+/* line 1194, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10; }
+
+/* line 59, ../sass/lightbox.sass */
+/* line 1204, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-container > .nav {
+  left: 0; }
+
+/* line 62, ../sass/lightbox.sass */
+/* line 1209, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-nav a {
+  outline: none; }
+
+/* line 65, ../sass/lightbox.sass */
+/* line 1214, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-prev, .lb-next {
+  width: 49%;
+  height: 100%;
+  background-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  /* Trick IE into showing hover */
+  display: block; }
+
+/* line 72, ../sass/lightbox.sass */
+/* line 1223, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-prev {
+  left: 0;
+  float: left; }
+
+/* line 76, ../sass/lightbox.sass */
+/* line 1229, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-next {
+  right: 0;
+  float: right; }
+
+/* line 81, ../sass/lightbox.sass */
+/* line 1235, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-prev:hover {
+  background: url("/images/layout/prev.png") left 48% no-repeat; }
+
+/* line 85, ../sass/lightbox.sass */
+/* line 1240, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-next:hover {
+  background: url("/images/layout/next.png") right 48% no-repeat; }
+
+/* line 88, ../sass/lightbox.sass */
+/* line 1245, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-dataContainer {
+  margin: 0 auto;
+  padding-top: 5px;
+  *zoom: 1;
+  width: 100%;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -ms-border-bottom-left-radius: 4px;
+  -o-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -ms-border-bottom-right-radius: 4px;
+  -o-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px; }
+
+/* line 38, ../../../../.rvm/gems/ruby-1.9.2-p290/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 1262, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-dataContainer:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/* line 95, ../sass/lightbox.sass */
+/* line 1269, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-data {
+  padding: 0 10px;
+  color: #bbbbbb; }
+
+/* line 98, ../sass/lightbox.sass */
+/* line 1274, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-data .lb-details {
+  width: 85%;
+  float: left;
+  text-align: left;
+  line-height: 1.1em; }
+
+/* line 103, ../sass/lightbox.sass */
+/* line 1281, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-data .lb-caption {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1em; }
+
+/* line 107, ../sass/lightbox.sass */
+/* line 1287, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-data .lb-number {
+  display: block;
+  clear: left;
+  padding-bottom: 1em;
+  font-size: 11px; }
+
+/* line 112, ../sass/lightbox.sass */
+/* line 1294, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-data .lb-close {
+  width: 35px;
+  float: right;
+  padding-bottom: 0.7em;
+  outline: none; }
+
+/* line 117, ../sass/lightbox.sass */
+/* line 1301, /Users/dave/development/blog/clarkdavedotnet/source/stylesheets/main.scss */
+.lb-data .lb-close:hover {
+  cursor: pointer; }

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <!-- - unless current_article.nil? -->
+    <!-- %meta{:name => 'description', :content => current_article.description} -->
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
+    <title>Scraping your data from First Direct | clarkdave.net</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro' rel='stylesheet' type='text/css'>
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/modernizr.js" type="text/javascript"></script>
+    <script>
+      var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-28879115-1']);_gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <body>
+    <section class='container' id='page'>
+      <header>
+        <a href='/' title='clarkdave.net'>
+          <h1>clarkdave.net</h1>
+        </a>
+        <nav>
+          <ul>
+            <li><a class="" href="/">blog</a></li>
+            <li><a class="" href="/about">about</a></li>
+            <li><a class="" href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <aside>
+          <a class='github' href='https://github.com/clarkdave' title='clarkdave on GitHub'></a>
+          <a class='linkedin' href='http://uk.linkedin.com/in/clarkdavedotnet' title='clarkdave on LinkedIn'></a>
+          <a class='twitter' href='https://twitter.com/clarkdave' title='clarkdave on Twitter'></a>
+        </aside>
+      </header>
+      <section class='blog' id='content'>
+        <div class='blog-entry'>
+          <aside>
+            <div class='date'>
+              <div class='month'>FEB</div>
+              <div class='day'>20</div>
+            </div>
+          </aside>
+          <article>
+            <h2>Scraping your data from First Direct</h2>
+            <p>Like most people, I&rsquo;m a routine user of internet banking. Although my bank, First Direct, do have an banking web application, I want to get at my financial data on my own terms so I can use it for more interesting projects. Since First Direct don&rsquo;t offer any sort of API I decided to use NodeJS and <a href='http://zombie.labnotes.org/'>Zombie</a> (a headless web browser) to do the job instead.</p>
+            
+            <p>So, if you&rsquo;re a First Direct customer and a programmer, and want to get your data out too, this might help. If you&rsquo;re a member of a different bank, you might still find this helpful as the advice should be fairly generic (although, if your banking website is very Javascript-heavy, it&rsquo;ll be harder).</p>
+            
+            
+            
+            <h3>Investigation</h3>
+            
+            <p>Before we start, just a disclaimer: there&rsquo;s nothing suspicious going on here. We&rsquo;re not reverse-engineering anything, we&rsquo;re simply telling a headless web browser how to access the website. There&rsquo;s nothing here that you couldn&rsquo;t do yourself using your web browser.</p>
+            
+            <p>As far as I can tell, accessing your online bank using a headless web browser does not fall foul of the First Direct terms and conditions. That said, it would probably seem suspicious if you started checking your balance every minute of every day, so if you do this, keep your usage sensible!</p>
+            
+            <p>The FD online banking landing page is here: <code>http://www2.firstdirect.com/1/2/pib-service</code>, but following a bit of redirection we end up here: <code>https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances</code>. This appears to be where the session is actually bootstrapped, as the redirect has a jsessionid in the path, so let&rsquo;s start scripting from here.</p>
+            
+            <h3>Scraping the site with Zombie</h3>
+            
+            <p>Let’s plug that url into a NodeJS script using Zombie:</p>
+            <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">Browser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zombie'</span><span class="p">);</span>&#x000A;<span class="kd">var</span> <span class="nx">browser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Browser</span><span class="p">();</span>&#x000A;<span class="nx">browser</span><span class="p">.</span><span class="nx">runScripts</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>&#x000A;&#x000A;<span class="nx">browser</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="s1">'https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>&#x000A;  <span class="nx">browser</span><span class="p">.</span><span class="nx">dump</span><span class="p">();</span>&#x000A;<span class="p">});</span>&#x000A;</code></pre>
+            
+            <p>This works - the (fairly horrific) use of Javascript on the main page seems too much for Zombie/JSDOM to cope with, so I had to turn off the running of scripts to get it to parse the DOM. Fortunately, despite the initial reliance on JS for redirects, this page actually functions without it just fine.</p>
+            
+            <p>The forms actually contain little anchor links inserted via Javascript which are used to submit them:</p>
+            <pre class="highlight javascript"><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;a class="fdLogonLink_2" href="javascript:PC_7_2_2C0_submitData()"&#x000A;title="proceed with log on" onmouseover="noStatus(); return true;" onmousedown="noStatus();&#x000A;return true;" onfocus="noStatus(); return true;"&gt;proceed&lt;/a&gt;'</span><span class="p">);</span>&#x000A;</code></pre>
+            
+            <p>But if you have Javascript turned off, the page thoughtfully provides a standard <code>&lt;input type=&quot;submit&quot; /&gt;</code> button. Odd, since (without a bit of URL tinkering) you can&rsquo;t even <em>get</em> to this page without Javascript. Still, there&rsquo;s no reason to complain, as it makes life easier.</p>
+            
+            <p>With runScripts turned off, Zombie is happy to parse the page which means we can fill in and submit the form using the nice Zombie API:</p>
+            <pre class="highlight javascript"><code><span class="nx">browser</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="s1">'https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>&#x000A;  <span class="nx">browser</span>&#x000A;    <span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="s1">'userid'</span><span class="p">,</span> <span class="s1">'&lt;username&gt;'</span><span class="p">)</span>&#x000A;    <span class="p">.</span><span class="nx">pressButton</span><span class="p">(</span><span class="s1">'proceed'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>&#x000A;      <span class="nx">browser</span><span class="p">.</span><span class="nx">dump</span><span class="p">();</span>&#x000A;      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">html</span><span class="p">()</span> <span class="p">);</span>&#x000A;    <span class="p">});</span>&#x000A;<span class="p">});</span>&#x000A;</code></pre>
+            
+            <p>Substituting <code>&lt;username&gt;</code> for your FD username, this should POST the form successfully and return the next form, which asks for a few characters from your password along with the answer to your security question.</p>
+            
+            <p>Zombie again managed to parse the HTML of this page fine, so we can use it to find out which characters it wants from our password. The bit of markup we&rsquo;re looking for is here:</p>
+            <pre class="highlight html"><code><span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"password"</span> <span class="na">class=</span><span class="s">"light"</span><span class="nt">&gt;</span>Please enter the <span class="nt">&lt;strong&gt;</span>1st<span class="nt">&lt;/strong&gt;</span>,&#x000A;<span class="nt">&lt;strong&gt;</span>2nd<span class="nt">&lt;/strong&gt;</span> and <span class="nt">&lt;strong&gt;</span>last<span class="nt">&lt;/strong&gt;</span> characters from your&#x000A;<span class="nt">&lt;strong&gt;</span>electronic password<span class="nt">&lt;/strong&gt;</span>, and the answer to your question.<span class="nt">&lt;/label&gt;</span>&#x000A;</code></pre>
+            
+            <p>Of course, the three characters it wants will vary between requests, but we can figure them out fairly easily:</p>
+            <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">characters</span> <span class="o">=</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="s1">'label[for="password"] strong'</span><span class="p">)</span>&#x000A;    <span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>&#x000A;&#x000A;  <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">nodeValue</span><span class="p">;</span>&#x000A;  <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">==</span> <span class="s1">'last'</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>&#x000A;  <span class="k">else</span> <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>&#x000A;<span class="p">});</span>&#x000A;</code></pre>
+            
+            <p>This is tied very closely to the markup, so if they do change it this could break fairly easily. That said, banks tend not to make front-end changes too often, so I&rsquo;m not too concerned.</p>
+            
+            <p>Now that we&rsquo;ve got the required characters, we need to enter them in. For obvious reasons, if you&rsquo;re storing them alongside your script, be extra careful no one has access to them. For some reason, First Direct, unlike many other banks, have a single login to their online banking which is completely unrestricted (so, if someone did get your credentials, they could easily wipe out your account).</p>
+            
+            <p>I&rsquo;m not too comfortable with this setup. I used to bank with Barclays, who basically provided read-only access to your account if you logged in without using a security device (a PIN Sentry). In any case - I <strong>strongly advise</strong> against storing your credentials. Either enter them yourself every time you run the script, or at least store them encrypted and unlock them with a password when you do need them.</p>
+            
+            <p>It&rsquo;s pretty simple from this point: without Javascript, the form on this page has two input fields: one of the requested password characters and another for the entire security answer. Once you&rsquo;ve got your password into the script, you can do something like this to make the string the server&rsquo;s expecting:</p>
+            <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">indexes</span> <span class="o">=</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="s1">'label[for="password"] strong'</span><span class="p">)</span>&#x000A;    <span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>&#x000A;  <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">nodeValue</span><span class="p">;</span>&#x000A;  <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">==</span> <span class="s1">'last'</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>&#x000A;  <span class="k">else</span> <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>&#x000A;<span class="p">});</span>&#x000A;&#x000A;<span class="kd">var</span> <span class="nx">characters</span> <span class="o">=</span> <span class="nx">indexes</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>&#x000A;  <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nx">password</span><span class="p">[</span><span class="nx">password</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>&#x000A;  <span class="k">else</span> <span class="k">return</span> <span class="nx">password</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>&#x000A;<span class="p">}).</span><span class="nx">join</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>&#x000A;</code></pre>
+            
+            <p>And now you can use Zombie to send them off:</p>
+            <pre class="highlight javascript"><code><span class="nx">browser</span>&#x000A;  <span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="nx">characters</span><span class="p">)</span>&#x000A;  <span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="s1">'memorableAnswer'</span><span class="p">,</span> <span class="nx">memorable_answer</span><span class="p">)</span>&#x000A;  <span class="p">.</span><span class="nx">pressButton</span><span class="p">(</span><span class="s1">'proceed'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>&#x000A;    <span class="nx">browser</span><span class="p">.</span><span class="nx">dump</span><span class="p">();</span>&#x000A;    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">html</span><span class="p">());</span>&#x000A;  <span class="p">});</span>&#x000A;</code></pre>
+            
+            <p>That last <code>browser.html()</code> output should be your main account page. For some reason, the First Direct developers chose this point to reinstigate that Javascript requirement! Every single link on the page actually calls a function which sets <code>window.location</code> to change the page. This is probably to avoid people opening pages in tabs or something.</p>
+            
+            <p>The finished script, from beginning to end, is:</p>
+            <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">Browser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zombie'</span><span class="p">);</span>&#x000A;&#x000A;<span class="kd">var</span> <span class="nx">browser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Browser</span><span class="p">();</span>&#x000A;<span class="nx">browser</span><span class="p">.</span><span class="nx">runScripts</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>&#x000A;&#x000A;<span class="nx">browser</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="s1">'https://www1.firstdirect.com/1/2/idv.Logoff?nextPage=fsdtBalances'</span><span class="p">,</span>&#x000A;  <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>&#x000A;&#x000A;  <span class="nx">browser</span>&#x000A;    <span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="s1">'userid'</span><span class="p">,</span> <span class="s1">'&lt;userid&gt;'</span><span class="p">)</span>&#x000A;    <span class="p">.</span><span class="nx">pressButton</span><span class="p">(</span><span class="s1">'proceed'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>&#x000A;&#x000A;      <span class="kd">var</span> <span class="nx">indexes</span> <span class="o">=</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="s1">'label[for="password"] strong'</span><span class="p">)</span>&#x000A;          <span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>&#x000A;        <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">nodeValue</span><span class="p">;</span>&#x000A;        <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">==</span> <span class="s1">'last'</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>&#x000A;        <span class="k">else</span> <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>&#x000A;      <span class="p">});</span>&#x000A;&#x000A;      <span class="c1">// you'll need 'password' and 'memorable_answer' variables</span>&#x000A;      <span class="c1">// available to your code by this point</span>&#x000A;&#x000A;      <span class="kd">var</span> <span class="nx">characters</span> <span class="o">=</span> <span class="nx">indexes</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>&#x000A;        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nx">password</span><span class="p">[</span><span class="nx">password</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>&#x000A;        <span class="k">else</span> <span class="k">return</span> <span class="nx">password</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>&#x000A;      <span class="p">}).</span><span class="nx">join</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>&#x000A;&#x000A;      <span class="nx">browser</span>&#x000A;        <span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="nx">characters</span><span class="p">)</span>&#x000A;        <span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="s1">'memorableAnswer'</span><span class="p">,</span> <span class="nx">memorable_answer</span><span class="p">)</span>&#x000A;        <span class="p">.</span><span class="nx">pressButton</span><span class="p">(</span><span class="s1">'proceed'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>&#x000A;&#x000A;          <span class="nx">browser</span><span class="p">.</span><span class="nx">dump</span><span class="p">();</span>&#x000A;          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">html</span><span class="p">());</span>&#x000A;&#x000A;        <span class="p">});</span>&#x000A;    <span class="p">});</span>&#x000A;<span class="p">});</span>&#x000A;</code></pre>
+          </article>
+          <div class='disqus'>
+            <div id='disqus_thread'></div>
+            <script>
+              var disqus_shortname = 'clarkdave';
+              var disqus_identifier = '/2015/02/scraping-your-data-from-first-direct/';
+              var disqus_url = 'http://clarkdave.net/2015/02/scraping-your-data-from-first-direct/';
+            
+              (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+        </div>
+      </section>
+    </section>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+  </body>
+</html>

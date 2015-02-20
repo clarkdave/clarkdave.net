@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
-
+#
 # A few helpful tips about the Rules file:
 #
 # * The string given to #compile and #route are matching patterns for
-#   identifiers--not for paths. Therefore, you can’t match on extension.
+#   identifiers--not for paths. Therefore, you can't match on extension.
 #
 # * The order of rules is important: for each item, only the first matching
 #   rule is applied.
@@ -18,14 +18,19 @@ haml_opts = {
   :remove_whitespace => false,
 }
 
-compile '/stylesheet/*' do
-  filter :sass,
-    :syntax => :scss,
-    :cache_location => './tmp/.sass-cache'
-  filter :rainpress
+preprocess do
+  items.each do |item|
+    if item[:filename] =~ %r{/assets/(stylesheets|javascripts)}
+
+    end
+  end
 end
 
-compile '/scripts/*' do; end
+compile %r{/assets/(stylesheets|javascripts)/.+/} do
+  filter :sprockets
+    # :css_compressor => :scss,
+    # :js_compressor => :uglifier
+end
 
 compile '/' do
   filter :haml, haml_opts
@@ -44,32 +49,27 @@ compile '/portfolio/*' do
 end
 
 compile '*' do
-  if item.binary?
-    # don’t filter binary items
-  else
+  unless item.binary?
     filter :haml, haml_opts
     layout 'default'
   end
 end
 
-route '/stylesheet/main' do
-  '/style-v2.css'
-end
-
-route '/stylesheet/*' do; end
-
-route '/scripts/*' do
-  item.identifier.chop + '.' + item[:extension]
+route '/assets/*/' do
+  # p item
+  path = Nanoc::Sprockets::Helper.asset_path(item)
+  # p path
+  # path
 end
 
 # route posts to /year/month/slug/index.html
 route '/posts/*' do
-  y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/.match(item.identifier).captures
+  y, m, _, slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/.match(item.identifier).captures
   "/#{y}/#{m}/#{slug}/index.html"
 end
 
 route '/portfolio/*' do
-  y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/.match(item.identifier).captures
+  y, _, _, slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/.match(item.identifier).captures
   "/work/#{y}/#{slug}/index.html"
 end
 

@@ -1,0 +1,33 @@
+Metrics/LineLength:
+  Max: 100
+
+Style/HashSyntax:
+  Enabled: true
+  EnforcedStyle: hash_rockets
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Style/TrailingComma:
+  EnforcedStyleForMultiline: comma
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/IndentHash:
+  EnforcedStyle: consistent
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  SupportedStyles:
+    - aligned
+    - indented

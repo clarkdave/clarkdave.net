@@ -7,8 +7,8 @@
 		%meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1'}
 		%title= @item[:title] + ' | clarkdave.net'
 		%link{:rel => 'stylesheet', :type => 'text/css', :href => 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro'}
-		%link{:rel => 'stylesheet', :type => 'text/css', :href => '/style-v2.css'}
-		%script{:src => '/scripts/modernizr.js'}
+		%link{:rel => 'stylesheet', :type => 'text/css', :href => asset_path('stylesheets/main.css')}
+		%script{:src => asset_path('javascripts/modernizr.js')}
 		%script
 			:plain
 				var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-28879115-1']);_gaq.push(['_trackPageview']);
@@ -17,15 +17,15 @@
 				  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 				})();
 	%body
-		%section{:id => 'page', :class => 'container'}
+		%section{:id => 'page', :class => 'container', :'data-generated-at' => timestamp}
 			%header
 				%a{:href => '/', :title => 'clarkdave.net'}
 					%h1 clarkdave.net
-				= render 'nav', :menu => (@item[:menu] or 'default')
+				= render 'nav', :menu => (@item[:menu] || 'default')
 				%aside
 					%a{:class => 'github', :href => 'https://github.com/clarkdave', :title => 'me on GitHub'}
 					%a{:class => 'linkedin', :href => 'http://uk.linkedin.com/in/clarkdavedotnet', :title => 'me on LinkedIn'}
 					%a{:class => 'twitter', :href => 'https://twitter.com/clarkdave', :title => 'me on Twitter'}
 			= yield
 		%script{:src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
-		%script{:src => '/scripts/lightbox.js'}
+		%script{:src => asset_path('javascripts/lightbox.js')}

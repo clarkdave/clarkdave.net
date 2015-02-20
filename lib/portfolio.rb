@@ -1,6 +1,4 @@
-
 module PortfolioHelper
-
   def portfolios
     @items.select { |item| item[:kind] == 'portfolio' }
   end

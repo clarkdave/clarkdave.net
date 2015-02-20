@@ -7,10 +7,9 @@
 }
 
 body {
-  background: #fff url('/images/layout/background.png') repeat;
+  background: #fff asset-url('layout/background.png') repeat;
   background-attachment: fixed;
   font: 16px 'Source Sans Pro', sans-serif;
-  // font-family: 'Droid Sans', sans-serif;
   color: #2E2E2E;
   -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
   -webkit-text-size-adjust: 100%;
@@ -25,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #page {
-  background: #fff url('/images/layout/left-background.png') repeat-y;
+  // background: #fff asset-url('layout/left-background.png') repeat-y;
   height: 100%;
   height: auto !important;
   min-height: 100%;
@@ -38,7 +37,7 @@ h1, h2, h3, h4, h5, h6 {
     h1 {
       width: 70px;
       height: 70px;
-      background: url('/images/layout/cd.png') no-repeat;
+      background: asset-url('layout/cd.png') no-repeat;
       text-indent: -9999em;
       //float: left;
       margin: 0;
@@ -48,8 +47,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     nav {
-      //float: left;
-      // font-family: 'Yanone Kaffeesatz', sans-serif;
       font-family: 'Source Sans Pro', sans-serif;
       font-size: 1.7em;
       position: absolute;
@@ -57,14 +54,17 @@ h1, h2, h3, h4, h5, h6 {
       left: 100px;
 
       ul {
-        padding: 10px 0 10px 0;
+        padding: 0;
+        margin: 0;
       }
 
       li {
         display: inline;
         float: left;
+        margin: 0;
 
         a {
+          display: inline-block;
           margin: 0;
           padding: 14px 12px 11px 12px;
           text-decoration: none;
@@ -73,13 +73,14 @@ h1, h2, h3, h4, h5, h6 {
           // -moz-transition-duration: 0.15s;
 
           &.active, &.active:hover {
-            background: #424242;
-            color: #fff;
+            // background: #424242;
+            // color: #fff;
+            border-bottom: 3px solid #424242;
           }
 
           &:hover {
             background: #555555;
-            color: #fff;
+            // color: #fff;
           }
 
           &:active {
@@ -114,17 +115,17 @@ h1, h2, h3, h4, h5, h6 {
 
     .github {
       // background: url('/images/icons/github.png') no-repeat 0 0;
-      background: #333 url('/images/icons/github_octocat_14px.png') no-repeat 50% 100%;
+      background: #333 asset-url('icons/github_octocat_14px.png') no-repeat 50% 100%;
       background-size: 14px;
     }
     .linkedin {
       // background: url('/images/icons/linkedin.png') no-repeat 0 0;
-      background: #006699 url('/images/icons/linkedin_white_14px.png') no-repeat 50% 50%;
+      background: #006699 asset-url('icons/linkedin_white_14px.png') no-repeat 50% 50%;
       background-size: 14px;
     }
     .twitter {
       // background: url('/images/icons/twitter.png') no-repeat 0 0;
-      background: #00aced url('/images/icons/twitter_bird_14px.png') no-repeat 50% 50%;
+      background: #00aced asset-url('icons/twitter_bird_14px.png') no-repeat 50% 50%;
       background-size: 14px;
     }
   }
@@ -140,9 +141,9 @@ h1, h2, h3, h4, h5, h6 {
 
   margin-top: 10px;
   padding-bottom: 45px;
-  
+
   .blog-entry {
-    
+
     overflow: auto;
     margin-bottom: 20px;
 
@@ -151,10 +152,9 @@ h1, h2, h3, h4, h5, h6 {
       float: left;
 
       .date {
-        background: url('/images/icons/cal.png') no-repeat 0 2px;
-        // font-family: 'Yanone Kaffeesatz', sans-serif;
+        background: asset-url('icons/cal.png') no-repeat 0 2px;
         width: 49px;
-        height: 58px; 
+        height: 58px;
         overflow: hidden;
         margin: 4px 0 0 10px;
         font-weight: bold;
@@ -375,23 +375,20 @@ h1, h2, h3, h4, h5, h6 {
     .cv {
       background-color: #424242;
       color: #fff;
-      // padding: 10px 0;
       font-size: 20px;
       padding-top: 9px;
-      // font-family: 'Yanone Kaffeesatz', sans-serif;
-      // font-family: 'Brawler', sans-serif;
     }
 
     .twitter {
-      background: #00aced url('/images/icons/twitter_bird.png') no-repeat 50% 50%;
+      background: #00aced asset-url('icons/twitter_bird.png') no-repeat 50% 50%;
     }
 
     .github {
-      background: #333 url('/images/icons/github_octocat.png') no-repeat 50% 100%;
+      background: #333 asset-url('icons/github_octocat.png') no-repeat 50% 100%;
     }
 
     .linkedin {
-      background: #006699 url('/images/icons/linkedin_white.png') no-repeat 50% 50%;
+      background: #006699 asset-url('icons/linkedin_white.png') no-repeat 50% 50%;
     }
   }
 }
@@ -768,7 +765,7 @@ h1, h2, h3, h4, h5, h6 {
       h1 {
         height: 42px;
         width: 42px;
-        background-image: url('/images/layout/cd_small.png');
+        background-image: asset-url('layout/cd_small.png');
       }
 
       nav {
@@ -944,13 +941,13 @@ h1, h2, h3, h4, h5, h6 {
         background-size: 14px;
       }
       .twitter {
-        background-image: url('/images/icons/twitter_bird_14px.png');
+        background-image: asset-url('icons/twitter_bird_14px.png');
       }
       .linkedin {
-        background-image: url('/images/icons/linkedin_white_14px.png');
+        background-image: asset-url('icons/linkedin_white_14px.png');
       }
       .github {
-        background-image: url('/images/icons/github_octocat_14px.png');
+        background-image: asset-url('icons/github_octocat_14px.png');
       }
     }
   }
@@ -1238,12 +1235,12 @@ code .gi { color: #a6e22e; } /* Generic.Inserted & Diff Inserted */
 
 /* line 81, ../sass/lightbox.sass */
 .lb-prev:hover {
-  background: url('/images/layout/prev.png') left 48% no-repeat;
+  background: asset-url('layout/prev.png') left 48% no-repeat;
 }
 
 /* line 85, ../sass/lightbox.sass */
 .lb-next:hover {
-  background: url('/images/layout/next.png') right 48% no-repeat;
+  background: asset-url('layout/next.png') right 48% no-repeat;
 }
 
 /* line 88, ../sass/lightbox.sass */

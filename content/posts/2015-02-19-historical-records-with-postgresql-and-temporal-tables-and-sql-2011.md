@@ -379,7 +379,7 @@ This will create a complete but **static** copy of the `subscriptions` table, in
 
 **Caveats**
 
-The biggest issue with this method is that you now have to keep the history table in sync. This would need to be done with your database migration tool of choice, or perhaps with some creative use of [event triggers](http://www.postgresql.org/docs/9.3/static/sql-createeventtrigger.html), which can hook into DDL changes (9.3+ only).
+It's up to you to keep the history table in sync using your database migration tool of choice, or perhaps with some creative use of [event triggers](http://www.postgresql.org/docs/9.3/static/sql-createeventtrigger.html), which can hook into DDL changes (9.3+ only).
 
 In particular, if you add new columns (or alter existing columns) with a default value to the source table, you'll need to make sure these defaults are also added to the history table, or you'll end up grabbing records from the history table which have unexpected NULL values.
 
@@ -401,7 +401,7 @@ By default, queries to the parent table will operate on the parent and all child
 
 You can disable this for the whole database by setting `sql_inheritance = false`, but [this is deprecated](http://www.postgresql.org/docs/9.2/static/runtime-config-compatible.html#GUC-SQL-INHERITANCE).
 
-You can, alternatively, disable it for individually queries like so: `SELECT * FROM ONLY ...` or `UPDATE ONLY ...`. This might be a reasonable trade-off considering the advantages, especially if you're using a framework which can reliably support this.
+You can, alternatively, disable it for individually queries like so: `SELECT * FROM ONLY ...` or `UPDATE ONLY ...`. This might be a reasonable trade-off considering the advantages, especially if you're using a framework which can reliably support these kind of queries.
 
 #### Indexing
 

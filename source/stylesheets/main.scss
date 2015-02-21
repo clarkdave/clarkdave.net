@@ -67,24 +67,20 @@ h1, h2, h3, h4, h5, h6 {
         a {
           display: inline-block;
           margin: 0;
-          padding: 10px 13px 10px 13px;
+          padding: 10px 13px 11px 13px;
           text-decoration: none;
           font-size: 18px;
 
           &.active, &.active:hover {
-            // background: #fafafa;
             color: #000;
-            border-bottom: 3px solid #555;
+            border-bottom: 2px solid #666;
           }
 
           &:hover {
-            // background: #555555;
-            // color: #fff;
-            border-bottom: 3px solid #ccc;
+            border-bottom: 2px solid #ccc;
           }
 
           &:active {
-            // background: #333;
             color: #555;
           }
         }
@@ -99,10 +95,11 @@ h1, h2, h3, h4, h5, h6 {
       overflow: auto;
       a {
         display: block;
-        // float: left;
+        float: left;
         width: 24px;
         height: 24px;
         margin-bottom: 5px;
+        margin-left: 5px;
         // margin: 5px 5px 0 0;
 
         // border-radius: 2px;
@@ -131,8 +128,6 @@ h1, h2, h3, h4, h5, h6 {
     }
   }
 }
-
-
 
 .indented-title {
   padding-left: 85px;
@@ -214,8 +209,7 @@ h1, h2, h3, h4, h5, h6 {
         padding: 0 20px;
       }
 
-      p {
-        // font-size: 110%;
+      p, ul li, ol li {
         font-size: 17px;
         line-height: 28px;
       }
@@ -258,14 +252,12 @@ h1, h2, h3, h4, h5, h6 {
 
       ul li {
         list-style-type: disc;
-        margin: 4px 0 2px 44px;
-        font-size: 110%;
+        margin: 4px 10px 2px 44px;
         line-height: 28px;
       }
 
       ul li ul {
         margin-left: 0;
-        font-size: 100%;
         color: #555;
         li {
           margin: 4px 0 2px 30px;
@@ -296,7 +288,7 @@ h1, h2, h3, h4, h5, h6 {
         // border-top: 2px dashed #eaeaea;
         // border-bottom: 2px dashed #eaeaea;
         // border-left: 2px dashed #eaeaea;
-        border: 1px solid #eaeaea;
+        // border: 1px solid #eaeaea;
         border-right: none;
         font-size: 14px;
         line-height: 22px;
@@ -773,8 +765,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Smaller than standard 960 (devices and browsers) */
-@media only screen and (max-width: 959px) {
-
+@media only screen and (max-width: 980px) {
+  .container {
+    width: 100%;
+  }
 }
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
@@ -826,6 +820,10 @@ h1, h2, h3, h4, h5, h6 {
     }
   }
 
+  #content {
+    margin-top: 20px;
+  }
+
   .disqus {
     margin-left: 0;
   }
@@ -842,37 +840,8 @@ h1, h2, h3, h4, h5, h6 {
       margin-left: 0;
     }
 
-    .sidebar {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 160px;
+    .social {
       margin-left: 0;
-
-      a {
-        float: left;
-        margin-bottom: 0;
-        margin-right: 10px;
-        width: 30px;
-        height: 30px;
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      .cv {
-        font-size: 18px;
-        padding-top: 5px;
-      }
-      .twitter {
-        background-size: 20px;
-      }
-      .linkedin {
-        background-size: 20px;
-      }
-      .github {
-        background-size: 20px;
-      }
     }
 
     .bio {
@@ -882,17 +851,32 @@ h1, h2, h3, h4, h5, h6 {
 
   .blog {
     .blog-entry {
+      border-bottom: 2px solid #f2f2f2;
+
       aside {
         float: right;
       }
       article {
         margin-left: 0;
 
+        p, ul li {
+          font-size: 16px;
+        }
+
         h3 {
           margin-top: 0;
           margin-left: 20px;
           margin-right: 20px;
           height: auto;
+        }
+
+        &.view-single h2 {
+          font-size: 30px;
+          line-height: 38px;
+        }
+
+        p code, li code {
+          white-space: normal;
         }
       }
     }
@@ -968,34 +952,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
-
-  .about {
-    .sidebar {
-      width: 136px;
-      top: 5px;
-      a {
-        width: 24px;
-        height: 24px;
-      }
-      .cv {
-        font-size: 15px;
-        padding-top: 2px;
-      }
-      .twitter, .linkedin, .github {
-        background-size: 14px;
-      }
-      .twitter {
-        background-image: image-url('icons/twitter_bird_14px.png');
-      }
-      .linkedin {
-        background-image: image-url('icons/linkedin_white_14px.png');
-      }
-      .github {
-        background-image: image-url('icons/github_octocat_14px.png');
-      }
-    }
-  }
-
   .work {
 
     .year-box {

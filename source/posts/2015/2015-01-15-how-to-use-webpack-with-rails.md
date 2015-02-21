@@ -1,7 +1,7 @@
 ---
 title: "What you need to know about using webpack with Rails"
 slug: what-you-need-to-know-about-using-webpack-with-rails
-date: 2014-12-16 08:38:00 +0000
+date: 2015-01-15 08:38:00 +0000
 kind: article
 published: false
 ---

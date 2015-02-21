@@ -14,7 +14,7 @@ Sometimes you need to find out what a record looked like at some point in the pa
 
 There are a few ways to do this in PostgreSQL, but this article is going to focus on the implementation provided by the [SQL:2011](https://en.wikipedia.org/wiki/SQL:2011) standard, which added support for temporal databases. It's also going to focus on actually querying that historical data, with some real-life use cases.
 
-PostgreSQL doesn't support these features natively, but this [temporal tables](https://github.com/arkhipov/temporal_tables) extension does the trick. This requires PostgreSQL 9.2 or higher, as that was the first version with support for a timestamp range data type.
+PostgreSQL doesn't support these features natively, but this [temporal tables](https://github.com/arkhipov/temporal_tables) approximates them. This requires PostgreSQL 9.2 or higher, as that was the first version with support for a timestamp range data type.
 
 Before you dig in, it's important to note that this extension does not provide **complete** support for the 2011 standard. Specifically, there is no support for the new syntaxes provided for querying across historical tables, such as the `AS OF SYSTEM TIME` keyword.
 

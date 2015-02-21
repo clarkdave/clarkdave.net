@@ -1,9 +1,9 @@
 ---
-title: "What you need to know about using webpack with Rails"
-slug: what-you-need-to-know-about-using-webpack-with-rails
+title: "How to use webpack with Rails"
+slug: how-to-use-webpack-with-rails
 date: 2015-01-15 08:38:00 +0000
 kind: article
-published: false
+published: true
 ---
 
 [webpack](https://webpack.github.io) is a powerful module bundler, primarily designed for front-end development, which can integrate nicely with [bower](http://bower.io) and [npm](https://www.npmjs.com/) JavaScript modules.

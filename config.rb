@@ -73,8 +73,6 @@ activate :livereload
 activate :directory_indexes
 activate :syntax
 
-activate :minify_html
-
 set :css_dir, 'stylesheets'
 set :js_dir, 'javascripts'
 set :images_dir, 'images'
@@ -90,18 +88,16 @@ helpers NavigationHelpers
 
 # Build-specific configuration
 configure :build do
-  # For example, change the Compass output style for deployment
-  # activate :minify_css
-
-  # Minify Javascript on build
-  # activate :minify_javascript
-
-  # Enable cache buster
-  # activate :asset_hash
-
-  # Use relative URLs
-  # activate :relative_assets
-
-  # Or use a different image path
-  # set :http_prefix, '/Content/images/'
+  activate :minify_css
+  activate :minify_html
+  activate :asset_hash
+  activate :gzip
+  # activate :imageoptim do |options|
+  #   options.manifest = true
+  #   options.skip_missing_workers = true
+  #   options.verbose = false
+  #   options.nice = true
+  #   options.threads = true
+  #   options.image_extensions = %w(.png .jpg .gif .svg)
+  # end
 end

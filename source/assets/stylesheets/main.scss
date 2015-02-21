@@ -148,9 +148,8 @@ h1, h2, h3, h4, h5, h6 {
       float: left;
 
       .date {
-        background: image-url('icons/cal.png') no-repeat 0 2px;
-        width: 49px;
-        height: 58px;
+        // background: image-url('icons/cal.png') no-repeat 0 2px;
+        width: 50px;
         overflow: hidden;
         margin: 4px 0 0 10px;
         font-weight: bold;
@@ -158,15 +157,20 @@ h1, h2, h3, h4, h5, h6 {
 
         .month {
           color: #fff;
+          background-color: #F2575A;
           font-size: 14px;
-          padding-top: 1px;
+          padding: 2px 0 2px 0;
           text-transform: uppercase;
+          border-radius: 3px 3px 0 0;
         }
 
         .day {
-          color: #000;
+          color: #111;
+          background-color: #fff;
           font-size: 27px;
           margin-top: 0;
+          padding-bottom: 5px;
+          border-bottom: 1px solid #ddd;
         }
       }
     }
@@ -858,6 +862,18 @@ h1, h2, h3, h4, h5, h6 {
 
       aside {
         float: right;
+        width: 80px;
+
+        .date {
+          width: 45px;
+
+          .day {
+            border: 1px solid #ddd;
+            border-top: none;
+            font-size: 24px;
+            padding-bottom: 3px;
+          }
+        }
       }
       article {
         margin-left: 0;

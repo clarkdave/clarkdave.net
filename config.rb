@@ -38,6 +38,7 @@ page '/feed.xml', :layout => false
 activate :livereload
 activate :directory_indexes
 activate :syntax
+activate :autoprefixer
 
 set :css_dir, 'assets/stylesheets'
 set :js_dir, 'assets/javascripts'
@@ -51,6 +52,7 @@ set :markdown,
 
 require 'lib/helpers'
 helpers NavigationHelpers
+helpers SiteHelpers
 
 # Build-specific configuration
 configure :build do

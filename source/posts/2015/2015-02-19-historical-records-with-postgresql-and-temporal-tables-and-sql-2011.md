@@ -26,7 +26,15 @@ These are generally conveniences though - the `temporal tables` extension takes 
 
 Available here: [https://github.com/arkhipov/temporal_tables](https://github.com/arkhipov/temporal_tables)
 
-Make sure you have all the tools you need to build & compile from source (make, XCode, etc) and then it should be as simple as:
+#### Using pgxn
+
+The `temporal_tables` extension is available on [PGXN](http://pgxn.org/dist/temporal_tables/). If this is an option for you, simply install it using the `pgxn` client:
+
+    $ pgxn install temporal_tables
+
+#### From source
+
+If you don't have pgxn available, or would prefer to install it from source, it's pretty easy to do so. First, make sure you have all the tools you need to build & compile from source (make, XCode, etc) and then it should be as simple as:
 
     $ git clone https://github.com/arkhipov/temporal_tables
     $ cd temporal_tables
@@ -80,7 +88,7 @@ Note that the type here is a "timestamp with time zone range", which was only in
 The history table can be a full or partial copy of the original table. Additional discourse on the options available here (including `INHERITS`) can be found towards the end of this post, but for now we'll copy everything:
 
 ``` sql
-CREATE TABLE subscriptions_history (LIKE subscriptions INCLUDING INDEXES);
+CREATE TABLE subscriptions_history (LIKE subscriptions);
 ```
 
 Finally, we need to add the `versioning_trigger` to our original table. This will ensure that records are copied in to the history table as needed:
@@ -206,18 +214,34 @@ SELECT * from subscriptions_history
 
 This exact timestamp appears in two history records, but you'll only get the most recent one back. The `@>` operator handily takes this into account for you.
 
-### How many subscriptions were in each state on `X` date
+### Creating and using a view
 
-This is a similar query to the above, but with some aggregation thrown in:
+Of course, rather than writing out that verbose `UNION ALL` statement by hand each time, you can instead create a view and query on it:
 
 ``` sql
-  SELECT state, count(*) FROM subscriptions
-    WHERE lower(sys_period) <= '2015-01-10'::timestamptz
-    GROUP BY state
-UNION ALL
-  SELECT state, count(*) from subscriptions_history
-    WHERE sys_period @> '2015-01-10'::timestamptz
-    GROUP BY state;
+CREATE VIEW subscriptions_with_history AS
+    SELECT * FROM subscriptions
+  UNION ALL
+    SELECT * FROM subscriptions_history;
+```
+
+Such a view could be used like so:
+
+``` sql
+SELECT * FROM subscriptions_with_history
+  WHERE id = 1 AND sys_period @> '2015-01-10'::timestamptz
+```
+
+Now we're not too far off the `AS OF SYSTEM TIME` syntax. We'll continue to use this view in the rest of our examples.
+
+### How many subscriptions were in each state on `X` date
+
+This is a similar query to the above, but with some aggregation thrown in. Using the view we just created:
+
+``` sql
+SELECT state, count(*) FROM subscriptions_with_history
+  WHERE sys_period @> '2015-01-10'::timestamptz
+  GROUP BY state;
 ```
 
 Result:
@@ -228,16 +252,11 @@ Result:
 
 #### Across a date range
 
-With a bit more effort we can get a count of subscription states across a date range too. The key is to stick the `subscriptions` and `subscriptions_history` tables together and then filter them based on their system period.
+With a bit more effort we can get a count of subscription states across a date range too.
 
 ``` sql
 WITH dates AS (
   SELECT * FROM generate_series('2015-01-10'::timestamptz, '2015-01-20', '1 day') date
-),
-subscriptions_with_history AS (
-    SELECT state, sys_period FROM subscriptions
-  UNION ALL
-    SELECT state, sys_period from subscriptions_history
 )
 SELECT date,
   count(trials.*) as trial,
@@ -299,11 +318,8 @@ This is fairly easy to figure out using PostgreSQL's [overlap operator](http://w
 
 ``` sql
 WITH timeboxed_subscriptions AS (
-    SELECT * FROM subscriptions
-      WHERE tstzrange('[2015-01-01, 2015-02-01)') && sys_period
-  UNION ALL
-    SELECT * from subscriptions_history
-      WHERE tstzrange('[2015-01-01, 2015-02-01)') && sys_period
+  SELECT * FROM subscriptions_with_history
+    WHERE tstzrange('[2015-01-01, 2015-02-01)') && sys_period
 ),
 trial_subscriptions AS (
   SELECT id FROM timeboxed_subscriptions s
@@ -340,11 +356,8 @@ WITH dates AS (
   FROM generate_series('2014-11-01'::timestamptz, '2015-02-01', '1 month') start
 ),
 timeboxed_subscriptions AS (
-    SELECT * FROM subscriptions
-      WHERE tstzrange('[2014-11-01, 2015-02-01)') && sys_period
-  UNION ALL
-    SELECT * from subscriptions_history
-      WHERE tstzrange('[2014-11-01, 2015-02-01)') && sys_period
+  SELECT * FROM subscriptions_with_history
+    WHERE tstzrange('[2015-01-01, 2015-02-01)') && sys_period
 ),
 trial_subscriptions AS (
   SELECT id FROM timeboxed_subscriptions s
@@ -382,15 +395,15 @@ The additional step here is generating a `months` sequence and joining to it. Ho
 
 ### Creating the history table
 
-#### Duplication
+#### Using duplication
 
 At the beginning of this post we created the `subscriptions_history` table using the `LIKE` clause:
 
 ``` sql
-CREATE TABLE subscriptions_history (LIKE subscriptions INCLUDING INDEXES);
+CREATE TABLE subscriptions_history (LIKE subscriptions);
 ```
 
-This will create a complete but **static** copy of the `subscriptions` table, including any indexes it might have.
+This will create a complete but **static** copy of the `subscriptions` table. You can use the `INCLUDING INDEXES` clause to also copy over indexes, although if you do this take care to remove any unique constraint on the primary key - the history table will have duplicates of these.
 
 * Both tables are completely separate, which simplifies querying and updating
 * You have the option to only store the history of certain columns, by excluding the ones you don't care about
@@ -401,7 +414,7 @@ It's up to you to keep the history table in sync using your database migration t
 
 In particular, if you add new columns (or alter existing columns) with a default value to the source table, you'll need to make sure these defaults are also added to the history table, or you'll end up grabbing records from the history table which have unexpected NULL values.
 
-#### Inheritance
+#### Using inheritance
 
 Your other option for the history table is using [table inheritance](http://www.postgresql.org/docs/9.2/static/ddl-inherit.html). For example:
 
@@ -437,3 +450,4 @@ Hopefully you've found something in here useful! There are plenty of other appro
 
 Temporal tables are, of course, not exactly new, but using them with PostgreSQL still seems to be somewhat of a niche topic. If you have any other insights or corrections, please comment below!
 
+Finally, a big thanks to [arkhipov](https://github.com/arkhipov) for creating the `temporal_tables` extension!

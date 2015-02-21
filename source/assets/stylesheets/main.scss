@@ -250,9 +250,12 @@ h1, h2, h3, h4, h5, h6 {
         color: #111;
       }
 
+      ul li, ol li {
+        margin: 4px 10px 2px 44px;
+      }
+
       ul li {
         list-style-type: disc;
-        margin: 4px 10px 2px 44px;
         line-height: 28px;
       }
 
@@ -266,7 +269,6 @@ h1, h2, h3, h4, h5, h6 {
 
 
       ol li {
-        margin: 4px 0 2px 44px;
         font-size: 110%;
         line-height: 28px;
       }

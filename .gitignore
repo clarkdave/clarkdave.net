@@ -2,3 +2,4 @@ output/
 tmp/
 *.log
 .DS_Store
+build/

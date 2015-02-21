@@ -3,20 +3,29 @@ title: Blog
 description: Blog of Dave Clark, a full-stack web developer. Guides and tutorials on various topics such as Ruby, Python, JavaScript and Chef
 menu: blog
 pageable: true
-per_page: 200
+per_page: 5
 ---
 %section{:id => 'content', :class => 'blog'}
-  - page_articles.each_with_index do |article, i|
-    .blog-entry
-      %aside
-        .date
-          .month= article.date.strftime('%^b')
-          .day= article.date.strftime('%e')
-      %article
-        %h2= link_to article.title, article
-        - if article.summary?
-          ~ article.summary
-          .read-more
-            = link_to 'Continue reading &rsaquo;', article
-        - else
-          ~ article.body
+  .blog-posts
+    - page_articles.each_with_index do |article, i|
+      .blog-entry
+        %aside
+          .date
+            .month= article.date.strftime('%^b')
+            .day= article.date.strftime('%e')
+        %article
+          %h2= link_to article.title, article
+          - if article.summary?
+            ~ article.summary
+            .read-more
+              = link_to 'Continue reading &rsaquo;', article
+          - else
+            ~ article.body
+  - if paginate
+    .paginate.clearfix
+      .prev
+        - if prev_page
+          = link_to '&lsaquo; Previous page', prev_page
+      .next
+        - if next_page
+          = link_to 'Next page &rsaquo;', next_page

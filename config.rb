@@ -17,20 +17,20 @@ activate :blog do |blog|
   # blog.year_link = '{year}.html'
   # blog.month_link = '{year}/{month}.html'
   # blog.day_link = '{year}/{month}/{day}.html'
-  # blog.default_extension = '.markdown'
+  blog.default_extension = '.md'
 
   blog.tag_template = 'tag.html'
   # blog.calendar_template = 'calendar.html'
 
   # Enable pagination
-  # blog.paginate = true
-  # blog.per_page = 10
-  # blog.page_link = 'page/{num}'
+  blog.paginate = true
+  # blog.per_page = 5
+  blog.page_link = 'page/{num}'
 end
 
 require 'lib/blog_extensions'
 
-page '/feed.xml', layout: false
+page '/feed.xml', :layout => false
 
 ###
 # Compass
@@ -82,7 +82,8 @@ set :images_dir, 'images'
 set :markdown_engine, :redcarpet
 set :markdown,
   :fenced_code_blocks => true,
-  :smartypants => true
+  :smartypants => true,
+  :with_toc_data => true
 
 require 'lib/helpers'
 helpers NavigationHelpers

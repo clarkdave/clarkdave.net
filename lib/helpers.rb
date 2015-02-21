@@ -4,7 +4,7 @@ module NavigationHelpers
 
     case page
     when 'blog'
-      path.start_with?('posts')  || path.start_with?('index')
+      path.start_with?('posts')  || path.start_with?('index') || path.start_with?('page')
     when 'about'
       path.start_with?('about')
     when 'work'

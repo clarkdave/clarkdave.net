@@ -5,7 +5,7 @@
         .date
           .month= current_article.date.strftime('%^b')
           .day= current_article.date.strftime('%e')
-      %article
+      %article.view-single
         %h2= current_article.title
         ~ yield
       .disqus

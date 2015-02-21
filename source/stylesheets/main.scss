@@ -203,6 +203,13 @@ h1, h2, h3, h4, h5, h6 {
         }
       }
 
+      &.view-single {
+        h2 {
+          font-size: 40px;
+          line-height: 47px;
+        }
+      }
+
       h2, h3, h4, h5, p {
         padding: 0 20px;
       }
@@ -211,31 +218,26 @@ h1, h2, h3, h4, h5, h6 {
         // font-size: 110%;
         font-size: 17px;
         line-height: 28px;
+      }
 
-        code {
-          margin: 0 3px;
-          padding: 2px 5px;
-          font-family: 'Source Code Pro', 'Monaco', monospace;
-          font-size: 16px;
-          // border: 1px solid #D4D5D7;
-          border-radius: 4px;
-          background-color: #e0f2ff;
-          background-color: #e8f5ff;
-          background-color: #edfaff;
-          color: #268BD2;
-          color: #0882d3;
-          white-space: nowrap;
-        }
+      p code, li code {
+        margin: 0 3px;
+        padding: 2px 5px;
+        font-family: 'Source Code Pro', 'Monaco', monospace;
+        font-size: 16px;
+        // border: 1px solid #D4D5D7;
+        border-radius: 4px;
+        background-color: #e0f2ff;
+        background-color: #e8f5ff;
+        background-color: #edfaff;
+        color: #268BD2;
+        color: #0882d3;
+        white-space: nowrap;
       }
 
       h3 {
         padding: 12px 20px 0 20px;
-        //border-bottom: 1px solid #eee;
         background-color: #fff;
-        //border-top-left-radius: 30px;
-        //border-bottom-left-radius: 30px;
-        //margin-left: -10px;
-        //height: 60px;
         font-size: 30px;
         border-bottom: 1px solid #e5e5e5;
         margin: 50px 20px 15px 20px;
@@ -274,6 +276,7 @@ h1, h2, h3, h4, h5, h6 {
       ol li {
         margin: 4px 0 2px 44px;
         font-size: 110%;
+        line-height: 28px;
       }
 
       ol ul {
@@ -308,13 +311,13 @@ h1, h2, h3, h4, h5, h6 {
       .info-bubble {
         background-color: #fbfbfb;
         // padding: 0 20px;
-        margin: 0 20px 20px 20px;
-        border: 2px dashed #eaeaea;
-        // border-top: 2px solid #eaeaea;
+        margin: 0 0 20px 0;
+        border-bottom: 1px solid #eaeaea;
+        border-top: 1px solid #eaeaea;
         color: #333;
 
         .heading {
-          font-family: 'Brawler', serif;
+          font-family: 'Source Sans Pro', serif;
           color: #111;
           padding: 16px 0 16px 15px;
           margin-bottom: 15px;
@@ -327,6 +330,39 @@ h1, h2, h3, h4, h5, h6 {
           padding: 0 15px;
         }
       }
+    }
+  }
+
+  .paginate {
+    margin-left: 70px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    background-color: #fcfcfc;
+    // padding: 20px 0;
+
+    .prev, .next {
+      float: left;
+      width: 50%;
+      height: 60px;
+      padding-top: 15px;
+
+      a {
+        text-decoration: none;
+        font-size: 20px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .next {
+      text-align: right;
+      padding-right: 20px;
+    }
+    .prev {
+      text-align: left;
+      padding-left: 20px;
     }
   }
 }
@@ -993,17 +1029,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code .hll { background-color: #49483e }
-code .c { color: #75715e } /* Comment */
+code .c { color: #D0D0D0 } /* Comment */
 code .err { color: #960050; background-color: #1e0010 } /* Error */
 code .k { color: #66d9ef } /* Keyword */
 code .l { color: #ae81ff } /* Literal */
 code .n { color: #f8f8f2 } /* Name */
 code .o { color: #f92672 } /* Operator */
 code .p { color: #f8f8f2 } /* Punctuation */
-code .cm { color: #75715e } /* Comment.Multiline */
-code .cp { color: #75715e } /* Comment.Preproc */
-code .c1 { color: #75715e } /* Comment.Single */
-code .cs { color: #75715e } /* Comment.Special */
+code .cm { color: #D0D0D0 } /* Comment.Multiline */
+code .cp { color: #D0D0D0 } /* Comment.Preproc */
+code .c1 { color: #D0D0D0 } /* Comment.Single */
+code .cs { color: #D0D0D0 } /* Comment.Special */
 code .ge { font-style: italic } /* Generic.Emph */
 code .gs { font-weight: bold } /* Generic.Strong */
 code .kc { color: #66d9ef } /* Keyword.Constant */

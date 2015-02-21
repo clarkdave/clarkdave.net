@@ -12,11 +12,11 @@ Sometimes you need to find out what a record looked like at some point in the pa
 * implementing an undo functionality
 * showing a model's change over time for stats or comparison
 
-There are a few ways to do this in PostgreSQL, but this article is going to focus on the implementation provided by the [SQL:2011](https://en.wikipedia.org/wiki/SQL:2011) standard, which added support for temporal databases. It's also going to focus on actually *querying* that historical data, with some real-life use cases.
+There are a few ways to do this in PostgreSQL, but this article is going to focus on the implementation provided by the [SQL:2011](https://en.wikipedia.org/wiki/SQL:2011) standard, which added support for temporal databases. It's also going to focus on actually querying that historical data, with some real-life use cases.
 
-PostgreSQL doesn't (yet?) support these features natively, but this [temporal tables](https://github.com/arkhipov/temporal_tables) extension does the trick. This requires PostgreSQL 9.2 or higher, as that was the first version with support for a timestamp range data type.
+PostgreSQL doesn't support these features natively, but this [temporal tables](https://github.com/arkhipov/temporal_tables) extension does the trick. This requires PostgreSQL 9.2 or higher, as that was the first version with support for a timestamp range data type.
 
-Before you dig in, it's important to note that this extension does not provide **complete** support for the 2011 standard. Specifically it lacks any support for the new syntaxes provided for querying across historical tables, such as the `AS OF SYSTEM TIME` keyword.
+Before you dig in, it's important to note that this extension does not provide **complete** support for the 2011 standard. Specifically, there is no support for the new syntaxes provided for querying across historical tables, such as the `AS OF SYSTEM TIME` keyword.
 
 These are generally conveniences though - the `temporal tables` extension takes care of the updating, and you'll at least be adopting a standard used by other databases, as opposed to rolling your own solution or using something application-specific.
 
@@ -159,9 +159,9 @@ You should now have a `subscriptions_history` table looking something like this:
 
 What we can infer from this table is:
 
-- subscription #1 had the 'trial' state between 2015-01-05 - 2015-01-15
-- then it had the 'active' state between 2015-01-15 - now
-- subscription #2 was trialing from its created_at - now
+- subscription #1 had the 'trial' state between 2015-01-05 -> 2015-01-15
+- then it had the 'active' state between 2015-01-15 -> now
+- subscription #2 was trialing from its created_at -> now
 
 Now we can try out some simple historical queries!
 

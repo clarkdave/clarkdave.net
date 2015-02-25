@@ -52,6 +52,7 @@ The use cases we'll cover:
 
 - what state was a particular subscription on `X` date
 - which subscriptions were in each state on `X` date, or across a range of dates
+- on what date did a subscription change from state `X -> Y`
 - which subscriptions changed from state `X -> Y` on `Z` date, or across a range of dates
 
 First up, let's create a database to play about with:
@@ -308,36 +309,78 @@ Although this works, you now have a different problem: you'll count the same sub
 
 You could have some logic in place to get rid of duplicates, e.g. pick the most recent record in the case of multiples, but it's probably easier to stick with the `@>` operator which can only ever return one record for a given timestamp.
 
-### How many subscriptions changed from state X -> Y on Z date
 
-To start with, let's say we want a list of subscriptions which converted from `trial -> active` in 2015-01.
+### On what date did a subscription change from state X -> Y
 
-Specifically, what we're looking for is subscriptions which, for a particular month, have been both `trial` and `active` (we're making an assumption for simplicity here that you can't go backwards from `active -> trial`).
+Sometimes you'll want to know the date (in this case, the day, but it could be a month or anythign else) a subscription's state changed from `X -> Y`, e.g. `trial -> active`. We'll call this the 'conversion date'.
 
-This is fairly easy to figure out using PostgreSQL's [overlap operator](http://www.postgresql.org/docs/9.2/static/functions-range.html), `&&` and a liberal dose of [CTEs](http://www.postgresql.org/docs/9.2/static/queries-with.html). For 2015-01, this would be:
+This can be done using a self join, with the join constraint being the upper bound of one record and the lower bound of the next.
 
 ``` sql
-WITH timeboxed_subscriptions AS (
-  SELECT * FROM subscriptions_with_history
-    WHERE tstzrange('[2015-01-01, 2015-02-01)') && sys_period
-),
-trial_subscriptions AS (
-  SELECT id FROM timeboxed_subscriptions s
-    WHERE s.state = 'trial'
-),
-active_subscriptions AS (
-  SELECT id FROM timeboxed_subscriptions s
-    WHERE s.state = 'active'
-),
-converted_subscriptions AS (
-  SELECT DISTINCT ON (id) *
-  FROM timeboxed_subscriptions s
+SELECT upper(s1.sys_period)::date AS date
+FROM subscriptions_with_history s1, subscriptions_with_history s2
+WHERE
+  s1.id = 1 AND s2.id = 1 AND
+  date_trunc('day', upper(s1.sys_period)::date) =
+    date_trunc('day', lower(s2.sys_period)::date) AND
+  s1.state = 'trial' AND s2.state = 'active';
+```
+
+Result:
+
+```
+    date
+------------
+ 2015-01-15
+ ```
+
+Note that if the same state change happened multiple times, you'll get multiple dates back with this query - so if only care about the first or last time it happened, adjust the order and set a limit accordingly.
+
+Of course you can adjust the query to return multiple subscriptions:
+
+``` sql
+SELECT s1.id, upper(s1.sys_period)::date AS date
+FROM subscriptions_with_history s1, subscriptions_with_history s2
+WHERE
+  s1.id = s2.id AND
+  date_trunc('day', upper(s1.sys_period)::date) =
+    date_trunc('day', lower(s2.sys_period)::date) AND
+  s1.state = 'trial' AND s2.state = 'active';
+```
+
+If you find yourself needing to use these dates a lot in your queries it'd make sense to turn the above into another view. In our case we might call this `conversion_dates`, as in the dates each subscription converted.
+
+``` sql
+CREATE VIEW subscription_conversion_dates AS
+  SELECT s1.id AS subscription_id, upper(s1.sys_period)::date AS date
+  FROM subscriptions_with_history s1, subscriptions_with_history s2
   WHERE
-    EXISTS(SELECT * FROM trial_subscriptions WHERE id = s.id)
-    AND EXISTS(SELECT * FROM active_subscriptions WHERE id = s.id)
-)
+    s1.id = s2.id AND
+    date_trunc('day', upper(s1.sys_period)::date) =
+      date_trunc('day', lower(s2.sys_period)::date) AND
+    s1.state = 'trial' AND s2.state = 'active';
+```
+
+This would allow for some elegant queries, such as "show me which subscriptions converted in Jan 2015":
+
+``` sql
+SELECT s.id
+FROM subscriptions s
+INNER JOIN subscription_conversion_dates sd
+  ON s.id = sd.subscription_id
+WHERE date_trunc('month', sd.date) = '2015-01-01';
+```
+
+### How many subscriptions changed from state X -> Y on Z date
+
+It's easy to answer this question using our `subscription_conversion_dates` view. For example, to count the number of subscriptions which changed from `trial` to `active` in Jan 2015:
+
+``` sql
 SELECT count(*)
-FROM converted_subscriptions;
+FROM subscriptions s
+INNER JOIN subscription_conversion_dates sd
+  ON s.id = sd.subscription_id
+WHERE date_trunc('month', sd.date) = '2015-01-01';
 ```
 
 Result:
@@ -348,50 +391,55 @@ Result:
 
 #### Across a date range
 
-We're using months in this example, but the resolution could be anything:
+We can also use the same logic to return results across a date range:
 
 ``` sql
 WITH dates AS (
-  SELECT start, lead(start, 1, '2015-03-01') OVER (ORDER BY start) AS end
-  FROM generate_series('2014-11-01'::timestamptz, '2015-02-01', '1 month') start
-),
-timeboxed_subscriptions AS (
-  SELECT * FROM subscriptions_with_history
-    WHERE tstzrange('[2015-01-01, 2015-02-01)') && sys_period
-),
-trial_subscriptions AS (
-  SELECT id FROM timeboxed_subscriptions s
-    WHERE s.state = 'trial'
-),
-active_subscriptions AS (
-  SELECT id FROM timeboxed_subscriptions s
-    WHERE s.state = 'active'
-),
-converted_subscriptions AS (
-  SELECT DISTINCT ON (id) *
-  FROM timeboxed_subscriptions s
-  WHERE
-    EXISTS(SELECT * FROM trial_subscriptions WHERE id = s.id)
-    AND EXISTS(SELECT * FROM active_subscriptions WHERE id = s.id)
+  SELECT * FROM generate_series('2014-11-01'::date, '2015-02-01', '1 month') month
 )
-SELECT dates.start, count(s.*)
+SELECT month, count(s.*)
 FROM dates
-LEFT JOIN converted_subscriptions s
-  ON tstzrange(dates.start, dates.end) && sys_period
-GROUP BY dates.start
-ORDER BY dates.start;
+LEFT JOIN subscription_conversion_dates scd
+  ON month = date_trunc('month', scd.date)
+LEFT JOIN subscriptions s
+  ON scd.subscription_id = s.id
+GROUP BY month
+ORDER BY month;
 ```
 
 Result:
 
-             start          | count
+             month          | count
     ------------------------+-------
      2014-11-01 00:00:00+00 |     0
      2014-12-01 00:00:00+00 |     0
      2015-01-01 00:00:00+00 |     1
-     2015-02-01 00:00:00+00 |     0
+     2015-02-01 00:00:00+00 |     1
 
-The additional step here is generating a `months` sequence and joining to it. However, because we're using ranges and the overlap operator, our months sequence needs to have `start` and `end` fields. We generate the `end` date for each month using the handy `lead` window function, which - for each "row" - gets the next one in the sequence, or uses a default if it's at the end of the sequence.
+The resolution with that query was a month, but you can easily use something else:
+
+``` sql
+WITH dates AS (
+  SELECT * FROM generate_series('2001-01-01'::date, '3001-01-01', '1 millennium') millennium
+)
+SELECT millennium, count(s.*)
+FROM dates
+LEFT JOIN subscription_conversion_dates scd
+  ON millennium = date_trunc('millennium', scd.date)
+LEFT JOIN subscriptions s
+  ON scd.subscription_id = s.id
+GROUP BY millennium
+ORDER BY millennium;
+```
+
+Result:
+
+           millennium       | count
+    ------------------------+-------
+     2001-01-01 00:00:00+00 |     2
+     3001-01-01 00:00:00+00 |     0
+
+
 
 ### Creating the history table
 

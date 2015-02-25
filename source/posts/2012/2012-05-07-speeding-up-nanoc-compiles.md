@@ -1,7 +1,7 @@
 ---
 title: "Speeding up nanoc compiles"
 slug: speeding-up-nanoc-compiles
-date: 2012-05-06 20:02:48 +0100
+date: 2012-05-07 20:02:48 +0100
 kind: article
 published: true
 ---

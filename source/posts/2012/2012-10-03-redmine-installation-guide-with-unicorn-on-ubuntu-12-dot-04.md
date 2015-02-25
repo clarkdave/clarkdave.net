@@ -1,7 +1,7 @@
 ---
 title: "Redmine manual installation guide on Ubuntu 12.04"
 slug: redmine-installation-guide-with-unicorn-on-ubuntu-12-dot-04
-date: 2012-10-03 00:41:08 +0200
+date: 2012-10-03
 kind: article
 published: false
 ---

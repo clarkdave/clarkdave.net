@@ -1,7 +1,7 @@
 ---
 title: "easyXDM, CoffeeScript & async RPCs"
 slug: easyxdm-cofeescript-and-async-rpcs
-date: 2012-09-17 01:18:40 +0200
+date: 2012-09-17
 kind: article
 published: true
 ---

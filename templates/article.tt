@@ -1,0 +1,7 @@
+---
+title: <%= @title %>
+slug: <%= @slug %>
+date: <%= @date.strftime('%Y-%m-%d %H:%M:%S %z') %>
+tags:
+published: false
+---

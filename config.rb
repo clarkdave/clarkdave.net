@@ -1,15 +1,9 @@
-###
-# Blog settings
-###
-
-# Time.zone = 'UTC'
+require 'addressable/template'
 
 activate :blog do |blog|
-  # This will add a prefix to all links, template references and source paths
-  # blog.prefix = 'blog'
-
   blog.permalink = '{year}/{month}/{slug}'
-  blog.sources = 'posts/{year}/{title}'
+  blog.sources = 'posts/{year}/{year}-{month}-{day}-{title}'
+  # blog.source_template = Addressable::Template.new('posts/{year}/{year}-{month}-{day}-{title}')
   # blog.taglink = 'tags/{tag}.html'
   blog.layout = 'post'
   blog.summary_separator = '<!-- more -->'
@@ -19,7 +13,8 @@ activate :blog do |blog|
   # blog.day_link = '{year}/{month}/{day}.html'
   blog.default_extension = '.md'
 
-  blog.tag_template = 'tag.html'
+  blog.new_article_template = 'templates/article.tt'
+  # blog.tag_template = 'tag.html'
   # blog.calendar_template = 'calendar.html'
 
   # Enable pagination

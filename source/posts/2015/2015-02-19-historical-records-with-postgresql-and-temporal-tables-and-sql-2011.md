@@ -257,19 +257,26 @@ With a bit more effort we can get a count of subscription states across a date r
 
 ``` sql
 WITH dates AS (
-  SELECT * FROM generate_series('2015-01-10'::timestamptz, '2015-01-20', '1 day') date
+  SELECT *
+  FROM generate_series('2015-01-10'::timestamptz, '2015-01-20', '1 day') date
+),
+trial_subscriptions AS (
+  SELECT * FROM subscriptions_with_history s WHERE s.state = 'trial'
+),
+active_subscriptions AS (
+  SELECT * FROM subscriptions_with_history s WHERE s.state = 'active'
+),
+cancelled_subscriptions AS (
+  SELECT * FROM subscriptions_with_history s WHERE s.state = 'cancelled'
 )
 SELECT date,
-  count(trials.*) as trial,
-  count(actives.*) as active,
-  count(cancels.*) as cancelled
+  ( SELECT count(*) FROM trial_subscriptions s
+    WHERE s.sys_period @> date ) as trial,
+  ( SELECT count(*) FROM active_subscriptions s
+    WHERE s.sys_period @> date ) as active,
+  ( SELECT count(*) FROM cancelled_subscriptions s
+    WHERE s.sys_period @> date ) as cancelled
 FROM dates
-LEFT JOIN subscriptions_with_history trials
-  ON trials.state = 'trial' AND trials.sys_period @> dates.date::timestamptz
-LEFT JOIN subscriptions_with_history actives
-  ON actives.state = 'active' AND actives.sys_period @> dates.date::timestamptz
-LEFT JOIN subscriptions_with_history cancels
-  ON cancels.state = 'cancelled' AND cancels.sys_period @> dates.date::timestamptz
 GROUP BY date
 ORDER BY date;
 ```
@@ -299,20 +306,18 @@ WITH dates AS (
   SELECT start, lead(start, 1, '2015-01-20') OVER (ORDER BY start) AS end
   FROM generate_series('2015-01-10'::timestamptz, '2015-01-19', '1 day') start
 )
---- stuff
-LEFT JOIN subscriptions_with_history trials
-  ON trials.state = 'trial'
-    AND tstzrange(dates.start, dates.end) && trials.sys_period
+SELECT dates.start, dates.end, ( SELECT count(*) FROM trial_subscriptions s,
+  WHERE tstzrange(dates.start, dates.end) && s.sys_period ) as trials
 ```
 
-Although this works, you now have a different problem: you'll count the same subscription multiple times. This is because there'll be one record whose period ends at, e.g. `2015-01-15 15:00:00` and another whose period begins at `2015-01-15 15:00:00`, Which record should be counted? Technically, the subscription was in two states on the same day.
+Although this works, you now have a different problem: you'll count the same subscription multiple times. This is because there'll be one record whose period ends at, e.g. `2015-01-15 15:00:00` and another whose period begins at `2015-01-15 15:00:00`, Which record should be counted? The subscription was in two states on the same day.
 
-You could have some logic in place to get rid of duplicates, e.g. pick the most recent record in the case of multiples, but it's probably easier to stick with the `@>` operator which can only ever return one record for a given timestamp.
+You could have some logic in place to get rid of duplicates, e.g. pick the most recent record in the case of multiples, but for most purposes it's probably easier to stick with the `@>` operator which can only ever return one record for a given timestamp.
 
 
 ### On what date did a subscription change from state X -> Y
 
-Sometimes you'll want to know the date (in this case, the day, but it could be a month or anythign else) a subscription's state changed from `X -> Y`, e.g. `trial -> active`. We'll call this the 'conversion date'.
+Sometimes you'll want to know the date (in this case, the day, but it could be a month or anything else) a subscription's state changed from `X -> Y`, e.g. `trial -> active`. We'll call this the 'conversion date'.
 
 This can be done using a self join, with the join constraint being the upper bound of one record and the lower bound of the next.
 

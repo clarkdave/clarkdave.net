@@ -6,7 +6,7 @@ activate :blog do |blog|
   # blog.source_template = Addressable::Template.new('posts/{year}/{year}-{month}-{day}-{title}')
   # blog.taglink = 'tags/{tag}.html'
   blog.layout = 'post'
-  blog.summary_separator = '<!-- more -->'
+  blog.summary_separator = /<!-- more -->/
 
   # blog.year_link = '{year}.html'
   # blog.month_link = '{year}/{month}.html'

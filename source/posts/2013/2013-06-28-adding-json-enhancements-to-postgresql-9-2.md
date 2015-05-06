@@ -61,7 +61,7 @@ If you have an existing DB you'd like to add the extension to, do:
 
     $ psql db_name -c 'create extension json_enhancements;'
 
-If, when installing the extension here, you get an error about not having `hstore` installed, you probably `make installed` before you added `HSTORE=1` to the Makefile. Nuke the extension files from PostgreSQL, do a fresh `git clone` and start again from above, e.g:
+If, when installing the extension here, you get an error about not having `hstore` installed, you probably `make installed` before you added `NOHSTORE=1` to the Makefile. Nuke the extension files from PostgreSQL, do a fresh `git clone` and start again from above, e.g:
 
     $ rm /usr/local/Cellar/postgresql/9.2.4/lib/json_enhancements.so /usr/local/Cellar/postgresql/9.2.4/share/postgresql/extension/json_enhancements.control /usr/local/Cellar/postgresql/9.2.4/share/postgresql/extension/json_enhancements--1.0.0.sql
 

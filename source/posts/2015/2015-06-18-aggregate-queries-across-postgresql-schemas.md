@@ -3,7 +3,7 @@ title: Aggregate queries across PostgreSQL schemas
 slug: aggregate-queries-across-postgresql-schemas
 date: 2015-06-18 06:28:39 +0000
 tags: databases postgresql
-published: false
+published: true
 ---
 
 [Schemas](http://www.postgresql.org/docs/9.4/static/ddl-schemas.html) are a useful feature in PostgreSQL which can be used for the design of a multi-tenancy system. Using schemas you could, for example, have one schema for each user of your application. Inside this schema the user has their own copy of all your tables, views etc, and the data within them is completely separate from any other schemas.

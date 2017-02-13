@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/clarkdave
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://clarkdave.net
+  * I am clarkdave (https://keybase.io/clarkdave) on keybase.
+  * I have a public key ASAAW7KQ7BqcEQjDD--DhGxAF_Ufz_IT71BmARZuxJotRwo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "010178e7c74e86b819dad1c21668cf9854cc00bf7ab036500dedb1a4d315dbd3ea580a",
+            "host": "keybase.io",
+            "kid": "0120005bb290ec1a9c1108c30fef83846c4017f51fcff213ef506601166ec49a2d470a",
+            "uid": "4c84a271be6e81000d857b907b387419",
+            "username": "clarkdave"
+        },
+        "service": {
+            "hostname": "clarkdave.net",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.18"
+    },
+    "ctime": 1486942309,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1486942284,
+        "hash": "1546e50243db98d228d0f73963ab47c74546a75a08e1dccba107481a2ae5f9bee82a05e3936fedd68eee44fe950a10559218bd505451dd9f45fb235bed06fb53",
+        "seqno": 882010
+    },
+    "prev": "4413081ec16e2f2f7d22a3c72c7e0e3a6c3ae5589f48d9281b0f249fef2f43dc",
+    "seqno": 9,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgAFuykOwanBEIww/vg4RsQBf1H8/yE+9QZgEWbsSaLUcKp3BheWxvYWTFAvZ7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxNzhlN2M3NGU4NmI4MTlkYWQxYzIxNjY4Y2Y5ODU0Y2MwMGJmN2FiMDM2NTAwZGVkYjFhNGQzMTVkYmQzZWE1ODBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwMDA1YmIyOTBlYzFhOWMxMTA4YzMwZmVmODM4NDZjNDAxN2Y1MWZjZmYyMTNlZjUwNjYwMTE2NmVjNDlhMmQ0NzBhIiwidWlkIjoiNGM4NGEyNzFiZTZlODEwMDBkODU3YjkwN2IzODc0MTkiLCJ1c2VybmFtZSI6ImNsYXJrZGF2ZSJ9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoiY2xhcmtkYXZlLm5ldCIsInByb3RvY29sIjoiaHR0cHM6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjE4In0sImN0aW1lIjoxNDg2OTQyMzA5LCJleHBpcmVfaW4iOjUwNDU3NjAwMCwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE0ODY5NDIyODQsImhhc2giOiIxNTQ2ZTUwMjQzZGI5OGQyMjhkMGY3Mzk2M2FiNDdjNzQ1NDZhNzVhMDhlMWRjY2JhMTA3NDgxYTJhZTVmOWJlZTgyYTA1ZTM5MzZmZWRkNjhlZWU0NGZlOTUwYTEwNTU5MjE4YmQ1MDU0NTFkZDlmNDVmYjIzNWJlZDA2ZmI1MyIsInNlcW5vIjo4ODIwMTB9LCJwcmV2IjoiNDQxMzA4MWVjMTZlMmYyZjdkMjJhM2M3MmM3ZTBlM2E2YzNhZTU1ODlmNDhkOTI4MWIwZjI0OWZlZjJmNDNkYyIsInNlcW5vIjo5LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQDwVzx66pYj4Npb73injeLDpcz/Z3OxEs+3szW/WfeG7Q6a6HswGcosExXQf+t0vmCcHSvnHoIPQKp1TkCaJtwKoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCBQGWjBn+6UlE/MCZYYSc/8HsajHrq3LcEwtgXb1da4xKN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/clarkdave
+
+==================================================================

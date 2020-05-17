@@ -7,7 +7,7 @@ kind: article
 published: true
 ---
 
-Syntax highlighting is easy in nanoc using the (built-in) `colorize_syntax` filter and [Pygments](http://pygments.org/). Pygments is an extremely robust Python library with support for many languages. You wouldn't ordinarily want to call out to a Python application from your Ruby app, but as your nanoc site is compiled this method works great.
+Syntax highlighting is easy in nanoc using the (built-in) `colorize_syntax` filter and [Pygments](https://pygments.org/). Pygments is an extremely robust Python library with support for many languages. You wouldn't ordinarily want to call out to a Python application from your Ruby app, but as your nanoc site is compiled this method works great.
 
 <!-- more -->
 
@@ -61,6 +61,6 @@ The styles I use for the syntax highlighting on this blog are in [this gist](htt
 
 ### Highlight your codes!
 
-With everything in place, you should now be able to write your Markdown as usual but prefix your code blocks with `#!language`, where `language` is one of the (many) [supported languages in Pygments](http://pygments.org/languages/).
+With everything in place, you should now be able to write your Markdown as usual but prefix your code blocks with `#!language`, where `language` is one of the (many) [supported languages in Pygments](https://pygments.org/languages/).
 
-If you find your development compiles (e.g. `nanoc watch`) are too slow now that you're highlighting your code, you may appreciate [this tip on speeding up nanoc compiles](http://clarkdave.net/2012/05/speeding-up-nanoc-compiles/).
+If you find your development compiles (e.g. `nanoc watch`) are too slow now that you're highlighting your code, you may appreciate [this tip on speeding up nanoc compiles](https://clarkdave.net/2012/05/speeding-up-nanoc-compiles/).

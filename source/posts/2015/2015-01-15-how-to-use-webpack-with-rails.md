@@ -6,7 +6,7 @@ kind: article
 published: true
 ---
 
-[webpack](https://webpack.github.io) is a powerful module bundler, primarily designed for front-end development, which can integrate nicely with [bower](http://bower.io) and [npm](https://www.npmjs.com/) JavaScript modules.
+[webpack](https://webpack.github.io) is a powerful module bundler, primarily designed for front-end development, which can integrate nicely with [bower](https://bower.io) and [npm](https://www.npmjs.com/) JavaScript modules.
 
 It has quite a few advantages over the typical Rails methods of managing front-end JS, but can still slot in seamlessly with Sprockets and the asset pipeline. Unfortunately, the documentation for webpack is still a bit hard to digest, especially if you're wanting to integrate it with Rails.
 
@@ -56,7 +56,7 @@ If you're ready to get started, let's move on to preparing a Rails app for webpa
 
 ### Preparing Rails for webpack
 
-*There aren't really any best practices for integrating webpack with Rails, so almost all of this is quite opinionated. If you don't like where I've put a directory, just place it somewhere else instead.*
+_There aren't really any best practices for integrating webpack with Rails, so almost all of this is quite opinionated. If you don't like where I've put a directory, just place it somewhere else instead._
 
 #### Untangling Sprockets
 
@@ -71,7 +71,7 @@ There's two reasons for this:
 1. The generated bundles tend to be large, and change constantly, which would generate some truly epic gitspam if you were to check them in
 2. We'll be integrating webpack with our deloy process later, which will build a production version of the bundles and placing them here. So, even if you checked in the bundles, you'd be replacing them during deploy anyway.
 
-*The above advice is intended for when you go "all in" with webpack. You can, of course, use webpack alongside some Sprockets JS bundles. If that's the case, amend the `.gitignore` to ignore only generated JS, e.g. `/app/assets/javascripts/bundle-*`*
+_The above advice is intended for when you go "all in" with webpack. You can, of course, use webpack alongside some Sprockets JS bundles. If that's the case, amend the `.gitignore` to ignore only generated JS, e.g. `/app/assets/javascripts/bundle-_`\*
 
 #### A new home for your JavaScript
 
@@ -81,9 +81,9 @@ Because `app/assets/javascripts` is now for generated bundles, you need a new ho
 
 Inside this directory you should create a file called `entry.js` - we'll revisit this later, but now just add something like:
 
-``` javascript
-var _ = require('lodash');
-_.times(5, function(i) {
+```javascript
+var _ = require("lodash");
+_.times(5, function (i) {
   console.log(i);
 });
 ```
@@ -94,7 +94,7 @@ _.times(5, function(i) {
 
 Because webpack is a node.js application, we'll need a `package.json` file in our Rails root. A simple one will do, we're only using this to manage webpack and its modules:
 
-``` json
+```json
 {
   "name": "my-rails-app",
   "description": "my-rails-app",
@@ -130,7 +130,7 @@ However, if you need access to more libraries, or you simply prefer using Bower,
 
 Then create a `bower.json` file in your Rails root:
 
-``` json
+```json
 {
   "name": "my-rails-app",
   "version": "1.0.0",
@@ -144,7 +144,7 @@ Then create a `bower.json` file in your Rails root:
 
 Here we've got a minimal `bower.json` file which specifies jQuery and lodash as dependencies. When you run `bower install` in your Rails root, bower will install these libraries into `bower_components/`, along with any dependencies they have.
 
-*Remember that, unlike npm, bower resolves dependencies in a flat hierarchy. So if you specify jQuery version 1.x but another of your dependencies specifies a minimum of jQuery 2.x, you'll need to resolve this yourself.*
+_Remember that, unlike npm, bower resolves dependencies in a flat hierarchy. So if you specify jQuery version 1.x but another of your dependencies specifies a minimum of jQuery 2.x, you'll need to resolve this yourself._
 
 <div class='info-bubble'>
   <div class='heading'>Using bower and npm together</div>
@@ -155,23 +155,22 @@ Here we've got a minimal `bower.json` file which specifies jQuery and lodash as 
   <p>In practice, this might not make a huge difference. In the case of large modules like `React`, it may be worth including it as a one-off from npm so webpack can optimise it a little better, but for almost everything else I recommend sticking with Bower so you have one place for all your dependencies.</p>
 </div>
 
-
 ### Configuring webpack
 
 It's possible to run webpack entirely from the command line with a lot of arguments, but for any remotely complex app this isn't workable, so we'll start off with a webpack configuration file.
 
 Create the following file in your Rails root: `webpack.config.js`
 
-``` javascript
-var path = require('path');
-var webpack = require('webpack');
+```javascript
+var path = require("path");
+var webpack = require("webpack");
 
-var config = module.exports = {
+var config = (module.exports = {
   // the base path which will be used to resolve entry points
   context: __dirname,
   // the main entry point for our application's frontend JS
-  entry: './app/frontend/javascripts/entry.js',
-};
+  entry: "./app/frontend/javascripts/entry.js",
+});
 ```
 
 This will end up being quite a complex file, so lets start by adding the bare minimum along with an explanation of what each bit is for. As we continue through this guide we'll add more to this file as needed. The [webpack docs](https://webpack.github.io/docs/configuration.html) have an overview of most configuration properties too.
@@ -180,39 +179,41 @@ For now we only have one entry file, but that property can also accept an array 
 
 The next property we'll add is `output`, which will dictate where compiled bundles end up.
 
-``` javascript
+```javascript
 config.output = {
   // this is our app/assets/javascripts directory, which is part of the Sprockets pipeline
-  path: path.join(__dirname, 'app', 'assets', 'javascripts'),
+  path: path.join(__dirname, "app", "assets", "javascripts"),
   // the filename of the compiled bundle, e.g. app/assets/javascripts/bundle.js
-  filename: 'bundle.js',
+  filename: "bundle.js",
   // if the webpack code-splitting feature is enabled, this is the path it'll use to download bundles
-  publicPath: '/assets',
+  publicPath: "/assets",
 };
 ```
 
 Now we'll add the `resolve` property:
 
-``` javascript
+```javascript
 config.resolve = {
   // tell webpack which extensions to auto search when it resolves modules. With this,
   // you'll be able to do `require('./utils')` instead of `require('./utils.js')`
-  extensions: ['', '.js'],
+  extensions: ["", ".js"],
   // by default, webpack will search in `web_modules` and `node_modules`. Because we're using
   // Bower, we want it to look in there too
-  modulesDirectories: [ 'node_modules', 'bower_components' ],
+  modulesDirectories: ["node_modules", "bower_components"],
 };
 ```
 
 And finally, `plugins`:
 
-``` javascript
+```javascript
 config.plugins = [
   // we need this plugin to teach webpack how to find module entry points for bower files,
   // as these may not have a package.json file
   new webpack.ResolverPlugin([
-    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
-  ])
+    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", [
+      "main",
+    ]),
+  ]),
 ];
 ```
 
@@ -248,13 +249,13 @@ If you now open up `app/assets/javascripts/bundle.js`, you'll see your compiled 
 
 What webpack actually does is look through your code and replace any calls to, e.g. `require('lodash')` with something like this:
 
-``` javascript
+```javascript
 var _ = __webpack_require__(/*! lodash */ 1);
 ```
 
-The `__webpack_require__` function, which is injected in to every module, can then load the requested dependency. If you're following along with our examples, you should have your entry module listed around line *~50*, looking something like this:
+The `__webpack_require__` function, which is injected in to every module, can then load the requested dependency. If you're following along with our examples, you should have your entry module listed around line _~50_, looking something like this:
 
-``` javascript
+```javascript
 /* 0 */
 /*!*******************************************!*\
   !*** ./app/frontend/javascripts/entry.js ***!
@@ -281,9 +282,9 @@ Now we've got the basics down, let's cover some more features which are likely t
 
 By now you should have the idea of `require`. In a particular module, if you want to use jQuery you can write
 
-``` javascript
-$ = require('jquery');
-$('p').show();
+```javascript
+$ = require("jquery");
+$("p").show();
 ```
 
 However, you may want to
@@ -293,11 +294,11 @@ However, you may want to
 
 Both these are possible with webpack, though the documentation can make it a little hard to grok how. To tackle the first - exposing jQuery to every module - we'll use the `ProvidePlugin`. So, add this to your webpack config's plugins array:
 
-``` javascript
+```javascript
 new webpack.ProvidePlugin({
-  $: 'jquery',
-  jQuery: 'jquery',
-})
+  $: "jquery",
+  jQuery: "jquery",
+});
 ```
 
 This will now automatically inject the `$` and `jQuery` variables into every module, so you no longer need to `require` them.
@@ -308,8 +309,8 @@ The `expose` loader takes the exports from a module and adds it to the global co
 
 So, at the top of your main `entry.js` file, add this line:
 
-``` javascript
-require('expose?$!expose?jQuery!jquery');
+```javascript
+require("expose?$!expose?jQuery!jquery");
 ```
 
 I know, the syntax is a bit clunky! We're actually running the `expose` loader twice here, to add jQuery to both `window.$` and `window.jQuery`.
@@ -324,7 +325,7 @@ You probably noticed webpack is automatically dropping off a `bundle.js.map` in 
 
 However, by default Sprockets will break the source maps by appending a semi-colon to them, so browsers can't parse them. You can fix this with the following configuration option:
 
-``` ruby
+```ruby
 Rails.application.config.assets.configure do |env|
   env.unregister_postprocessor 'application/javascript', Sprockets::SafetyColons
 end
@@ -336,7 +337,7 @@ Now when you get errors, or view loaded sources in a browser, you'll see the act
 
 #### Virtual source paths
 
-In Chrome, by default the source map generated by webpack will put everything in a 'pseudo path', `webpack://`, when you view it in the inspector's *Sources* tab. You can make this a bit nicer by adding the following to your webpack `config.output`:
+In Chrome, by default the source map generated by webpack will put everything in a 'pseudo path', `webpack://`, when you view it in the inspector's _Sources_ tab. You can make this a bit nicer by adding the following to your webpack `config.output`:
 
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
@@ -362,17 +363,15 @@ Now, in our webpack config, update the `config.resolve.extensions` list so we ca
 
 Finally, we'll add a loader:
 
-``` javascript
+```javascript
 config.module = {
-  loaders: [
-    { test: /\.coffee$/, loader: 'coffee-loader' },
-  ],
+  loaders: [{ test: /\.coffee$/, loader: "coffee-loader" }],
 };
 ```
 
 Now create a new CoffeeScript file: `app/frontend/javascripts/app.coffee`
 
-``` coffeescript
+```coffeescript
 _ = require('lodash')
 
 module.exports = class App
@@ -382,9 +381,9 @@ module.exports = class App
 
 We can update our existing `entry.js` to require this CoffeeScript module:
 
-``` javascript
-require('expose?$!expose?jQuery!jquery');
-var App = require('./app');
+```javascript
+require("expose?$!expose?jQuery!jquery");
+var App = require("./app");
 
 var app = new App();
 app.start();
@@ -394,23 +393,23 @@ Now run webpack again and back in your browser you should see everything working
 
 ### Code splitting and lazily loading modules
 
-A neat feature in webpack is its built-in mechanism for splitting certain modules out into their own JS files, to be included only when something on the page requires them. For example, suppose you are using the [Ace](http://ace.c9.io/) code editor. It's awesome, and really powerful, but it also weighs in at ~300KB. If you only use this editor in certain situations, doesn't it make sense to only load it when it's actually needed?
+A neat feature in webpack is its built-in mechanism for splitting certain modules out into their own JS files, to be included only when something on the page requires them. For example, suppose you are using the [Ace](https://ace.c9.io/) code editor. It's awesome, and really powerful, but it also weighs in at ~300KB. If you only use this editor in certain situations, doesn't it make sense to only load it when it's actually needed?
 
 With webpack you can use `require.ensure` to load modules on demand. webpack will figure out which modules can be lazily loaded, and place them in their own "chunk". When your code is being used, and it hits a `require.ensure` part, webpack will take over and download the module via JSONP so your code can continue. For example:
 
-``` javascript
-function Editor() {};
-Editor.prototype.open = function() {
-  require.ensure(['ace'], function(require) {
-    var ace = require('ace');
-    var editor = ace.edit('code-editor');
-    editor.setTheme('ace/theme/textmate');
+```javascript
+function Editor() {}
+Editor.prototype.open = function () {
+  require.ensure(["ace"], function (require) {
+    var ace = require("ace");
+    var editor = ace.edit("code-editor");
+    editor.setTheme("ace/theme/textmate");
     editor.gotoLine(0);
   });
 };
 
 var editor = new Editor();
-$('a[data-open-editor]').on('click', function(e) {
+$("a[data-open-editor]").on("click", function (e) {
   e.preventDefault();
   editor.open();
 });
@@ -426,7 +425,7 @@ After using webpack for a bit it's easy to tell it's designed for single page JS
 
 Most Rails apps have different pages, and any JS on them might instead be things like:
 
-``` javascript
+```javascript
 (function() {
   $('[data-show-dropdown]').on('click', function(e) {
     e.preventDefault();
@@ -437,7 +436,7 @@ Most Rails apps have different pages, and any JS on them might instead be things
 
 As your app grows you might move from having scattered function calls and event handlers to using something like Backbone.js Views to encapsulate this logic, but then you'll still have:
 
-``` javascript
+```javascript
 (function() {
   var view = new window.app.views.SignupPageView({
     el: $('#signup-page')
@@ -462,17 +461,17 @@ If we were to use this strategy for our above example, you'd have multiple entry
 
 Each file would look something like this:
 
-``` javascript
-var SignupView = require('./views/users/signup');
+```javascript
+var SignupView = require("./views/users/signup");
 var view = new SignupView();
 view.render({
-  el: $('[data-view-container]')
+  el: $("[data-view-container]"),
 });
 ```
 
 The Rails view just needs to have an element on the page with the `data-view-container` attribute, include two bundles, and we're done. No `<script>` tags necessary.
 
-``` erb
+```erb
 <%= javascript_include_tag 'users-signup-bundle' %>
 ```
 
@@ -490,17 +489,17 @@ Using webpack's `expose-loader` we can expose a module to the global context. Th
 
 The first option is to expose a global object (e.g. `$app`), and then hang our global modules (or anything else we'll need in a Rails view) off it.
 
-``` javascript
+```javascript
 // entry.js
-var $app = require('./app');
+var $app = require("./app");
 
-$app.views.users.Signup = require('./views/users/signup');
-$app.views.users.Login = require('./views/users/login');
+$app.views.users.Signup = require("./views/users/signup");
+$app.views.users.Login = require("./views/users/login");
 ```
 
 <!-- x -->
 
-``` javascript
+```javascript
 // app.js
 module.exports = {
   views = {
@@ -511,7 +510,7 @@ module.exports = {
 
 <!-- x -->
 
-``` coffeescript
+```coffeescript
 # ./views/users/signup.coffee
 module.exports = class SignupView extends Backbone.View
   initialize: ->
@@ -520,42 +519,45 @@ module.exports = class SignupView extends Backbone.View
 
 The next thing we'll need to do is expose our `app` module. We can do this using a loader:
 
-``` javascript
+```javascript
 loaders: [
   {
-    test: path.join(__dirname, 'app', 'frontend', 'javascripts', 'app.js'),
-    loader: 'expose?$app'
+    test: path.join(__dirname, "app", "frontend", "javascripts", "app.js"),
+    loader: "expose?$app",
   },
-]
+];
 ```
 
 This will add the `module.exports` of the `app.js` module to `window.$app`, to be used by any `<script>` tag in a Rails view:
 
-``` javascript
-(function() {
-  var view = new $app.views.users.Signup({ el: $('#signup-page') });
+```javascript
+(function () {
+  var view = new $app.views.users.Signup({ el: $("#signup-page") });
   view.render();
 })();
 ```
 
 Now we have a tidy global context, with the bare minimum exposed. The `app` object is currently quite simple, but could be extended to bootstrap anything which is on every page. For example we could turn the `app` object into a singleton:
 
-``` javascript
+```javascript
 // app.js
-var App = function() {
+var App = function () {
   this.views = {
-    users: {}
+    users: {},
   };
-}
+};
 
-App.prototype.start = function() {
+App.prototype.start = function () {
   // send CSRF tokens for all ajax requests
   $.ajaxSetup({
-    beforeSend: function(xhr) {
-      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-    }
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "X-CSRF-Token",
+        $('meta[name="csrf-token"]').attr("content")
+      );
+    },
   });
-}
+};
 
 module.exports = new App();
 ```
@@ -574,15 +576,13 @@ For example, it's highly likely that both your public and private areas will nee
 
 It's easy to enable this feature by adding the `CommonsChunkPlugin` to your plugins list:
 
-``` javascript
-plugins: [
-  new webpack.optimize.CommonsChunkPlugin('common-bundle.js')
-]
+```javascript
+plugins: [new webpack.optimize.CommonsChunkPlugin("common-bundle.js")];
 ```
 
 This will create a new file in your output directly called `common-bundle.js`, which will contain the (tiny) webpack bootstrap code, plus any modules webpack detected are in use by more than one entry point. You can then just include this script on each page, alongside the normal entry file:
 
-``` erb
+```erb
 <%= javascript_include_tag 'common-bundle' %>
 <%= javascript_include_tag 'public-bundle' %>
 ```
@@ -601,7 +601,7 @@ Up until now we've had a single `webpack.config.js` file. We'll want to break th
 
 Let's start by creating a 'base' config, which both our development and production configs can inherit from. Create the file `config/webpack/main.config.js`. In here you'll want all of your base config values, such as your entry points, etc. If you've been following the guide until now, this file should just be a copy of your `webpack.config.js` file.
 
-``` javascript
+```javascript
 var path = require('path');
 var webpack = require('webpack');
 
@@ -622,20 +622,20 @@ var config.output = {
 
 Now create `config/webpack/development.config.js`
 
-``` javascript
-var webpack = require('webpack');
-var _ = require('lodash');
-var config = module.exports = require('./main.config.js');
+```javascript
+var webpack = require("webpack");
+var _ = require("lodash");
+var config = (module.exports = require("./main.config.js"));
 
 config = _.merge(config, {
   debug: true,
   displayErrorDetails: true,
   outputPathinfo: true,
-  devtool: 'sourcemap',
+  devtool: "sourcemap",
 });
 
 config.plugins.push(
-  new webpack.optimize.CommonsChunkPlugin('common', 'common-bundle.js')
+  new webpack.optimize.CommonsChunkPlugin("common", "common-bundle.js")
 );
 ```
 
@@ -643,25 +643,25 @@ This is our development config, so we've turned on debug mode, sourcemaps and en
 
 Finally, create `config/webpack/production.config.js`
 
-``` javascript
-var webpack = require('webpack');
-var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
-var _ = require('lodash');
-var path = require('path');
+```javascript
+var webpack = require("webpack");
+var ChunkManifestPlugin = require("chunk-manifest-webpack-plugin");
+var _ = require("lodash");
+var path = require("path");
 
-var config = module.exports = require('./main.config.js');
+var config = (module.exports = require("./main.config.js"));
 
 config.output = _.merge(config.output, {
-  path: path.join(config.context, 'public', 'assets'),
-  filename: '[name]-bundle-[chunkhash].js',
-  chunkFilename: '[id]-bundle-[chunkhash].js',
+  path: path.join(config.context, "public", "assets"),
+  filename: "[name]-bundle-[chunkhash].js",
+  chunkFilename: "[id]-bundle-[chunkhash].js",
 });
 
 config.plugins.push(
-  new webpack.optimize.CommonsChunkPlugin('common', 'common-[chunkhash].js'),
+  new webpack.optimize.CommonsChunkPlugin("common", "common-[chunkhash].js"),
   new ChunkManifestPlugin({
-    filename: 'webpack-common-manifest.json',
-    manfiestVariable: 'webpackBundleManifest',
+    filename: "webpack-common-manifest.json",
+    manfiestVariable: "webpackBundleManifest",
   }),
   new webpack.optimize.UglifyJsPlugin(),
   new webpack.optimize.OccurenceOrderPlugin()
@@ -682,7 +682,7 @@ During a deploy with Rails, the `assets:precompile` task is run which bundles an
 
 You can implement this however you want, but I use a rake task: `lib/tasks/webpack.rb`
 
-``` ruby
+```ruby
 namespace :webpack do
   desc 'compile bundles using webpack'
   task :compile do
@@ -700,11 +700,11 @@ end
 
 It's a simple procedure! We call `webpack`, passing it our production config, and request for it to return the results as JSON object. When it's finished, we parse the returned JSON and use this to write our own "assets manifest" file, which will look similar to this:
 
-``` json
+```json
 {
   "common": "common-4cdf0a22caf53cdc8e0e.js",
   "authenticated": "authenticated-bundle-2cc1d62d375d4f4ea6a0.js",
-  "public":"public-bundle-a010df1e7c55d0fb8116.js"
+  "public": "public-bundle-a010df1e7c55d0fb8116.js"
 }
 ```
 
@@ -724,7 +724,7 @@ config.webpack = {
 
 We'll be adding some helpers in a moment which will use these configuration values. Next, create a new initializer, `config/initializers/webpack.rb`
 
-``` ruby
+```ruby
 if Rails.configuration.webpack[:use_manifest]
   asset_manifest = Rails.root.join('public', 'assets', 'webpack-asset-manifest.json')
   common_manifest = Rails.root.join('public', 'assets', 'webpack-common-manifest.json')
@@ -747,7 +747,7 @@ Now, if our `webpack[:use_manifest]` is true, we'll preload the manifest file an
 
 The next step, as you can probably guess, is to set that value to `true` for production (and any other production-like environments, like staging):
 
-``` ruby
+```ruby
 # config/environments/production.rb
 config.webpack[:use_manifest] = true
 ```
@@ -758,7 +758,7 @@ One final step - we need to write two helpers to include these assets (with thei
 
 The first helper we'll call `webpack_bundle_tag`:
 
-``` ruby
+```ruby
 # app/helpers/application_helper.rb
 
 def webpack_bundle_tag(bundle)
@@ -780,7 +780,7 @@ This helper simply checks if we're using a manifest. If we are, it'll look up th
 
 The second helper we'll call `webpack_manifest_script`. This will use the `common manifest` we mentioned earlier. To explain why we need this, it'll help to look at an example of the common manifest file:
 
-``` json
+```json
 {
   "0": "0-bundle-850438bac52260f520a1.js",
   "2": "2-bundle-15c08c5e4d1afb256c9a.js",
@@ -792,7 +792,7 @@ You may remember from before that webpack creates an ID for each bundle, to mini
 
 Thanks to the [ChunkManifestPlugin](https://github.com/diurnalist/chunk-manifest-webpack-plugin), webpack can be told to **not** write this manifest directly into the common bundle. Instead it writes the manifest out and then, when it runs in the browser, will look for a global variable `webpackBundleManifest` (set in the plugin's config). So our second helper is simply going to set this variable:
 
-``` ruby
+```ruby
 # app/helpers/application_helper.rb
 
 def webpack_manifest_script
@@ -803,7 +803,7 @@ end
 
 And we're done! In your layout you'll use these helpers like so:
 
-``` erb
+```erb
 <%= webpack_manifest_script %>
 <%= webpack_bundle_tag 'common' %>
 <%= webpack_bundle_tag 'public' %>
@@ -811,11 +811,18 @@ And we're done! In your layout you'll use these helpers like so:
 
 Which, in production, will end up like:
 
-``` html
+```html
 <script>
-//<![CDATA[
-window.webpackManifest = {"0":"0-bundle-bdbd995368b007bb18a7.js","2":"2-bundle-7ad34cf6445d875d8506.js","3":"3-bundle-f8745c8bc2319252b6de.js","4":"4-bundle-ec8f5ae62f2e8da11aa1.js","5":"authenticated-bundle-933816ada9534488d12f.js","6":"public-bundle-8eb73d97201bd2e4951b.js"}
-//]]>
+  //<![CDATA[
+  window.webpackManifest = {
+    "0": "0-bundle-bdbd995368b007bb18a7.js",
+    "2": "2-bundle-7ad34cf6445d875d8506.js",
+    "3": "3-bundle-f8745c8bc2319252b6de.js",
+    "4": "4-bundle-ec8f5ae62f2e8da11aa1.js",
+    "5": "authenticated-bundle-933816ada9534488d12f.js",
+    "6": "public-bundle-8eb73d97201bd2e4951b.js",
+  };
+  //]]>
 </script>
 <script src="https://abc.cloudfront.net/assets/common-71a050793d79ce393b1e.js"></script>
 <script src="https://abc.cloudfront.net/assets/public-bundle-8eb73d97201bd2e4951b.js"></script>
@@ -825,7 +832,7 @@ window.webpackManifest = {"0":"0-bundle-bdbd995368b007bb18a7.js","2":"2-bundle-7
 
 If you're using Capistrano, the easiest thing to do would be to add a custom `precompile_assets` task to compile the webpack assets after Sprocket's does its precompile:
 
-``` ruby
+```ruby
 namespace :assets do
   task :precompile_assets do
     run_locally do
@@ -839,7 +846,7 @@ namespace :assets do
 end
 ```
 
-In this case, I run these locally because I prefer to precompile locally and then rsync the assets up. You may want to adopt this strategy to avoid needing to install webpack and all its dependencies on your production web servers. It's also likely to be a lot faster - webpack production compiles can be somewhat slow if you have a *lot* of modules.
+In this case, I run these locally because I prefer to precompile locally and then rsync the assets up. You may want to adopt this strategy to avoid needing to install webpack and all its dependencies on your production web servers. It's also likely to be a lot faster - webpack production compiles can be somewhat slow if you have a _lot_ of modules.
 
 ### Using webpack in development
 

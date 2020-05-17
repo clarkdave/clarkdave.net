@@ -13,9 +13,9 @@ PostgreSQL 9.2 added a native `JSON` data type, but didn't add much else. You've
 2. Use the [plv8](https://code.google.com/p/plv8js/wiki/PLV8) extension. Valid option, but more DIY (you'll have to define your own functions)
 3. Use the `json_enhancements` extension, which backports the new JSON functionality in 9.3 to 9.2
 
-I wanted to use this stuff *now*, and I opted to go with option 3. I wrote a blog post which should help you get going if you want to go this route: [adding json_enhancements to PostgreSQL 9.2](/2013/06/adding-json-enhancements-to-postgresql-9-2).
+I wanted to use this stuff _now_, and I opted to go with option 3. I wrote a blog post which should help you get going if you want to go this route: [adding json_enhancements to PostgreSQL 9.2](/2013/06/adding-json-enhancements-to-postgresql-9-2).
 
-So let's assume you're on either 9.3, or 9.2 with `json_enhancements`. What can you do? **Lots!** All the new JSON operators and functions are in the [9.3 documentation](http://www.postgresql.org/docs/9.3/static/functions-json.html), so I'm going to run through some of the more fun things you can do along with a real-world use case.
+So let's assume you're on either 9.3, or 9.2 with `json_enhancements`. What can you do? **Lots!** All the new JSON operators and functions are in the [9.3 documentation](https://www.postgresql.org/docs/9.3/static/functions-json.html), so I'm going to run through some of the more fun things you can do along with a real-world use case.
 
 <!-- more -->
 
@@ -28,7 +28,7 @@ Create a database to play about in:
 
 With some sample data:
 
-``` sql
+```sql
 CREATE TABLE books ( id integer, data json );
 
 INSERT INTO books VALUES (1,
@@ -43,7 +43,7 @@ INSERT INTO books VALUES (3,
 
 You can use the JSON operators to pull values out of JSON columns:
 
-``` sql
+```sql
 SELECT id, data->>'name' AS name FROM books;
 
  id |      name
@@ -55,7 +55,7 @@ SELECT id, data->>'name' AS name FROM books;
 
 The `->` operator returns the original JSON type (which might be an object), whereas `->>` returns text. You can use the `->` to return a nested object and thus chain the operators:
 
-``` sql
+```sql
 SELECT id, data->'author'->>'first_name' as author_first_name FROM books;
 
  id | author_first_name
@@ -71,7 +71,7 @@ How cool is that?
 
 Of course, you can also select rows based on a value inside your JSON:
 
-``` sql
+```sql
 SELECT * FROM books WHERE data->>'name' = 'Book the First';
 
  id |                                         data
@@ -81,7 +81,7 @@ SELECT * FROM books WHERE data->>'name' = 'Book the First';
 
 You can also find rows based on the value of a nested JSON object:
 
-``` sql
+```sql
 SELECT * FROM books WHERE data->'author'->>'first_name' = 'Charles';
 
  id |                                            data
@@ -91,9 +91,9 @@ SELECT * FROM books WHERE data->'author'->>'first_name' = 'Charles';
 
 #### Indexing
 
-You can add indexes on any of these using PostgreSQL's [expression indexes](http://www.postgresql.org/docs/9.2/static/indexes-expressional.html), which means you can even add unique constraints based on your nested JSON data:
+You can add indexes on any of these using PostgreSQL's [expression indexes](https://www.postgresql.org/docs/9.2/static/indexes-expressional.html), which means you can even add unique constraints based on your nested JSON data:
 
-``` sql
+```sql
 CREATE UNIQUE INDEX books_author_first_name ON books ((data->'author'->>'first_name'));
 
 INSERT INTO books VALUES (4,
@@ -108,7 +108,7 @@ Expression indexes are somewhat expensive to create, but once in place will make
 
 OK, let's give this a go with a real life use case. Let's say we're tracking analytics, so we have an `events` table:
 
-``` sql
+```sql
 CREATE TABLE events (
   name varchar(200),
   visitor_id varchar(200),
@@ -121,7 +121,7 @@ We're going to store events in this table, like pageviews. Each event has proper
 
 Let's insert a couple of events:
 
-``` sql
+```sql
 INSERT INTO events VALUES (
   'pageview', '1',
   '{ "page": "/" }',
@@ -158,11 +158,11 @@ Hm, this is starting to remind me of MongoDB!
 
 #### Collect some stats
 
-Using the JSON operators, combined with traditional PostgreSQL [aggregate functions](http://www.postgresql.org/docs/9.2/static/functions-aggregate.html), we can pull out whatever we want. You have the full might of an RDBMS at your disposal.
+Using the JSON operators, combined with traditional PostgreSQL [aggregate functions](https://www.postgresql.org/docs/9.2/static/functions-aggregate.html), we can pull out whatever we want. You have the full might of an RDBMS at your disposal.
 
 **Browser usage?**
 
-``` sql
+```sql
 SELECT browser->>'name' AS browser, count(browser)
 FROM events
 GROUP BY browser->>'name';
@@ -175,7 +175,7 @@ GROUP BY browser->>'name';
 
 **Total revenue per visitor?**
 
-``` sql
+```sql
 SELECT visitor_id, SUM(CAST(properties->>'amount' AS integer)) AS total
 FROM events
 WHERE CAST(properties->>'amount' AS integer) > 0
@@ -189,7 +189,7 @@ GROUP BY visitor_id;
 
 **Average screen resolution?**
 
-``` sql
+```sql
 SELECT AVG(CAST(browser->'resolution'->>'x' AS integer)) AS width,
   AVG(CAST(browser->'resolution'->>'y' AS integer)) AS height
 FROM events;
@@ -205,4 +205,4 @@ You've probably got the idea, so I'll leave it here.
 
 Haha, just kidding. I'm not going to answer that!
 
-There's a whole lot of other JSON operators and functions I didn't cover here, for example to work with JSON arrays too. I recommend you check out the [official documentation](http://www.postgresql.org/docs/9.3/static/functions-json.html) to see what other cool stuff is possible.
+There's a whole lot of other JSON operators and functions I didn't cover here, for example to work with JSON arrays too. I recommend you check out the [official documentation](https://www.postgresql.org/docs/9.3/static/functions-json.html) to see what other cool stuff is possible.

@@ -6,7 +6,7 @@ kind: article
 published: false
 ---
 
-Amazon Virtual Private Cloud (VPC) has a lot of great features. You can have your own private and public subnets, with dedicated private IP addresses, set up granular security groups to control access to and from subnets and [plenty more](http://aws.amazon.com/vpc/#highlights).
+Amazon Virtual Private Cloud (VPC) has a lot of great features. You can have your own private and public subnets, with dedicated private IP addresses, set up granular security groups to control access to and from subnets and [plenty more](https://aws.amazon.com/vpc/#highlights).
 
 But you've probably already decided if VPC is for you. There's certainly more complexity involved compared to EC2-Classic, but in my opinion it's well worth the effort.
 
@@ -18,9 +18,9 @@ It'll have public and private subnets, spanning multiple availability zones, a p
 
 ### Creating the VPC
 
-Hop on the AWS Console, select your region (VPCs are region-specific) and open up the [VPC Console](https://console.aws.amazon.com/vpc/home). From the VPC Console dashboard, click *Start VPC Wizard* (or *Get started creating a VPC*). This is a quick way to get started, although we'll be changing some of the defaults later.
+Hop on the AWS Console, select your region (VPCs are region-specific) and open up the [VPC Console](https://console.aws.amazon.com/vpc/home). From the VPC Console dashboard, click _Start VPC Wizard_ (or _Get started creating a VPC_). This is a quick way to get started, although we'll be changing some of the defaults later.
 
-With the wizard, open, you'll want to select the second option, *VPC with Public and Private Subnets*, and continue. The next screen lets you configure your subnets and the NAT instance.
+With the wizard, open, you'll want to select the second option, _VPC with Public and Private Subnets_, and continue. The next screen lets you configure your subnets and the NAT instance.
 
 <div class='info-bubble'>
 <div class='heading'>A quick word on public and private subnets</div>
@@ -41,17 +41,17 @@ Next, you can configure first two subnets. By the end of this guide you'll actua
 
 Change the public subnet and place it in the first availability zone (e.g. eu-west-1a). Now change the private subnet to `10.10.10.0/24`, and also place it in the same availability zone. I like to distinguish between public and private subnets using the third decimal: if it's < 10, it's public, if it's >= 10 it's private.
 
-The last item in the wizard is the *NAT Instance*. As explained above, this is an EC2 instance in the public subnet which is used to provide Internet access for instances in private subnets. The wizard automatically creates one for you, as an `m1.small` instance. This will do for now - later I'll explain how to create one which is a `t1.micro` instead, if you don't need much power for your NAT instance.
+The last item in the wizard is the _NAT Instance_. As explained above, this is an EC2 instance in the public subnet which is used to provide Internet access for instances in private subnets. The wizard automatically creates one for you, as an `m1.small` instance. This will do for now - later I'll explain how to create one which is a `t1.micro` instead, if you don't need much power for your NAT instance.
 
-Now hit *Create VPC* and wait a moment while your VPC is created.
+Now hit _Create VPC_ and wait a moment while your VPC is created.
 
 ### Create additional subnets
 
 Now that you've got your VPC, you can now add some additional subnets. As I mentioned before, each subnet covers a single availability zone, so for full redundancy you'll want one type of subnet per availability zone. Let's do this now.
 
-Click on *Subnets* in the VPC menu and you'll see the two subnets created by the setup wizard. The public subnet should have a CIDR of `10.0.0.0/24` and the private a CIDR of `10.0.10.0/24`. Note, also, that they are linked to different route tables.
+Click on _Subnets_ in the VPC menu and you'll see the two subnets created by the setup wizard. The public subnet should have a CIDR of `10.0.0.0/24` and the private a CIDR of `10.0.10.0/24`. Note, also, that they are linked to different route tables.
 
-The setup wizard will have created two route tables (you can take a look at them, from the *Route Tables* page). One of these routes all 0.0.0.0 traffic to the Internet Gateway - the AWS router that connects the VPC to the Internet. The second route table will route 0.0.0.0 traffic to the NAT instance, which will, in turn, send it to the Internet Gateway. You won't really need to fiddle much with these, but it's useful to know how it all fits together.
+The setup wizard will have created two route tables (you can take a look at them, from the _Route Tables_ page). One of these routes all 0.0.0.0 traffic to the Internet Gateway - the AWS router that connects the VPC to the Internet. The second route table will route 0.0.0.0 traffic to the NAT instance, which will, in turn, send it to the Internet Gateway. You won't really need to fiddle much with these, but it's useful to know how it all fits together.
 
 Back to the subnets! You'll want to create **four** subnets, across the remaining two availability zones - one public and one private subnet per zone. What you should end up with is something like this:
 
@@ -67,9 +67,9 @@ IMAGE_HERE
 
 ### Secure the NAT instance
 
-The setup wizard only creates a *default* security group, which allows inbound access from anything in this group, and outbound access to anywhere on any port. Let's lock this down a bit: head to the *Security Groups* page in the VPC menu.
+The setup wizard only creates a _default_ security group, which allows inbound access from anything in this group, and outbound access to anywhere on any port. Let's lock this down a bit: head to the _Security Groups_ page in the VPC menu.
 
-Create a new security group called *NATSG*, and place it in the VPC. Now configure the following inbound rules:
+Create a new security group called _NATSG_, and place it in the VPC. Now configure the following inbound rules:
 
     Port (Service)          Source
     22 (SSH)                192.168.0.0/16
@@ -101,24 +101,24 @@ Now you'll want to apply the NATSG group to your NAT instance. Head over to the 
 
 #### (Optional) Create a new NAT instance as a t1.micro
 
-The setup wizard creates an NAT EC2 instance as an `m1.small`. This is fine, but you may prefer to use a `t1.micro` for your NAT instance instead, to save money. I haven't noticed any detrimental effects from using a `t1.micro` as a NAT, but if your private servers will be doing a *lot* of constant, outbound Internet access, you may need the `m1.small` or above.
+The setup wizard creates an NAT EC2 instance as an `m1.small`. This is fine, but you may prefer to use a `t1.micro` for your NAT instance instead, to save money. I haven't noticed any detrimental effects from using a `t1.micro` as a NAT, but if your private servers will be doing a _lot_ of constant, outbound Internet access, you may need the `m1.small` or above.
 
-Let's start by creating a new EC2 instance. There's an AMI ID for this, `ami-1de2d969`, but the easiest way is to right click the NAT instance the setup wizard created and hit *Launch More Like This*. Then change the instance type to a Micro and make sure you launch it into the same subnet as the existing NAT instance (which should be `10.0.0.0/24`).
+Let's start by creating a new EC2 instance. There's an AMI ID for this, `ami-1de2d969`, but the easiest way is to right click the NAT instance the setup wizard created and hit _Launch More Like This_. Then change the instance type to a Micro and make sure you launch it into the same subnet as the existing NAT instance (which should be `10.0.0.0/24`).
 
 IMAGE_HERE
 
 When it comes to choosing a security group, select the NATSG group you created earlier. Everything else can be left as default.
 
-While the new instance is booting, terminate the original NAT instance. Once it has been terminated, go to the *Elastic IPs* page. You should still have an IP here, left from the original NAT instance (if not, simply create a new one). Right click on this IP and associate it with your new NAT instance.
+While the new instance is booting, terminate the original NAT instance. Once it has been terminated, go to the _Elastic IPs_ page. You should still have an IP here, left from the original NAT instance (if not, simply create a new one). Right click on this IP and associate it with your new NAT instance.
 
 Disable Source/Destination check for the new NAT instance. Right click on the new NAT instance and click `Change Source/Dest. Check` and then click `Disable`.
 
-The last thing we need to do is adjust our route table. Go back to the VPC Console, and click *Route Tables* in the menu. Select the *Main* route table (it should say it's associated with 0 Subnets) and remove the route to the old NAT instance (it should have a *blackhole* status). Now add a new route:
+The last thing we need to do is adjust our route table. Go back to the VPC Console, and click _Route Tables_ in the menu. Select the _Main_ route table (it should say it's associated with 0 Subnets) and remove the route to the old NAT instance (it should have a _blackhole_ status). Now add a new route:
 
     Destination           Target
     0.0.0.0/0             <Enter Instance ID>
 
-Use the new NAT instance as the target. Save it, and the status should be *active*. And we're done.
+Use the new NAT instance as the target. Save it, and the status should be _active_. And we're done.
 
 ### Create an SSH Gateway
 
@@ -137,7 +137,7 @@ Before creating the SSH gateway, let's create an appropriate VPC security group.
 
 Using your AMI of choice, create an EC2 instance for the SSH gateway. For most purposes, a `t1.micro` will work fine. Make sure you place the instance in a public subnet and place it in the `ssh-gateway` security group we just created.
 
-If you do use an `m1.small` or above, I recommend using an instance-store backed AMI, instead of EBS. If EBS experiences any problems the last thing you want is to have problems with your SSH gateway, and you won't be storing anything important on it anyway. You can find instance-store backed Ubuntu AMI's on their [AMI Locator page](http://cloud-images.ubuntu.com/locator/ec2/).
+If you do use an `m1.small` or above, I recommend using an instance-store backed AMI, instead of EBS. If EBS experiences any problems the last thing you want is to have problems with your SSH gateway, and you won't be storing anything important on it anyway. You can find instance-store backed Ubuntu AMI's on their [AMI Locator page](https://cloud-images.ubuntu.com/locator/ec2/).
 
 Once your SSH gateway instance has booted, create a new Elastic IP in the VPC and associate it. You should now be able to SSH into the gateway using your AWS private key.
 
@@ -161,6 +161,6 @@ With our gateway set up, we're ready to create some private servers. The first t
 
 The ID the ssh-gateway will look something like `sg-d2bf58ba`. We use an ID here instead of an instance so that we can add more SSH gateways (e.g. in different subnets) without having to update our security groups.
 
-Now you can create EC2 instances, place them in a *private* subnet (e.g. `10.0.10.0`) and, assuming you add them  to the `internal-ssh` group, can access them through the SSH gateway.
+Now you can create EC2 instances, place them in a _private_ subnet (e.g. `10.0.10.0`) and, assuming you add them to the `internal-ssh` group, can access them through the SSH gateway.
 
 You can create these instances however you wish. If you're using Chef, I have a post on [creating EC2 instances in a VPC using Chef & Knife](/2013/05/creating-ec2-instances-in-a-vpc-using-chef-and-knife/) which may be helpful.

@@ -7,19 +7,19 @@ kind: article
 published: true
 ---
 
-[Ganglia](http://ganglia.sourceforge.net/) is a scalable distributed monitoring system, and is excellent for keeping tabs on 10s or 1,000s of servers.
+[Ganglia](https://ganglia.sourceforge.net/) is a scalable distributed monitoring system, and is excellent for keeping tabs on 10s or 1,000s of servers.
 
 It works best on multicast-capable networks, where its army of `gmonds` will chat to one another with minimal configuration, and the `gmetad` federator is able to ask any of them for data, but it's fairly simple to set up a single cluster implementation on a unicast network too.
 
 However, one of Ganglia's awesome features - multiple clusters - is considerably more complicated to set up on a unicast network. There are a few options to do it:
 
-* Dedicate one `gmond` in each cluster as the *receiver*, and have all the others in that cluster send to it. This is OK, but if that one server goes down, there'll be no stats for that cluster.
-* Run one receiving `gmond` per cluster on a dedicated *reporting* machine (e.g. same as `gmetad` is on). Works, but annoying to configure as you've got a big stack of `gmonds` running on one server.
-* Emulate multicast support by having each `gmond` in each cluster send/receive to all or some of the others. A central `gmetad` is configured to point at one or more of these `gmonds` for each `data_source` (cluster).
+- Dedicate one `gmond` in each cluster as the _receiver_, and have all the others in that cluster send to it. This is OK, but if that one server goes down, there'll be no stats for that cluster.
+- Run one receiving `gmond` per cluster on a dedicated _reporting_ machine (e.g. same as `gmetad` is on). Works, but annoying to configure as you've got a big stack of `gmonds` running on one server.
+- Emulate multicast support by having each `gmond` in each cluster send/receive to all or some of the others. A central `gmetad` is configured to point at one or more of these `gmonds` for each `data_source` (cluster).
 
-None of these are as elegant as the default multicast configuration, but we'll have to make do. I've opted to use the third option as I believe it strikes the best balance between reliability and ease of maintenance, and to avoid having 100s of nodes spamming all the others constantly, you can designate a handful of *receiver* nodes in each cluster and have all the others report to those.
+None of these are as elegant as the default multicast configuration, but we'll have to make do. I've opted to use the third option as I believe it strikes the best balance between reliability and ease of maintenance, and to avoid having 100s of nodes spamming all the others constantly, you can designate a handful of _receiver_ nodes in each cluster and have all the others report to those.
 
-**Note:** doing this by hand will *not* be fun. Combine this guide with your server automation tool of choice - I'll be using Chef, so you'll need to translate the instructions yourself if you're using something else.
+**Note:** doing this by hand will _not_ be fun. Combine this guide with your server automation tool of choice - I'll be using Chef, so you'll need to translate the instructions yourself if you're using something else.
 
 <!-- more -->
 
@@ -33,7 +33,7 @@ Once you have `gmonds` installed on each node you want to monitor, and `gmetad` 
 
 In Chef, you can use your roles to describe the cluster for each node. For example, I have roles like `app server`, `mongodb server` etc and I'd like each of these to be a cluster. So, in my `roles/app_server.rb` file, I have the following attributes, which will be used later:
 
-``` ruby
+```ruby
 override_attributes(
   :ganglia => {
     :gmond => {
@@ -45,7 +45,7 @@ override_attributes(
 
 You'll probably also want to add some defaults into a `base` role which is applied to every monitored node:
 
-``` ruby
+```ruby
 default_attributes(
   :ganglia => {
     :gmond => {
@@ -60,13 +60,13 @@ default_attributes(
 
 `gmond.conf` is the main configuration file for `gmond`. Unless a gmond is configured to be `deaf` it will open up a UDP server on the specified port and allow other `gmonds` to send data to it. On a multicast network, these `gmonds` would all join the same multicast group and share information automatically, but we'll need to specifically tell each `gmond` which hosts to send data to.
 
-You have a choice here - if your clusters are fairly small (I'd say, 10 servers or less), you can tell each `gmond` in a cluster to spread data to every other `gmond` in the same cluster. This will be simpler to configure; however, if your clusters are quite large, this would involve a *lot* of connections on every server, which doesn't strike me as the best idea. Instead, you could nominate a handful of servers in each cluster to be the *receivers*, and have all the others send to those. So long as one of those receivers is online, all the other servers in that cluster can continue to share data.
+You have a choice here - if your clusters are fairly small (I'd say, 10 servers or less), you can tell each `gmond` in a cluster to spread data to every other `gmond` in the same cluster. This will be simpler to configure; however, if your clusters are quite large, this would involve a _lot_ of connections on every server, which doesn't strike me as the best idea. Instead, you could nominate a handful of servers in each cluster to be the _receivers_, and have all the others send to those. So long as one of those receivers is online, all the other servers in that cluster can continue to share data.
 
 #### Get the list of nodes in the same cluster
 
 In Chef, this can be done with a search. So, in your recipe where you create the `gmond.conf`, add something like:
 
-``` ruby
+```ruby
 this_cluster = node[:ganglia][:gmond][:cluster_name]
 gmonds_in_cluster = []
 
@@ -77,7 +77,7 @@ end
 
 Then pass this into your `gmond.conf` template and do:
 
-``` ruby
+```ruby
 <% @gmonds_in_cluster.each do |host| %>
 udp_send_channel {
   host = <%= host %>
@@ -107,7 +107,7 @@ When the `gmetad` looks for a host for a particular data source, it tries the fi
 
 Configuring `gmetad` is fairly straightforward: we just use search to get a list of all known clusters along with their `gmond` hosts:
 
-``` ruby
+```ruby
 # find all nodes running ganglia so we can collect clusters
 clusters = {}
 
@@ -122,7 +122,7 @@ end
 
 If only a limited subset of your `gmonds` are acting as receivers, make sure you're only feeding these nodes into `gmetad`, for example:
 
-``` ruby
+```ruby
 search(:node, "recipes:ganglia AND ganglia_gmond_receiver:true AND chef_environment:#{node.chef_environment}") do |n|
   name = n[:ganglia][:gmond][:cluster_name]
   clusters[name]
@@ -133,7 +133,7 @@ end
 
 Then pass the list of clusters and hosts into your `gmetad.conf` template:
 
-``` ruby
+```ruby
 <% @clusters.each do |name, hosts| %>
 data_source "<%= name %>" <%= hosts.join(' ') %>
 <% end %>
@@ -149,9 +149,9 @@ On one of them, use `nc localhost 8649`. This should splurge out some XML. Insid
 
 Common things to check:
 
-* Firewall configuration (or security groups on AWS):
-  * `gmonds` all communicate via a UDP port (`8649` by default), so this needs to be open for in/out connections on nodes
-  * `gmetad` gets data from `gmonds` via TCP port `8649` (default), so this should be open on any nodes running `gmond` that are marked as receivers
-* Each `gmond` should be configured to list *itself* as a `udp_send_channel`, even if it's the only node in a cluster. Not listing this will probably result in weird issues.
+- Firewall configuration (or security groups on AWS):
+  - `gmonds` all communicate via a UDP port (`8649` by default), so this needs to be open for in/out connections on nodes
+  - `gmetad` gets data from `gmonds` via TCP port `8649` (default), so this should be open on any nodes running `gmond` that are marked as receivers
+- Each `gmond` should be configured to list _itself_ as a `udp_send_channel`, even if it's the only node in a cluster. Not listing this will probably result in weird issues.
 
-I have this implementation running in production at [LoyaltyLion](http://loyaltylion.com) and it's working great. If you run in to any issues, feel free to comment and I'll see if I can help.
+I have this implementation running in production at [LoyaltyLion](https://loyaltylion.com) and it's working great. If you run in to any issues, feel free to comment and I'll see if I can help.

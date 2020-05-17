@@ -23,7 +23,7 @@ Now you'll want to create a role for your Nagios server. You can call this role 
 
 In your new role (e.g. `roles/monitoring.rb`), add the following:
 
-``` ruby
+```ruby
 name 'monitoring'
 description 'Monitoring server'
 
@@ -39,7 +39,7 @@ default_attributes(
 )
 ```
 
-The Nagios cookbook supports serving the Nagios web UI on nginx, but I recommend sticking with the default, Apache. I initially tried using nginx but it didn't work out of the box and required a bit of fiddling. 
+The Nagios cookbook supports serving the Nagios web UI on nginx, but I recommend sticking with the default, Apache. I initially tried using nginx but it didn't work out of the box and required a bit of fiddling.
 
 The `nagios:url` property above is used as a URL for Apache and nginx to listen on, which is helpful you are hosting other websites on the same server. You can leave it out and it will default to the server's fqdn.
 
@@ -47,18 +47,16 @@ The `nagios:url` property above is used as a URL for Apache and nginx to listen 
 
 Nagios looks for users in various data bags. In particular, it looks in:
 
-* the `users` data bag, for users in the `sysadmin` group, and gives them access to the Nagios web UI and will notify them on their `nagios:email` attribute
-* the `nagios_contacts` and `nagios_contactgroup` data bags for more granular notifications
+- the `users` data bag, for users in the `sysadmin` group, and gives them access to the Nagios web UI and will notify them on their `nagios:email` attribute
+- the `nagios_contacts` and `nagios_contactgroup` data bags for more granular notifications
 
 If you haven't already, create a `users` data bag and add yourself in. For example, in `data_bags/users/clarkdave.json`:
 
-``` json
+```json
 {
   "id": "clarkdave",
   "password": "...",
-  "groups": [
-    "sysadmin"
-  ],
+  "groups": ["sysadmin"],
   "shell": "/bin/bash",
   "htpasswd": "...",
   "nagios": {
@@ -75,11 +73,11 @@ Add more users as needed, and refer to the [Contacts and Contact Groups](https:/
 
 ### Configure Nagios clients
 
-We can use the Nagios cookbook to install `NRPE` clients on each server we'd like to monitor. If you're not familiar with Nagios, the *Nagios Remote Plugin Executer* (NRPE) lets you execute Nagios plugins on other nodes, and have these metrics sent back to the Nagios server.
+We can use the Nagios cookbook to install `NRPE` clients on each server we'd like to monitor. If you're not familiar with Nagios, the _Nagios Remote Plugin Executer_ (NRPE) lets you execute Nagios plugins on other nodes, and have these metrics sent back to the Nagios server.
 
 You can install the NRPE client with the `nagios::client` recipe. You'll typically want to add this to a `base` role, which is applied to all servers. For example, in `roles/base.rb`:
 
-``` ruby
+```ruby
 name 'base'
 description 'base role for servers'
 
@@ -106,9 +104,9 @@ When the `nagios::client` recipe has been applied to a node, that node can use t
 
 You'll probably want to have two sets of recipes to set up the NRPE checks. One recipe for base monitoring (checks to be applied to all servers, like load, memory usage, etc) and other recipes for specific types of server. So, if you have a recipe for setting up your PostgreSQL server, you'll use `nagios_nrpecheck` in that recipe to monitor the PostgreSQL install.
 
-Here's an example of a *base monitoring* recipe, in `recipes/example/base_monitoring.rb`. We'll start with the `check_load` plugin, which is bundled with Nagios and reports the current system load average:
+Here's an example of a _base monitoring_ recipe, in `recipes/example/base_monitoring.rb`. We'll start with the `check_load` plugin, which is bundled with Nagios and reports the current system load average:
 
-``` ruby
+```ruby
 # test the current system load average
 nagios_nrpecheck "check_load" do
   command "#{node['nagios']['plugin_dir']}/check_load"
@@ -122,7 +120,7 @@ This is all we need to do for the client node, but we still need to let our Nagi
 
 We'll create a service for our `check_load` NRPE above. Create a new data bag item: `data_bags/nagios_services/load.json`. The service will be named with the data bag item ID prepended with `check`, so in this case `check_load`. Inside, add:
 
-``` json
+```json
 {
   "id": "load",
   "hostgroup_name": "all",
@@ -144,9 +142,9 @@ If all worked well, you should be presented with the beautiful Nagios web interf
 
 You should have a few services up already -- the `load` service we added earlier, and a `Nagios` service on the Nagios server node. These should all be green. If any are red, it's probably due to one of the following:
 
-* misconfigured firewalls between nodes (NRPE needs port `5666` to be open on clients)
-* missing nagios_services data bag
-* the `nagios:server_role` attribute on your client nodes is incorrect 
+- misconfigured firewalls between nodes (NRPE needs port `5666` to be open on clients)
+- missing nagios_services data bag
+- the `nagios:server_role` attribute on your client nodes is incorrect
 
 Hopefully everything's green, and so we can move on adding some additional checks.
 
@@ -156,13 +154,13 @@ You'll probably have a whole bunch of specific services you need to monitor, so 
 
 #### Installing custom plugins
 
-Nagios bundles quite a few plugins (see [Nagios Plugins](http://nagiosplugins.org/node/2) for a list) but there are even more available at the [Nagios Exchange](http://exchange.nagios.org/directory/Plugins) or on GitHub.
+Nagios bundles quite a few plugins (see [Nagios Plugins](https://nagiosplugins.org/) for a list) but there are even more available at the [Nagios Exchange](https://exchange.nagios.org/directory/Plugins) or on GitHub.
 
 Plugins are generally just single file scripts, and so they're easy to install on your nodes. The approach that has worked well for me is to place the plugin file in the `files` directory of my cookbook, and then use the `cookbook_file` provider to copy it into place.
 
 For example, to install the plugin at `cookbook/example/files/default/nagios/check_nginx.py`:
 
-``` ruby
+```ruby
 cookbook_file "#{node['nagios']['plugin_dir']}/check_nginx" do
   source 'nagios/check_nginx.py'
   mode '0755'
@@ -171,13 +169,13 @@ end
 
 #### Monitoring nginx
 
-For a basic *up* check, you can use the `check_http` plugin to simply make a request to nginx, but I use the [check_nginx](http://exchange.nagios.org/directory/Plugins/Web-Servers/nginx/check_nginx/details) plugin for this which also sends back some connection stats.
+For a basic _up_ check, you can use the `check_http` plugin to simply make a request to nginx, but I use the [check_nginx](https://exchange.nagios.org/directory/Plugins/Web-Servers/nginx/check_nginx/details) plugin for this which also sends back some connection stats.
 
 To use this plugin, you'll need to have the nginx `status_module` enabled. This is easy to do using the `nginx::http_stub_status_module` recipe, which sets up an endpoint at `localhost:8090/nginx_status` (accessible by localhost only).
 
 Now in a recipe you can do:
 
-``` ruby
+```ruby
 nagios_nrpecheck "check_nginx" do
   # make sure to install the check_nginx plugin
   command "#{node['nagios']['plugin_dir']}/check_nginx"
@@ -189,7 +187,7 @@ end
 
 And create a data bag item in `nagios_services`, `data_bags/nagios_services/nginx.json`:
 
-``` json
+```json
 {
   "id": "nginx",
   "hostgroup_name": "app_server",
@@ -205,7 +203,7 @@ I use this excellent [mongodb plugin](https://github.com/mzupan/nagios-plugin-mo
 
 Add the following to a recipe to be executed on your MongoDB server:
 
-``` ruby
+```ruby
 # the plugin requires pymongo, so install it - this requires the python cookbook
 include_recipe 'python'
 python_pip 'pymongo' do
@@ -226,7 +224,7 @@ end
 
 And add the corresponding service data bag item in `data_bags/nagios_services/mongodb.json`:
 
-``` json
+```json
 {
   "id": "mongodb",
   "hostgroup_name": "mongo_server",
@@ -234,13 +232,13 @@ And add the corresponding service data bag item in `data_bags/nagios_services/mo
 }
 ```
 
-There are a *lot* more potential checks you can do on MongoDB with this plugin - check out the [GitHub repo](https://github.com/mzupan/nagios-plugin-mongodb) for more information.
+There are a _lot_ more potential checks you can do on MongoDB with this plugin - check out the [GitHub repo](https://github.com/mzupan/nagios-plugin-mongodb) for more information.
 
 #### Monitoring PostgreSQL
 
 Nagios bundles the `check_pgsql` plugin which is effective at confirming if a PG database is accepting connections. Add the following to a recipe:
 
-``` ruby
+```ruby
 # the check_pgsql plugin needs a nagios user in PG to connect as. My PG requires passwords,
 # so I set a nagios password for this. This user should not have any permissions
 bash 'create_nagios_user' do
@@ -260,7 +258,7 @@ end
 
 And the service data bag item,
 
-``` json
+```json
 {
   "id": "postgresql",
   "hostgroup_name": "postgresql_server",
@@ -274,7 +272,7 @@ That should do it.
 
 Once everything is set up, you should consider enabling notifications, so Nagios can send emails when things go down. This is straightforward: add the `postfix` cookbook and then add a few attributes to your monitoring role. It should look something like this:
 
-``` ruby
+```ruby
 run_list(
   'recipe[nagios::server]',
   'recipe[postfix]'
@@ -298,7 +296,7 @@ override_attributes(
 
 Once notifications are enabled, you should start getting emails from `nagios@nagios.example.com` - you can adjust the hostname if needed. The users who will be emailed will depend on how you set up your users data bag earlier.
 
-We're pretty much done. You should continue adding more services as you need, and refer to the [Nagios cookbook documentation](https://github.com/opscode-cookbooks/nagios) for more information, such as how to group your services and set up more granular notifications. 
+We're pretty much done. You should continue adding more services as you need, and refer to the [Nagios cookbook documentation](https://github.com/opscode-cookbooks/nagios) for more information, such as how to group your services and set up more granular notifications.
 
 ### (Optional) Use nginx as a reverse proxy
 
@@ -306,7 +304,7 @@ If you're serving the Nagios web UI from Apache, but have nginx listening on por
 
 I'll assume you've already got the nginx cookbook and have it installed and working on your Nagios server, so now create a new recipe in your main cookbook, `cookbooks/example/recipes/nagios_server.rb` and add:
 
-    #!ruby
+```ruby
 template "#{node['nginx']['dir']}/sites-available/nagios" do
   source 'nginx/nagios.erb'
   notifies :reload, 'service[nginx]'
@@ -319,32 +317,35 @@ end
 nginx_site 'nagios' do
   enable true
 end
+```
 
 Next, create a template, `cookbooks/example/templates/default/nginx/nagios.erb`:
 
-    server {
-      listen 80;
-      server_name <%= node['nagios']['url'] %>;
+```nginx
+server {
+  listen 80;
+  server_name <%= node['nagios']['url'] %>;
 
-      client_max_body_size 10M;
+  client_max_body_size 10M;
 
-      root <%= node['nagios']['docroot'] %>;
+  root <%= node['nagios']['docroot'] %>;
 
-      access_log off;
+  access_log off;
 
-      location / {
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_http_version 1.1;
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_http_version 1.1;
 
-        proxy_pass http://127.0.0.1:<%= node['nagios']['http_port'] %>;
-      }
-    }
+    proxy_pass http://127.0.0.1:<%= node['nagios']['http_port'] %>;
+  }
+}
+```
 
 Finally, update your `monitoring.rb` role:
 
-``` ruby
+```ruby
 # add the new recipe to the run_list
 run_list(
   'recipe[nagios::server]',

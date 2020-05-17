@@ -7,7 +7,7 @@ kind: article
 published: true
 ---
 
-[Hetzner](http://www.hetzner.de/en) is a German server provider and has some great prices for leasing a dedicated server. For example, you can grab the [EX 4S](http://www.hetzner.de/en/hosting/produkte_rootserver/ex4) with a Core i7 and 32GB of memory for 60€ a month.
+[Hetzner](https://www.hetzner.de/en) is a German server provider and has some great prices for leasing a dedicated server. For example, you can grab the [EX 4S](https://www.hetzner.de/en/hosting/produkte_rootserver/ex4) with a Core i7 and 32GB of memory for 60€ a month.
 
 With this much CPU and memory available it makes sense to turn one of these into your own personal VPS provider. This is easy to do and shouldn't take you too long. I'll show you how to replicate my setup, which is a Ubuntu 12.04 (Precise Pangolin) host and guests, where each guest has a static IP and is externally accessible.
 
@@ -21,7 +21,7 @@ Because our guests will be externally accessible, we'll need to acquire an IP ad
 
 Head over to the [Hetzner robot](https://robot.your-server.de/), log in, and select your server ('Main functions > Servers' in the menu). Activate the 'IPs' tab and at the bottom you'll see a link 'Ordering of additional IP, failover IP or subnet'.
 
-If you're only planning on having up to three external guests on this machine, the cheapest thing to do is order a single additional IP. Otherwise you could order either a /29 subnet (6 IPs) or /28 subnet (14 IPs), as explained on the [Hetzner wiki](http://wiki.hetzner.de/index.php/IP-Adressen/en).
+If you're only planning on having up to three external guests on this machine, the cheapest thing to do is order a single additional IP. Otherwise you could order either a /29 subnet (6 IPs) or /28 subnet (14 IPs), as explained on the [Hetzner wiki](https://wiki.hetzner.de/index.php/IP-Adressen/en).
 
 Under 'purpose of use' I just wrote virtual machine. Once you submit your order you'll have to wait for Hetzner to manually process it, which can take a day or two, but you should eventually get an email with your new IP address enclosed.
 
@@ -70,12 +70,12 @@ Open up `/etc/sysctl.conf` and update it so it has the following settings:
     net.ipv4.icmp_echo_ignore_broadcasts=1
     net.ipv6.conf.all.forwarding = 1
 
-Now open `/etc/xen/xend-config.sxp` and ensure that these lines are *commented out*:
+Now open `/etc/xen/xend-config.sxp` and ensure that these lines are _commented out_:
 
     (network-script network-bridge)
     (vif-script vif-bridge)
 
-and also ensure that these lines are present and are *not* commented out:
+and also ensure that these lines are present and are _not_ commented out:
 
     (network-script network-route)
     (vif-script     vif-route)
@@ -119,7 +119,7 @@ With all that out the way, the last thing to do is the default Xen settings for 
     arch = amd64
 
     # german mirror to download ubuntu, as this server is in germany
-    mirror = http://de.archive.ubuntu.com/ubuntu
+    mirror = https://de.archive.ubuntu.com/ubuntu
 
     ext3_options     = noatime,nodiratime,errors=remount-ro
     ext2_options     = noatime,nodiratime,errors=remount-ro

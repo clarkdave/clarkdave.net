@@ -8,9 +8,9 @@ published: true
 
 Sometimes you need to find out what a record looked like at some point in the past. This is known as the [Slowly Changing Dimension](https://en.wikipedia.org/wiki/Slowly_changing_dimension) problem. Most database models - by design - don't keep the history of a record when it's updated. But there are plenty of reasons why you might need to do this, such as:
 
-* audit/security purposes
-* implementing an undo functionality
-* showing a model's change over time for stats or comparison
+- audit/security purposes
+- implementing an undo functionality
+- showing a model's change over time for stats or comparison
 
 There are a few ways to do this in PostgreSQL, but this article is going to focus on the implementation provided by the [SQL:2011](https://en.wikipedia.org/wiki/SQL:2011) standard, which added support for temporal databases. It's also going to focus on actually querying that historical data, with some real-life use cases.
 
@@ -28,7 +28,7 @@ Available here: [https://github.com/arkhipov/temporal_tables](https://github.com
 
 #### Using pgxn
 
-The `temporal_tables` extension is available on [PGXN](http://pgxn.org/dist/temporal_tables/). If this is an option for you, simply install it using the `pgxn` client:
+The `temporal_tables` extension is available on [PGXN](https://pgxn.org/dist/temporal_tables/). If this is an option for you, simply install it using the `pgxn` client:
 
     $ pgxn install temporal_tables
 
@@ -66,7 +66,7 @@ Enable the extension like so:
 
 Next, we'll create a subscriptions table:
 
-``` sql
+```sql
 CREATE TABLE subscriptions
 (
   id SERIAL PRIMARY KEY,
@@ -77,7 +77,7 @@ CREATE TABLE subscriptions
 
 For the temporal functions to work, we also need to add a column to this table which stores the "system period". This is a range showing when this record is valid from - to. You can name it however you want; the extension's convention is to call it `sys_period`, so we'll go with that.
 
-``` sql
+```sql
 ALTER TABLE subscriptions
   ADD COLUMN sys_period tstzrange NOT NULL DEFAULT tstzrange(current_timestamp, null);
 ```
@@ -88,13 +88,13 @@ Note that the type here is a "timestamp with time zone range", which was only in
 
 The history table can be a full or partial copy of the original table. Additional discourse on the options available here (including `INHERITS`) can be found towards the end of this post, but for now we'll copy everything:
 
-``` sql
+```sql
 CREATE TABLE subscriptions_history (LIKE subscriptions);
 ```
 
 Finally, we need to add the `versioning_trigger` to our original table. This will ensure that records are copied in to the history table as needed:
 
-``` sql
+```sql
 CREATE TRIGGER versioning_trigger
 BEFORE INSERT OR UPDATE OR DELETE ON subscriptions
 FOR EACH ROW EXECUTE PROCEDURE versioning(
@@ -110,7 +110,7 @@ It's actually kind of weird to test this, because we're working with system time
 
 Let's start by inserting some subscriptions:
 
-``` sql
+```sql
 INSERT INTO subscriptions (state, created_at) VALUES ('cancelled', '2015-01-05 12:00:00');
 INSERT INTO subscriptions (state, created_at) VALUES ('active', '2015-01-10 12:00:00');
 ```
@@ -131,7 +131,7 @@ Right now our subscriptions_history table will be empty, because we've only inse
 
 This first history entry shows that the subscription changed from `trial` to something else on 2015-01-15:
 
-``` sql
+```sql
 INSERT INTO subscriptions_history (id, state, created_at, sys_period)
   VALUES (1, 'trial', '2015-01-05 12:00:00',
     tstzrange('2015-01-05 12:00:00', '2015-01-15 15:00:00')
@@ -140,7 +140,7 @@ INSERT INTO subscriptions_history (id, state, created_at, sys_period)
 
 The next entry shows that it changed from `active` on 2015-02-05. This is the most recent change, so its upper bound has to match the lower bound of the subscription as it is in the `subscriptions` table or there'd be a weird gap.
 
-``` sql
+```sql
 INSERT INTO subscriptions_history (id, state, created_at, sys_period)
   VALUES (1, 'active', '2015-01-05 12:00:00',
     tstzrange('2015-01-15 15:00:00', (SELECT lower(sys_period) FROM subscriptions WHERE id = 1))
@@ -149,7 +149,7 @@ INSERT INTO subscriptions_history (id, state, created_at, sys_period)
 
 Finally, we'll add one entry for the second subscription, which indicates it started life as `trial` and remained that way until just now, when it became active.
 
-``` sql
+```sql
 INSERT INTO subscriptions_history (id, state, created_at, sys_period)
   VALUES (2, 'trial', '2015-01-10 12:00:00',
     tstzrange('2015-01-10 15:00:00', (SELECT lower(sys_period) FROM subscriptions WHERE id = 2))
@@ -180,7 +180,7 @@ As I mentioned at the beginning, neither PostgreSQL or the temporal extension su
 
 If it did, we'd be able to do this:
 
-``` sql
+```sql
 SELECT * FROM subscriptions AS OF SYSTEM TIME '2014-01-10' WHERE id = 1;
 ```
 
@@ -188,7 +188,7 @@ But it's not all bad news. We can still construct a query to do this manually, a
 
 So here's a query to get the subscription on a particular date, without the new fancy syntax:
 
-``` sql
+```sql
   SELECT id, state FROM subscriptions
     WHERE id = 1 AND sys_period @> '2015-01-10'::timestamptz
 UNION ALL
@@ -208,7 +208,7 @@ You might now be thinking: "OK, but what if my given date happens to be the uppe
 
 When this happens it'll always return the most recent record. That's because our sys_periods have an inclusive lower bound and exclusive upper bound. You can try it now:
 
-``` sql
+```sql
 SELECT * from subscriptions_history
   WHERE id = 1 AND sys_period @> '2015-01-15 15:00:00'::timestamptz;
 ```
@@ -219,7 +219,7 @@ This exact timestamp appears in two history records, but you'll only get the mos
 
 Of course, rather than writing out that verbose `UNION ALL` statement by hand each time, you can instead create a view and query on it:
 
-``` sql
+```sql
 CREATE VIEW subscriptions_with_history AS
     SELECT * FROM subscriptions
   UNION ALL
@@ -228,7 +228,7 @@ CREATE VIEW subscriptions_with_history AS
 
 Such a view could be used like so:
 
-``` sql
+```sql
 SELECT * FROM subscriptions_with_history
   WHERE id = 1 AND sys_period @> '2015-01-10'::timestamptz
 ```
@@ -239,7 +239,7 @@ Now we're not too far off the `AS OF SYSTEM TIME` syntax. We'll continue to use 
 
 This is a similar query to the above, but with some aggregation thrown in. Using the view we just created:
 
-``` sql
+```sql
 SELECT state, count(*) FROM subscriptions_with_history
   WHERE sys_period @> '2015-01-10'::timestamptz
   GROUP BY state;
@@ -255,7 +255,7 @@ Result:
 
 With a bit more effort we can get a count of subscription states across a date range too.
 
-``` sql
+```sql
 WITH dates AS (
   SELECT *
   FROM generate_series('2015-01-10'::timestamptz, '2015-01-20', '1 day') date
@@ -301,7 +301,7 @@ Note that this query works on days, specifically dates at midnight, e.g. `2015-0
 
 You could potentially use the overlap operator `&&` to instead match on subscription records which overlap the start and end of each "date", e.g. like this:
 
-``` sql
+```sql
 WITH dates AS (
   SELECT start, lead(start, 1, '2015-01-20') OVER (ORDER BY start) AS end
   FROM generate_series('2015-01-10'::timestamptz, '2015-01-19', '1 day') start
@@ -314,14 +314,13 @@ Although this works, you now have a different problem: you'll count the same sub
 
 You could have some logic in place to get rid of duplicates, e.g. pick the most recent record in the case of multiples, but for most purposes it's probably easier to stick with the `@>` operator which can only ever return one record for a given timestamp.
 
-
 ### On what date did a subscription change from state X -> Y
 
 Sometimes you'll want to know the date (in this case, the day, but it could be a month or anything else) a subscription's state changed from `X -> Y`, e.g. `trial -> active`. We'll call this the 'conversion date'.
 
 This can be done using a self join, with the join constraint being the upper bound of one record and the lower bound of the next.
 
-``` sql
+```sql
 SELECT upper(s1.sys_period)::date AS date
 FROM subscriptions_with_history s1, subscriptions_with_history s2
 WHERE
@@ -337,13 +336,13 @@ Result:
     date
 ------------
  2015-01-15
- ```
+```
 
 Note that if the same state change happened multiple times, you'll get multiple dates back with this query - so if only care about the first or last time it happened, adjust the order and set a limit accordingly.
 
 Of course you can adjust the query to return multiple subscriptions:
 
-``` sql
+```sql
 SELECT s1.id, upper(s1.sys_period)::date AS date
 FROM subscriptions_with_history s1, subscriptions_with_history s2
 WHERE
@@ -355,7 +354,7 @@ WHERE
 
 If you find yourself needing to use these dates a lot in your queries it'd make sense to turn the above into another view. In our case we might call this `conversion_dates`, as in the dates each subscription converted.
 
-``` sql
+```sql
 CREATE VIEW subscription_conversion_dates AS
   SELECT s1.id AS subscription_id, upper(s1.sys_period)::date AS date
   FROM subscriptions_with_history s1, subscriptions_with_history s2
@@ -368,7 +367,7 @@ CREATE VIEW subscription_conversion_dates AS
 
 This would allow for some elegant queries, such as "show me which subscriptions converted in Jan 2015":
 
-``` sql
+```sql
 SELECT s.id
 FROM subscriptions s
 INNER JOIN subscription_conversion_dates sd
@@ -380,7 +379,7 @@ WHERE date_trunc('month', sd.date) = '2015-01-01';
 
 It's easy to answer this question using our `subscription_conversion_dates` view. For example, to count the number of subscriptions which changed from `trial` to `active` in Jan 2015:
 
-``` sql
+```sql
 SELECT count(*)
 FROM subscriptions s
 INNER JOIN subscription_conversion_dates sd
@@ -398,7 +397,7 @@ Result:
 
 We can also use the same logic to return results across a date range:
 
-``` sql
+```sql
 WITH dates AS (
   SELECT * FROM generate_series('2014-11-01'::date, '2015-02-01', '1 month') month
 )
@@ -423,7 +422,7 @@ Result:
 
 The resolution with that query was a month, but you can easily use something else:
 
-``` sql
+```sql
 WITH dates AS (
   SELECT * FROM generate_series('2001-01-01'::date, '3001-01-01', '1 millennium') millennium
 )
@@ -444,47 +443,45 @@ Result:
      2001-01-01 00:00:00+00 |     2
      3001-01-01 00:00:00+00 |     0
 
-
-
 ### Creating the history table
 
 #### Using duplication
 
 At the beginning of this post we created the `subscriptions_history` table using the `LIKE` clause:
 
-``` sql
+```sql
 CREATE TABLE subscriptions_history (LIKE subscriptions);
 ```
 
 This will create a complete but **static** copy of the `subscriptions` table. You can use the `INCLUDING INDEXES` clause to also copy over indexes, although if you do this take care to remove any unique constraint on the primary key - the history table will have duplicates of these.
 
-* Both tables are completely separate, which simplifies querying and updating
-* You have the option to only store the history of certain columns, by excluding the ones you don't care about
+- Both tables are completely separate, which simplifies querying and updating
+- You have the option to only store the history of certain columns, by excluding the ones you don't care about
 
 **Caveats**
 
-It's up to you to keep the history table in sync using your database migration tool of choice, or perhaps with some creative use of [event triggers](http://www.postgresql.org/docs/9.3/static/sql-createeventtrigger.html), which can hook into DDL changes (9.3+ only).
+It's up to you to keep the history table in sync using your database migration tool of choice, or perhaps with some creative use of [event triggers](https://www.postgresql.org/docs/9.3/static/sql-createeventtrigger.html), which can hook into DDL changes (9.3+ only).
 
 In particular, if you add new columns (or alter existing columns) with a default value to the source table, you'll need to make sure these defaults are also added to the history table, or you'll end up grabbing records from the history table which have unexpected NULL values.
 
 #### Using inheritance
 
-Your other option for the history table is using [table inheritance](http://www.postgresql.org/docs/9.2/static/ddl-inherit.html). For example:
+Your other option for the history table is using [table inheritance](https://www.postgresql.org/docs/9.2/static/ddl-inherit.html). For example:
 
-``` sql
+```sql
 CREATE TABLE subscriptions_history () INHERITS (subscriptions);
 ```
 
 This has some considerable advantages:
 
-* You no longer need to worry about keeping both tables in sync. DDL updates to the parent table will be applied automatically to the history table
-* Because both tables are linked, new columns with default values will be propagated to the history table
+- You no longer need to worry about keeping both tables in sync. DDL updates to the parent table will be applied automatically to the history table
+- Because both tables are linked, new columns with default values will be propagated to the history table
 
 **Caveats**
 
 By default, queries to the parent table will operate on the parent and all child tables, which would break simple queries like `SELECT * FROM subscriptions WHERE id = 1` and be **especially catastrophic** with a query like `UPDATE subscriptions SET state = 'active' WHERE id = 2` (it would clobber the entire history table!)
 
-You can disable this for the whole database by setting `sql_inheritance = false`, but [this is deprecated](http://www.postgresql.org/docs/9.2/static/runtime-config-compatible.html#GUC-SQL-INHERITANCE).
+You can disable this for the whole database by setting `sql_inheritance = false`, but [this is deprecated](https://www.postgresql.org/docs/9.2/static/runtime-config-compatible.html#GUC-SQL-INHERITANCE).
 
 You can, alternatively, disable it for individually queries like so: `SELECT * FROM ONLY ...` or `UPDATE ONLY ...`. This might be a reasonable trade-off considering the advantages, especially if you're using a framework which can reliably support these kind of queries.
 
@@ -492,7 +489,7 @@ You can, alternatively, disable it for individually queries like so: `SELECT * F
 
 If you'll be doing a lot of historical queries you'll most likely want to index the `sys_period` columns. You can do this with a `GIST` index which will speed up all the range functions such as `@>` and `&&`:
 
-``` sql
+```sql
 CREATE INDEX ON subscriptions USING gist (sys_period);
 CREATE INDEX ON subscriptions_history USING gist (sys_period);
 ```

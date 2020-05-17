@@ -22,7 +22,7 @@ The easiest way to avoid this is to make sure you never set a JSON key to `null`
 
 We'll use this little table for testing:
 
-``` sql
+```sql
 CREATE TABLE books (id int, author json);
 INSERT INTO books VALUES (1, null),
   (2, '{ "first_name": "Mary" }'),
@@ -32,13 +32,13 @@ INSERT INTO books VALUES (1, null),
 
 With the behaviour of the `->` operator, we are able to do this without an error (it'll return null):
 
-``` sql
+```sql
 SELECT author->'address'->'street_name' FROM books where id = 1;
 ```
 
 But if we do this, we'll get an error:
 
-``` sql
+```sql
 SELECT author->'address'->'street_name' FROM books where id = 4;
 ERROR:  cannot extract element from a scalar
 ```
@@ -47,7 +47,7 @@ ERROR:  cannot extract element from a scalar
 
 We can use a `case` expression to bail out in case the field turns out to be a null:
 
-``` sql
+```sql
 SELECT id,
   coalesce(
     case
@@ -67,13 +67,13 @@ Note that we're using the `->>` operator to check for the null. This coerces the
   4 | No street name
 ```
 
-This technique will work for any level of nesting, because when used in this way the `case` expression essentially 'short circuits' and will stop evaulating when it has a match. There are [some caveats](http://www.postgresql.org/docs/9.2/static/sql-expressions.html#SYNTAX-EXPRESS-EVAL) around this with regards to constant expressions, but these shouldn't apply in most cases.
+This technique will work for any level of nesting, because when used in this way the `case` expression essentially 'short circuits' and will stop evaulating when it has a match. There are [some caveats](https://www.postgresql.org/docs/9.2/static/sql-expressions.html#SYNTAX-EXPRESS-EVAL) around this with regards to constant expressions, but these shouldn't apply in most cases.
 
 ### Using a function
 
 Alternatively, you may find it more convenient (and less verbose) to create your own function. The function below, `json_fetch`, is a simple implementation which will safely traverse and return a nested object without errors.
 
-``` sql
+```sql
 CREATE OR REPLACE FUNCTION json_fetch(object json, variadic nodes text[])
 RETURNS json AS $$
 DECLARE
@@ -96,7 +96,7 @@ $$ LANGUAGE plpgsql;
 
 To use it, you pass it the object you're working with (i.e. the `author` field) and then one parameter for each nested field. Note that the function will return the found object (unless it's null) as a `json` type, so you'll usually need to cast it to `text` or another suitable type when you use it.
 
-``` sql
+```sql
 SELECT id,
   coalesce(
     json_fetch(author, 'address', 'street_name')::text, 'No address'

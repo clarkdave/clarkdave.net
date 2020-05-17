@@ -17,7 +17,7 @@ You don't actually need to grok MySQL for this guide to be of use, but it'll pro
 
 #### On OS X
 
-One of the tidiest ways to do this is using [homebrew](http://mxcl.github.com/homebrew/): `brew install postgres`
+One of the tidiest ways to do this is using [homebrew](https://mxcl.github.com/homebrew/): `brew install postgres`
 
 The homebrew post-install documentation will tell you to run `initdb /usr/local/var/postgres`. This is a quick way to get started, and if you run this as your normal user you'll be able to admin your Postgres server from this account, which is convenient for development. In production, you'd have a separate postgres user to do this.
 
@@ -60,7 +60,7 @@ In MySQL, we've now got a user ('rails') who has full access to the 'blog_dev' d
 
 #### In PostgreSQL
 
-Let's do this in PostgreSQL. We'll be using the terminal commands, so this will need to be done as your postgres superuser (on OSX, this might just be your normal user; on Linux, it's probably the *postgres* user):
+Let's do this in PostgreSQL. We'll be using the terminal commands, so this will need to be done as your postgres superuser (on OSX, this might just be your normal user; on Linux, it's probably the _postgres_ user):
 
     $ createuser rails --pwprompt
     Enter password for new role: <enter password>
@@ -71,7 +71,7 @@ Let's do this in PostgreSQL. We'll be using the terminal commands, so this will 
 
     $ createdb -O rails blog_dev
 
-Now we've created a user ('rails') who is *not* a superuser, but does have permission to create databases. This user will be allowed to drop and create its own databases (a similar set of permissions to our MySQL example above). We then use the createdb command, creating a new database called *blog* and setting its owner to *rails*.
+Now we've created a user ('rails') who is _not_ a superuser, but does have permission to create databases. This user will be allowed to drop and create its own databases (a similar set of permissions to our MySQL example above). We then use the createdb command, creating a new database called _blog_ and setting its owner to _rails_.
 
 You'll now be able to use `psql` to log in as the new user and create another database:
 
@@ -84,6 +84,4 @@ This is a suitable level of access for Rails, which will DROP and CREATE your da
 
 ### What next?
 
-Take a read through the [PostgreSQL 9.1 documentation](http://www.postgresql.org/docs/9.1/interactive/index.html) and, for tweaking a production PostgreSQL server, [this article](http://reinout.vanrees.org/weblog/2012/06/04/djangocon-postgres.html) is pretty good too.
-
-
+Take a read through the [PostgreSQL 9.1 documentation](https://www.postgresql.org/docs/9.1/interactive/index.html) and, for tweaking a production PostgreSQL server, [this article](https://reinout.vanrees.org/weblog/2012/06/04/djangocon-postgres.html) is pretty good too.

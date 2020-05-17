@@ -9,7 +9,7 @@ published: true
 
 If you keep up with PostgreSQL developments there's no way you've missed the `JSON` datatype introduced in `9.2`, and the upcoming JSON functions in `9.3`. The biggest change here is that in 9.3 it'll be possible to query your JSON columns without needing to use [plv8](https://code.google.com/p/plv8js/wiki/PLV8), which embeds V8 into Postgres.
 
-That said, the JSON functions in 9.3 have been [backported](http://www.pgxn.org/dist/json_enhancements/doc/json_enhancements.html) to 9.2, and can be used *right now* with 9.2. Before deciding if this is for you, you'll probably want to play around with it on your development machine. If so, this guide might help!
+That said, the JSON functions in 9.3 have been [backported](https://www.pgxn.org/dist/json_enhancements/doc/json_enhancements.html) to 9.2, and can be used _right now_ with 9.2. Before deciding if this is for you, you'll probably want to play around with it on your development machine. If so, this guide might help!
 
 <!-- more -->
 
@@ -17,7 +17,7 @@ That said, the JSON functions in 9.3 have been [backported](http://www.pgxn.org/
 
 If you haven't already.
 
-If you're on a Mac, and using [Postgres.app](http://postgresapp.com/), you may have to figure out how to install extensions yourself, and in fact the extension may not build at all. I recommend using the compiled version of PostgreSQL via Homebrew.
+If you're on a Mac, and using [Postgres.app](https://postgresapp.com/), you may have to figure out how to install extensions yourself, and in fact the extension may not build at all. I recommend using the compiled version of PostgreSQL via Homebrew.
 
 ### Build json_enhancements
 
@@ -46,7 +46,7 @@ If there are no errors, follow it up with:
 
     $ make install
 
-*Note: you may need to run `sudo make install`, depending on how you installed Postgres.*
+_Note: you may need to run `sudo make install`, depending on how you installed Postgres._
 
 ### Install the json_enhancements extension
 

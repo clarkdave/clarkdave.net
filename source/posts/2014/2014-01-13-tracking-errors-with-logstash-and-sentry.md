@@ -28,7 +28,7 @@ Start by creating a new plugin in your Logstash plugins directly, like below. I 
 
 Now add this code to start the plugin - we'll implement the `receive` method in a moment. Or if you'd prefer, just grab the completed file [from GitHub](https://gist.github.com/clarkdave/edaab9be9eaa9bf1ee5f) and go from there.
 
-``` ruby
+```ruby
 require 'logstash/outputs/base'
 require 'logstash/namespace'
 
@@ -69,7 +69,7 @@ You might already be thinking "but Raven clients should use a DSN, not be hardco
 
 Anyway, now let's implement `receive` method which will actually send the message to Sentry:
 
-``` ruby
+```ruby
 class LogStash::Outputs::Sentry < LogStash::Outputs::Base
 
   # ...
@@ -126,13 +126,13 @@ This code also assumes that you have a value for each log in [fields][level], wh
 
 Sentry will accept numeric log levels, but it treats them like so:
 
-* 30: warning
-* 40: error
-* 50: fatal
+- 30: warning
+- 40: error
+- 50: fatal
 
 If you have a different scheme, like I did, you'll need to adjust your numeric log level before sending it on to Sentry. In my case, all my log levels are +10, so 40 is actually a warning. This is an easy fix:
 
-``` ruby
+```ruby
 packet[:level] -= 10 if packet[:level] > 10
 ```
 
@@ -140,11 +140,11 @@ Finally, you may want to check the code for things like `event['host']` in case 
 
 ### Adding the plugin to your Logstash config
 
-With the plugin in place the only thing left to do is add it to your config as an output. Although you could just stick it in, this would result in *all* logs being sent to Sentry, a use case it's not really designed for (it excels when you only send it errors).
+With the plugin in place the only thing left to do is add it to your config as an output. Although you could just stick it in, this would result in _all_ logs being sent to Sentry, a use case it's not really designed for (it excels when you only send it errors).
 
 I recommend adding the Sentry output in combination with a condition so it's only used if the log is a warning or above (you could change this to errors or above if you don't need warnings in Sentry). This will look something like this:
 
-``` ruby
+```ruby
 # if you use numeric log levels
 
 if [fields][level] >= 40 {

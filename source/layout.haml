@@ -9,7 +9,7 @@
       %title= "#{current_page.data.title} | clarkdave.net"
     - else
       %title= current_article.title + ' | clarkdave.net'
-    %link{:rel => 'stylesheet', :type => 'text/css', :href => 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro'}
+    %link{:rel => 'stylesheet', :type => 'text/css', :href => 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro|Source+Serif+Pro'}
     = stylesheet_link_tag 'main'
     = javascript_include_tag 'modernizr'
     %script
@@ -31,7 +31,6 @@
             %li= link_to 'contact', '/contact', :class => active_page?('contact') ? 'active' : ''
         %aside
           %a{:class => 'github', :href => 'https://github.com/clarkdave', :title => 'clarkdave on GitHub'}
-          %a{:class => 'linkedin', :href => 'http://uk.linkedin.com/in/clarkdavedotnet', :title => 'clarkdave on LinkedIn'}
+          %a{:class => 'linkedin', :href => 'https://uk.linkedin.com/in/clarkdavedotnet', :title => 'clarkdave on LinkedIn'}
           %a{:class => 'twitter', :href => 'https://twitter.com/clarkdave', :title => 'clarkdave on Twitter'}
       = yield
-    / %script{:src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}

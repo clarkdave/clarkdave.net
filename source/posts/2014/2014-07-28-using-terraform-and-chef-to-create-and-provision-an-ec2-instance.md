@@ -6,7 +6,7 @@ kind: article
 published: false
 ---
 
-[Terraform](http://www.terraform.io/) is an interesting new tool from Hashicorp (Vagrant, Packer) which is designed to help build and launch parts of a server infrastructure.
+[Terraform](https://www.terraform.io/) is an interesting new tool from Hashicorp (Vagrant, Packer) which is designed to help build and launch parts of a server infrastructure.
 
 After reading the docs and checking out the examples, I realised this tool could fit in very nicely indeed with a typical EC2 and Chef workflow. In fact, that's doing the tool a bit of a disservice. It can really be used to configure your entire AWS architecture (your VPCs, security groups, etc) but in this article I'm just going to discuss adding it to to an existing setup.
 
@@ -35,7 +35,7 @@ This works, but with Terraform I can throw this wiki page away, and instead have
 
 ### Install Terraform
 
-If you haven't already, let's install Terraform now, which you can [download here](http://www.terraform.io/downloads.html). On a mac, you can simply extract it and then move the compiled executables to `/usr/local/bin/` (or somewhere else on your path). Instructions for other platforms are in [the Terraform docs](http://www.terraform.io/intro/getting-started/install.html).
+If you haven't already, let's install Terraform now, which you can [download here](https://www.terraform.io/downloads.html). On a mac, you can simply extract it and then move the compiled executables to `/usr/local/bin/` (or somewhere else on your path). Instructions for other platforms are in [the Terraform docs](https://www.terraform.io/intro/getting-started/install.html).
 
 Check it's working by typing `terraform --version` at a prompt.
 

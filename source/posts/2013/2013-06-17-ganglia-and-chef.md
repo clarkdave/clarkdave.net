@@ -6,7 +6,7 @@ kind: article
 published: false
 ---
 
-[Ganglia](http://ganglia.sourceforge.net/) is a scalable distributed monitoring system. If you have lots of servers, it's an excellent tool to keep track of them. For example, it's [in use at Wikimedia](http://ganglia.wikimedia.org/), monitoring almost 1,000 servers.
+[Ganglia](https://ganglia.sourceforge.net/) is a scalable distributed monitoring system. If you have lots of servers, it's an excellent tool to keep track of them. For example, it's [in use at Wikimedia](https://ganglia.wikimedia.org/), monitoring almost 1,000 servers.
 
 You might not need to monitor thousands of hosts (I sure don't), but that shouldn't stop you using it! This sort of tool is, of course, well suited to Chef, and in this guide I'll show you how to set up a Ganglia implementation using Chef.
 
@@ -36,11 +36,11 @@ So ahead and install the GoSquared `ganglia-cookbook` from GitHub (it's not on t
 
 This cookbook doesn't do any searching - it has nodes specified in the `ganglia:gmetad:clusters` attribute. This isn't really appropriate for our needs, as we only have one cluster, and so will dedicate one node to act as the receiver.
 
-Instead, what we'll do is create a new attribute, `node[:ganglia][:gmond][:receiver]`, which we'll set on the node designated as the receiver. Bear in mind that *all* nodes will be running `gmond`, but they will all be sending the information to just *one* of them. Then, the node running `gmetad` will contact that designated `gmond` node to collect all the data. If this seems a little weird, it's because it is. Ganglia works best in a multicast environment, where `gmonds` can talk to each other and the single `gmetad` can get all data from any one `gmond`, but we'll make do.
+Instead, what we'll do is create a new attribute, `node[:ganglia][:gmond][:receiver]`, which we'll set on the node designated as the receiver. Bear in mind that _all_ nodes will be running `gmond`, but they will all be sending the information to just _one_ of them. Then, the node running `gmetad` will contact that designated `gmond` node to collect all the data. If this seems a little weird, it's because it is. Ganglia works best in a multicast environment, where `gmonds` can talk to each other and the single `gmetad` can get all data from any one `gmond`, but we'll make do.
 
 Let's start by adding Ganglia to a run_list in a `base` role - this is a role you apply to every node:
 
-``` ruby
+```ruby
 name 'base'
 description 'base role for servers'
 
@@ -61,9 +61,9 @@ default_attributes(
 )
 ```
 
-With this, each node will have `gmond` installed and it'll start gathering statistics. But before it'll work, we need to adjust the Ganglia cookbook so that our `gmonds` are sending to the receiver. Let's start by creating a *receiver* role - this is for the node designated to receive data from `gmonds`. Because this role will be applied to a node that **already** has the `base` role, we don't need to run the Ganglia recipe again. Instead, we'll just use this role to set an attribute that denotes this node as a receiver:
+With this, each node will have `gmond` installed and it'll start gathering statistics. But before it'll work, we need to adjust the Ganglia cookbook so that our `gmonds` are sending to the receiver. Let's start by creating a _receiver_ role - this is for the node designated to receive data from `gmonds`. Because this role will be applied to a node that **already** has the `base` role, we don't need to run the Ganglia recipe again. Instead, we'll just use this role to set an attribute that denotes this node as a receiver:
 
-``` ruby
+```ruby
 name 'ganglia_receiver'
 description 'Ganglia gmond receiver node'
 
@@ -79,4 +79,3 @@ override_attributes(
 Now we'll make some adjustments to the Ganglia cookbook so that `gmonds` use Chef search to find the designated receiver node and send data to it.
 
 **show code on github?**
-

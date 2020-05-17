@@ -9,7 +9,9 @@ published: true
 [Node v6.6.0](https://nodejs.org/en/blog/release/v6.6.0/) added a neat warning when it detects an unhandled promise rejection. For example:
 
 ```javascript
-Promise.resolve().then(() => { undefinedVariable * 5 })
+Promise.resolve().then(() => {
+  undefinedVariable * 5;
+});
 // (node:57413) UnhandledPromiseRejectionWarning:
 //   Unhandled promise rejection (rejection id: 20): ReferenceError: undefinedVariable is not defined
 ```
@@ -24,12 +26,12 @@ There is, however, a counterpart to the above warning, which is:
 PromiseRejectionHandledWarning: Promise rejection was handled asynchronously
 ```
 
-This will be raised if you actually *do* handle the rejection, but in a later tick. This pattern isn't very common in most applications, but you might encounter it in your test suite.
+This will be raised if you actually _do_ handle the rejection, but in a later tick. This pattern isn't very common in most applications, but you might encounter it in your test suite.
 
-The culprit for me were some [Sinon.JS](http://sinonjs.org) stubs which were doing this:
+The culprit for me were some [Sinon.JS](https://sinonjs.org) stubs which were doing this:
 
 ```javascript
-sinon.stub(Database, 'connect').returns(Promise.reject('nope'))
+sinon.stub(Database, "connect").returns(Promise.reject("nope"));
 ```
 
 Although valid - the rejection is raised as part of the test and then handled - it raises the warning because Node has no way to know that it'll be handled later on in the test. Instead, you'd get the `PromiseRejectionHandledWarning` warning a few ticks later as an acknowledgement.

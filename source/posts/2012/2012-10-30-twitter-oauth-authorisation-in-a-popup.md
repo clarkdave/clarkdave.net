@@ -19,11 +19,11 @@ Facebook has a handy Javascript SDK for this situation and it works great. With 
 
 What makes this tick in 5 steps:
 
-  1. User clicks 'Connect with Twitter' and you open a popup window to the Twitter OAuth URL
-  2. User authorises the app and is redirected back to your server
-  3. The page the user is redirected back to does `window.close()`
-  4. Your original page checks periodically to see if the window has closed
-  5. When it has closed, make a call to your server to verify if the user has now connected
+1. User clicks 'Connect with Twitter' and you open a popup window to the Twitter OAuth URL
+2. User authorises the app and is redirected back to your server
+3. The page the user is redirected back to does `window.close()`
+4. Your original page checks periodically to see if the window has closed
+5. When it has closed, make a call to your server to verify if the user has now connected
 
 If you just want to get started quickly, the TwitterConnect class below should be all you need to get going.
 
@@ -31,44 +31,43 @@ If you just want to get started quickly, the TwitterConnect class below should b
 
 We'll create a TwitterConnect class to keep all this tidy:
 
-``` javascript
-var TwitterConnect = (function() {
-
+```javascript
+var TwitterConnect = (function () {
   // constructor accepts a url which should be your Twitter OAuth url
   function TwitterConnect(url) {
     this.url = url;
   }
 
-  TwitterConnect.prototype.exec = function() {
+  TwitterConnect.prototype.exec = function () {
     var self = this,
-      params = 'location=0,status=0,width=800,height=600';
+      params = "location=0,status=0,width=800,height=600";
 
-    this.twitter_window = window.open(this.url, 'twitterWindow', params);
+    this.twitter_window = window.open(this.url, "twitterWindow", params);
 
-    this.interval = window.setInterval((function() {
+    this.interval = window.setInterval(function () {
       if (self.twitter_window.closed) {
         window.clearInterval(self.interval);
         self.finish();
       }
-    }), 1000);
+    }, 1000);
 
     // the server will use this cookie to determine if the Twitter redirection
     // url should window.close() or not
-    document.cookie = 'twitter_oauth_popup=1; path=/';
-  }
+    document.cookie = "twitter_oauth_popup=1; path=/";
+  };
 
-  TwitterConnect.prototype.finish = function() {
+  TwitterConnect.prototype.finish = function () {
     $.ajax({
-      type: 'get',
-      url: '/auth/check/twitter',
-      dataType: 'json',
-      success: function(response) {
+      type: "get",
+      url: "/auth/check/twitter",
+      dataType: "json",
+      success: function (response) {
         if (response.authed) {
           // the user authed on Twitter, so do something here
         } else {
           // the user probably just closed the window
         }
-      }
+      },
     });
   };
 
@@ -88,7 +87,7 @@ If your own OAuth library makes it easy to give Twitter a different callback URL
 
 Assuming the user complets the app authentication with Twitter, they'll be returned to the OAuth callback URL. If this is happening in a popup, we need to ensure the resulting page runs `window.close()` or your user is going to get very confused. In your OmniAuth flow you can do something like this:
 
-``` ruby
+```ruby
 if omniauth['provider'] == 'twitter' and cookies[:twitter_oauth_popup]
   cookies[:twitter_oauth_popup] = nil
   # this session variable will be used later on, when we implement the check method
@@ -101,7 +100,7 @@ This would be instead of a typical `redirect_to` (which might, say, send the use
 
 The actual page you need to render here can be as simple as this:
 
-``` ruby
+```ruby
 <!doctype html>
 <html>
 <body>
@@ -118,7 +117,7 @@ This is an important situation to handle -- if the user clicks Cancel they'll be
 
 A good way to solve this is to use that cookie we set earlier (the 'twitter_oauth_popup' one). In your controller - the one rendering the original page where users see the 'Connect with Twitter' button - check for the existence of this cookie and if you find it, render your `window.close()` view instead. For example:
 
-``` ruby
+```ruby
 class SessionsController < ApplicationController
   def new
     if cookies[:twitter_oauth_popup]
@@ -135,7 +134,7 @@ Take a look back at the Javascript: when the Twitter popup is closed, we run the
 
 The actual mechanics of how you do this will depend on your framework and OAuth library. With Rails and OmniAuth, I have this route `get /auth/check/:provider' => 'authorisations#check'` where the check method is this:
 
-``` ruby
+```ruby
 def check
   if current_user and auth = current_user.authentications.where(:provider => 'twitter').first
     render :json => { :authed => true, :authentication => auth }
@@ -152,12 +151,12 @@ end
 
 In my case, I have three states this authorisation can be in:
 
-  1. Authorised, complete and added to the current user
-      * a new user account was just created and the user was logged in
-      * an already logged-in user connected to Twitter
-      * the user was already connected and they just logged in
-  2. Authorised and in-progress (a new user has signed-up with Twitter - I need them to enter an email address)
-  3. Not authorised (they probably closed the window)
+1. Authorised, complete and added to the current user
+   - a new user account was just created and the user was logged in
+   - an already logged-in user connected to Twitter
+   - the user was already connected and they just logged in
+2. Authorised and in-progress (a new user has signed-up with Twitter - I need them to enter an email address)
+3. Not authorised (they probably closed the window)
 
 Checking the first case is easy: by the time we make our ajax call, we've got a logged in user (either new or existing) with a Twitter authentication. The simplest thing to do here, in your TwitterConnect.finish() method, is a `window.refresh()`. You could also send the user information along from your `check` method above, and use that to populate user information on your page without requiring a page reload.
 
@@ -171,9 +170,9 @@ OmniAuth specific: make sure you're storing the OmniAuth info in the session, i.
 
 If you intend on having the user enter a name or username, it might be helpful to get this information from Twitter. You can update your `check` method so in addition to `:authed => true` it also returns some of the user data from Twitter. If you're using OmniAuth this is as simple as `:omniauth => session[:omniauth]`. You'll then be able to pre-populate values in your form from this hash (e.g. Twitter username, or first name, both of which are provided by Twitter).
 
-Now you need to show your user the form and listen for when it's submitted. When the users submits, you'll want to send a request to your server to create a new user. If you're using [Backbone.js](http://backbonejs.org) this could be as simple as:
+Now you need to show your user the form and listen for when it's submitted. When the users submits, you'll want to send a request to your server to create a new user. If you're using [Backbone.js](https://backbonejs.org) this could be as simple as:
 
-``` ruby
+```ruby
 var user = new User({ email: $('#user_email') });
 user.save({}, {
   success: function(model, response) {
@@ -191,7 +190,7 @@ user.save({}, {
 
 You could also do this with plain ajax, or another framework of your choice. As for what the server-side part of this looks like, it'll be the same POST target that users would normally submit to if this was a traditional sign-up, such as:
 
-``` ruby
+```ruby
 class RegistrationsController < ApplicationController
   def create
     @user = User.new params[:user]
@@ -226,7 +225,7 @@ Obviously the above is a naive implementation of a user registration. I'd recomm
 
 With the `TwitterConnect` class in place and all your server-side logic complete, the final step is to actually put this in action:
 
-``` ruby
+```ruby
 var twitter_btn = $('#twitter-connect-button');
 
 var twitter_connect = new TwitterConnect(twitter_btn.attr('href'));

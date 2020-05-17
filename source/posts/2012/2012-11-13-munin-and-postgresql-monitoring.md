@@ -6,7 +6,7 @@ kind: article
 published: true
 ---
 
-I ran into a little hiccup when trying to configure [Munin](http://munin-monitoring.org/) to monitor PostgreSQL. After linking the 'postgres_' plugins and restarting munin-node, no Postgres stats were appearing and I was seeing error messages in the munin-node.log like this:
+I ran into a little hiccup when trying to configure [Munin](https://munin-monitoring.org/) to monitor PostgreSQL. After linking the 'postgres\_' plugins and restarting munin-node, no Postgres stats were appearing and I was seeing error messages in the munin-node.log like this:
 
     Service 'postgres_size_ALL' exited with status 1/0
     Service 'postgres_locks_ALL' exited with status 1/0

@@ -68,7 +68,7 @@ end
 activate :deploy do |deploy|
   deploy.build_before = true
   deploy.method = :rsync
-  deploy.host = 'shell.clarkdave.net'
-  deploy.path = '/srv/clarkdave.net'
-  deploy.user = 'zoz'
+  deploy.host = ENV['DEPLOY_HOST']
+  deploy.path = ENV['DEPLOY_PATH'] || '/srv/clarkdave.net'
+  deploy.user = ENV['DEPLOY_USER']
 end

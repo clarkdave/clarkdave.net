@@ -151,7 +151,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redcarpet (3.2.3)
+    redcarpet (3.5.1)
     rouge (1.11.1)
     sass (3.4.25)
     shellany (0.0.1)
@@ -192,7 +192,7 @@ DEPENDENCIES
   middleman-minify-html (~> 3.4.0)
   middleman-syntax (~> 2.0.0)
   nokogiri (~> 1.10)
-  redcarpet (~> 3.2.2)
+  redcarpet (~> 3.5.1)
 
 BUNDLED WITH
    1.17.3

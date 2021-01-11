@@ -10,7 +10,7 @@ gem 'middleman-deploy', '~> 1.0.0'
 # gem 'middleman-imageoptim', '~> 0.2.0'
 
 gem 'nokogiri', '~> 1.10'
-gem 'redcarpet', '~> 3.2.2'
+gem 'redcarpet', '~> 3.5.1'
 
 gem 'guard-middleman', '~> 0.5.0'
 

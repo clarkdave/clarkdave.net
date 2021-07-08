@@ -353,9 +353,9 @@ Now your 'virtual' source files will appear under the `domain > assets` director
 
 We can use a loader to automatically transpile modules written in CoffeeScript or similar. As with the `expose` loader (explained above), this can be done inside the `require` statement, but it's far nicer to add this loader to the webpack config so we can then require CoffeeScript modules as though they were ordinary JS.
 
-First, install and add the `coffee-loader` module to your `package.json`, like this:
+First, install and add the `coffee-script` and `coffee-loader` modules to your `package.json`, like this:
 
-    $ npm install coffee-loader@0.7.2 --save-dev
+    $ npm install coffee-script coffee-loader@0.7.2 --save-dev
 
 Now, in our webpack config, update the `config.resolve.extensions` list so we can require `.coffee` files without specifying an extension:
 

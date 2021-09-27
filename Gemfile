@@ -9,7 +9,7 @@ gem 'middleman-autoprefixer', '~> 2.4.3'
 gem 'middleman-deploy', '~> 1.0.0'
 # gem 'middleman-imageoptim', '~> 0.2.0'
 
-gem 'nokogiri', '~> 1.10'
+gem 'nokogiri', '~> 1.12'
 gem 'redcarpet', '~> 3.2.2'
 
 gem 'guard-middleman', '~> 0.5.0'
